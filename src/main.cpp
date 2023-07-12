@@ -6,20 +6,8 @@
 #include <sstream>
 #include <string>
 
-static void
-GL_debug_clear_error()
-{
-  while (glGetError() != GL_NO_ERROR)
-    ;
-}
-
-static void
-GL_debug_chek_error()
-{
-  while (GLenum error = glGetError()) {
-    std::cout << "[OpenGL Error] (" << error << ")" << std::endl;
-  }
-}
+#include "buffers.hh"
+#include "renderer.hh"
 
 struct ShaderProgramSource
 {
@@ -161,6 +149,7 @@ main(void)
     0, 1, 2, // first triangle position
     2, 3, 0, // second ..
   };
+  size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
   // bind VAO (vertex array)
   unsigned int vao;
@@ -168,26 +157,13 @@ main(void)
   glBindVertexArray(vao);
 
   // buffer
-  unsigned int buffer;
-  glGenBuffers(1, &buffer);
-  glBindBuffer(GL_ARRAY_BUFFER, buffer); // setup vertex buffer
-  glBufferData(GL_ARRAY_BUFFER,
-               sizeof(positions),
-               positions,
-               GL_STATIC_DRAW); // https://docs.gl/gl4/glBufferData difference between static and dynamic
+  VertexBuffer vb(positions, sizeof(positions));
 
-  // Enable vertex buffer
-  glEnableVertexAttribArray(0);
-
-  // link this buffer to vao;
-  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * buffer_vertex_len, 0);
+  glEnableVertexAttribArray(0);                                                          // Enable vertex buffer
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * buffer_vertex_len, 0); // link this buffer to vao;
 
   // index buffer
-  unsigned int ibuffer;
-  glGenBuffers(1, &ibuffer);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibuffer); // setup indices buffer
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-  size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
+  IndexBuffer ib(indices, indicies_len);
 
   // load shaders
   unsigned int shader = create_sharder(source_code_shaders.VertexSource, source_code_shaders.FragmentSource);
@@ -216,10 +192,10 @@ main(void)
     // set/bind which buffer will use, the vao link to the actual vertex binded
     glUseProgram(shader);
     glBindVertexArray(vao);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibuffer);
+    ib.bind();
 
     GL_debug_clear_error();
-    glDrawElements(GL_TRIANGLES, indicies_len, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, ib.get_count(), GL_UNSIGNED_INT, nullptr);
     GL_debug_chek_error();
 
     // r color change

@@ -13,4 +13,10 @@ BasedOnStyle: Mozilla
 IndentWidth: 2
 UseTab: Never
 ColumnLimit: 120
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
 ...

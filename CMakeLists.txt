@@ -17,7 +17,9 @@ add_subdirectory(glfw)
 include_directories(glfw/include)
 
 set(SOURCES
-    src/main.cpp
+  src/main.cpp
+  src/renderer.cpp
+  src/buffers.cpp
 )
 
 add_executable(OpenGLProject ${SOURCES})
@@ -31,5 +33,5 @@ target_link_libraries(OpenGLProject
 
 
 add_custom_target(lint
-    COMMAND clang-format --style=file src/*.cpp  -i
+    COMMAND clang-format --style=file src/*.cpp src/*.hh -i
  )
