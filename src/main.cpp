@@ -10,7 +10,7 @@ struct ShaderProgramSource {
     std::string FragmentSource;
 };
 
-static ShaderProgramSource parse_shader(const std::string &filepath) {
+static ShaderProgramSource parse_source(const std::string &filepath) {
     std::fstream stream(filepath);
 
     enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
@@ -118,7 +118,7 @@ int main(void) {
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 
-    ShaderProgramSource source_code_shaders = parse_shader("res/shaders/basic.shader");
+    ShaderProgramSource source_code_shaders = parse_source("res/shaders/basic.shader");
     std::cout << "VEXTEX" << std::endl;
     std::cout << source_code_shaders.VertexSource << std::endl;
     std::cout << "FRAGMENT" << std::endl;
