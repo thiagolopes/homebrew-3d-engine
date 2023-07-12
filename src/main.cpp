@@ -132,11 +132,19 @@ main(void)
   // show opengl version
   std::cout << glGetString(GL_VERSION) << std::endl;
 
+  // load shader source code
+  ShaderProgramSource source_code_shaders = parse_source("res/shaders/basic.shader");
+  std::cout << "VEXTEX source code;" << std::endl;
+  std::cout << source_code_shaders.VertexSource << std::endl;
+  std::cout << "FRAGMENT source code:" << std::endl;
+  std::cout << source_code_shaders.FragmentSource << std::endl;
+
+  // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
   // 2. shadder (describe how to rasterization will render the collecttion of
   // vertex aka vertex buffer)
 
-  // triagle possitions
+  // triagle possitions and incidices
   int buffer_vertex_len = 2;
   float positions[] = {
     -.5f, -.5f, // 0
@@ -169,20 +177,16 @@ main(void)
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
   size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
-  ShaderProgramSource source_code_shaders = parse_source("res/shaders/basic.shader");
-  std::cout << "VEXTEX source code;" << std::endl;
-  std::cout << source_code_shaders.VertexSource << std::endl;
-  std::cout << "FRAGMENT source code:" << std::endl;
-  std::cout << source_code_shaders.FragmentSource << std::endl;
-
+  // load shaders
   unsigned int shader = create_sharder(source_code_shaders.VertexSource, source_code_shaders.FragmentSource);
   glUseProgram(shader);
 
+  // uniform
   int location = glGetUniformLocation(shader, "u_Color");
   glUniform4f(location, 0.8f, 0.3f, 0.8f, 1.0f);
-
   float r_color = 0.0f;
   float increment_color = 0.01f;
+
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
