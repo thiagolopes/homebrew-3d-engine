@@ -51,6 +51,8 @@ _deps
 
 lib/
 bin/
+glfw/examples/
+glfw/tests/
 OpenGLProject
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,cmake
