@@ -112,6 +112,11 @@ main(void)
   if (!glfwInit())
     return -1;
 
+  // set opengl to 3 and use CORE. this will make VAO especification mandatory
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
   /* Create a windowed mode window and its OpenGL context */
   window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
   if (!window) {
@@ -157,6 +162,11 @@ main(void)
     2, 3, 0, // second ..
   };
 
+  // bind VAO (vertex array)
+  unsigned int vao;
+  glGenVertexArrays(1, &vao);
+  glBindVertexArray(vao);
+
   // buffer
   unsigned int buffer;
   glGenBuffers(1, &buffer);
@@ -164,10 +174,12 @@ main(void)
   glBufferData(GL_ARRAY_BUFFER,
                sizeof(positions),
                positions,
-               GL_STATIC_DRAW); // https://docs.gl/gl4/glBufferData difference
-                                // between static and dynamic
+               GL_STATIC_DRAW); // https://docs.gl/gl4/glBufferData difference between static and dynamic
 
+  // Enable vertex buffer
   glEnableVertexAttribArray(0);
+
+  // link this buffer to vao;
   glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * buffer_vertex_len, 0);
 
   // index buffer
@@ -187,6 +199,12 @@ main(void)
   float r_color = 0.0f;
   float increment_color = 0.01f;
 
+  // unbind vertex like this will disabled and make DrawElements without effect
+  glBindVertexArray(0);
+  glUseProgram(0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
@@ -194,6 +212,11 @@ main(void)
 
     /* draw here */
     glUniform4f(location, r_color, 0.3f, 0.8f, 1.0f);
+
+    // set/bind which buffer will use, the vao link to the actual vertex binded
+    glUseProgram(shader);
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibuffer);
 
     GL_debug_clear_error();
     glDrawElements(GL_TRIANGLES, indicies_len, GL_UNSIGNED_INT, nullptr);
