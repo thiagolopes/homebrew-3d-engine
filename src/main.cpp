@@ -152,15 +152,12 @@ main(void)
   size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
   // bind VAO (vertex array)
-  unsigned int vao;
-  glGenVertexArrays(1, &vao);
-  glBindVertexArray(vao);
-
-  // buffer
+  VertexArray va;
   VertexBuffer vb(positions, sizeof(positions));
+  VertexBufferLayout vbl;
 
-  glEnableVertexAttribArray(0);                                                          // Enable vertex buffer
-  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * buffer_vertex_len, 0); // link this buffer to vao;
+  vbl.push<float>(buffer_vertex_len);
+  va.add_buffer(vb, vbl);
 
   // index buffer
   IndexBuffer ib(indices, indicies_len);
@@ -191,7 +188,9 @@ main(void)
 
     // set/bind which buffer will use, the vao link to the actual vertex binded
     glUseProgram(shader);
-    glBindVertexArray(vao);
+
+    // bind
+    va.bind();
     ib.bind();
 
     GL_debug_clear_error();

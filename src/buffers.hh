@@ -1,4 +1,7 @@
 #pragma once
+#include "renderer.hh"
+#include <GL/glew.h>
+#include <vector>
 
 class VertexBuffer
 {
@@ -26,8 +29,63 @@ public:
   void bind() const;
   void unbind() const;
 
-  inline unsigned int get_count() const
+  inline unsigned int get_count() const { return ib_count; }
+};
+
+struct VertexBufferElements
+{
+  unsigned int type;
+  unsigned int count;
+  unsigned int normalize;
+
+  static unsigned int get_size_of_type(unsigned int type)
   {
-    return ib_count;
+    switch (type) {
+      case GL_FLOAT:
+        return 4;
+      case GL_UNSIGNED_INT:
+        return 4;
+      case GL_UNSIGNED_BYTE:
+        return 1;
+    }
+    ASSERT(false);
+    return 0;
   }
+  unsigned int bytes_size() const { return type * get_size_of_type(type); }
+};
+
+class VertexBufferLayout
+{
+private:
+  std::vector<VertexBufferElements> vbl_elements;
+  unsigned int vbl_stride;
+
+public:
+  VertexBufferLayout()
+    : vbl_stride(0)
+  {
+  }
+
+  template<typename T>
+  void push(unsigned int count)
+  {
+    return;
+  }
+
+  inline const std::vector<VertexBufferElements>& get_elements() const { return vbl_elements; };
+  inline unsigned int get_stride() const { return vbl_stride; };
+};
+
+class VertexArray
+{
+private:
+  unsigned int va_render_id;
+
+public:
+  VertexArray();
+  ~VertexArray();
+
+  void add_buffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+  void bind() const;
+  void unbind() const;
 };

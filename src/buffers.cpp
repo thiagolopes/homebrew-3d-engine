@@ -51,3 +51,69 @@ IndexBuffer::unbind() const
 {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
+
+VertexArray::VertexArray()
+{
+  glGenVertexArrays(1, &va_render_id);
+}
+
+VertexArray::~VertexArray()
+{
+  glDeleteVertexArrays(1, &va_render_id);
+}
+
+void
+VertexArray::bind() const
+{
+  glBindVertexArray(va_render_id);
+}
+
+void
+VertexArray::unbind() const
+{
+  glBindVertexArray(0);
+}
+
+void
+VertexArray::add_buffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
+{
+  bind();
+  vb.bind();
+
+  const std::vector<VertexBufferElements>& elements = layout.get_elements();
+  unsigned int* offset = 0;
+  for (size_t i = 0; i < elements.size(); i++) {
+    const VertexBufferElements& element = elements[i];
+
+    // Enable vertex buffer
+    glEnableVertexAttribArray(0);
+    // link this buffer to vao;
+    glVertexAttribPointer(i, element.count, element.type, element.normalize, layout.get_stride(), (const void*)offset);
+
+    offset += element.bytes_size();
+  }
+}
+
+template<>
+void
+VertexBufferLayout::push<float>(unsigned int count)
+{
+  vbl_elements.push_back({ GL_FLOAT, count, GL_FALSE });
+  vbl_stride += count * VertexBufferElements::get_size_of_type(GL_FLOAT);
+}
+
+template<>
+void
+VertexBufferLayout::push<unsigned int>(unsigned int count)
+{
+  vbl_elements.push_back({ GL_UNSIGNED_INT, count, GL_FALSE });
+  vbl_stride += count * VertexBufferElements::get_size_of_type(GL_UNSIGNED_INT);
+}
+
+template<>
+void
+VertexBufferLayout::push<unsigned char>(unsigned int count)
+{
+  vbl_elements.push_back({ GL_UNSIGNED_BYTE, count, GL_TRUE });
+  vbl_stride += count * VertexBufferElements::get_size_of_type(GL_UNSIGNED_BYTE);
+}
