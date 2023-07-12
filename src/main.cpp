@@ -8,77 +8,7 @@
 
 #include "buffers.hh"
 #include "renderer.hh"
-
-struct ShaderProgramSource {
-  std::string VertexSource;
-  std::string FragmentSource;
-};
-
-static ShaderProgramSource parse_source(const std::string &filepath) {
-  std::fstream stream(filepath);
-
-  enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
-
-  std::string line;
-  std::stringstream ss[2];
-  ShaderType shader_type = ShaderType::NONE;
-  while (std::getline(stream, line)) {
-    if (line.find("#shader") != std::string::npos) {
-      if (line.find("vertex") != std::string::npos) {
-        shader_type = ShaderType::VERTEX;
-      } else if (line.find("fragment") != std::string::npos) {
-        shader_type = ShaderType::FRAGMENT;
-      }
-    } else {
-      ss[(int)shader_type] << line << "\n";
-    }
-  }
-
-  return {ss[0].str(), ss[1].str()};
-}
-
-static unsigned int compile_shader(unsigned int type_shader, const std::string &source) {
-  unsigned int id = glCreateShader(type_shader);
-  const char *src = source.c_str();
-
-  glShaderSource(id, 1, &src, nullptr);
-  glCompileShader(id);
-
-  // error handling
-  int error;
-  glGetShaderiv(id, GL_COMPILE_STATUS, &error);
-  if (error == GL_FALSE) {
-    int length;
-    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-    char *error_msg = (char *)alloca(length * sizeof(char));
-    glGetShaderInfoLog(id, length, &length, error_msg);
-    std::cout << "Fail shader compilation!" << std::endl;
-    std::cout << error_msg << std::endl;
-    glDeleteShader(id);
-    return 0;
-  }
-
-  return id;
-}
-
-static unsigned int create_sharder(const std::string &vertex_shader, const std::string &fragments_shader) {
-  unsigned int program = glCreateProgram();
-  unsigned int vs = compile_shader(GL_VERTEX_SHADER, vertex_shader);
-  unsigned int fs = compile_shader(GL_FRAGMENT_SHADER, fragments_shader);
-
-  glAttachShader(program, vs);
-  glAttachShader(program, fs);
-
-  // perform validation on shader
-  glLinkProgram(program);
-  glValidateProgram(program);
-
-  // perform cleaning
-  glDeleteShader(vs);
-  glDeleteShader(fs);
-
-  return program;
-}
+#include "shaders.hh"
 
 int main(void) {
   GLFWwindow *window;
@@ -112,12 +42,9 @@ int main(void) {
   std::cout << glGetString(GL_VERSION) << std::endl;
 
   // load shader source code
-  ShaderProgramSource source_code_shaders = parse_source("res/shaders/basic.shader");
-  std::cout << "VEXTEX source code;" << std::endl;
-  std::cout << source_code_shaders.VertexSource << std::endl;
-  std::cout << "FRAGMENT source code:" << std::endl;
-  std::cout << source_code_shaders.FragmentSource << std::endl;
-
+  Shader shader("res/shaders/basic.shader");
+  shader.bind();
+  shader.set_uniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
   // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
   // 2. shadder (describe how to rasterization will render the collecttion of
@@ -148,21 +75,15 @@ int main(void) {
   // index buffer
   IndexBuffer ib(indices, indicies_len);
 
-  // load shaders
-  unsigned int shader = create_sharder(source_code_shaders.VertexSource, source_code_shaders.FragmentSource);
-  glUseProgram(shader);
-
   // uniform
-  int location = glGetUniformLocation(shader, "u_Color");
-  glUniform4f(location, 0.8f, 0.3f, 0.8f, 1.0f);
   float r_color = 0.0f;
   float increment_color = 0.01f;
 
   // unbind vertex like this will disabled and make DrawElements without effect
-  glBindVertexArray(0);
-  glUseProgram(0);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+  va.unbind();
+  shader.unbind();
+  vb.unbind();
+  ib.unbind();
 
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
@@ -170,10 +91,8 @@ int main(void) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     /* draw here */
-    glUniform4f(location, r_color, 0.3f, 0.8f, 1.0f);
-
-    // set/bind which buffer will use, the vao link to the actual vertex binded
-    glUseProgram(shader);
+    shader.bind();
+    shader.set_uniform4f("u_Color", r_color, 0.3f, 0.8f, 1.0f);
 
     // bind
     va.bind();
@@ -197,7 +116,6 @@ int main(void) {
     glfwPollEvents();
   }
 
-  glDeleteProgram(shader);
   glfwTerminate();
   return 0;
 }

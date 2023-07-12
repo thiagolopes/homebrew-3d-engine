@@ -20,6 +20,7 @@ set(SOURCES
   src/main.cpp
   src/renderer.cpp
   src/buffers.cpp
+  src/shaders.cpp
 )
 
 add_executable(OpenGLProject ${SOURCES})
