@@ -51,8 +51,65 @@ _deps
 
 lib/
 bin/
-glfw/examples/
-glfw/tests/
 OpenGLProject
+
+# glfw gitignore
+# Generated files
+glfw/docs/Doxyfile
+glfw/docs/html
+glfw/docs/warnings.txt
+glfw/docs/doxygen_sqlite3.db
+glfw/src/glfw_config.h
+glfw/src/glfw3.pc
+glfw/src/glfw3Config.cmake
+glfw/src/glfw3ConfigVersion.cmake
+
+# Compiled binaries
+glfw/src/libglfw.so
+glfw/src/libglfw.so.3
+glfw/src/libglfw.so.3.4
+glfw/src/libglfw.dylib
+glfw/src/libglfw.dylib
+glfw/src/libglfw.3.dylib
+glfw/src/libglfw.3.4.dylib
+glfw/src/libglfw3.a
+glfw/src/glfw3.lib
+glfw/src/glfw3.dll
+glfw/src/glfw3dll.lib
+glfw/src/libglfw3dll.a
+glfw/examples/*.app
+glfw/examples/*.exe
+glfw/examples/boing
+glfw/examples/gears
+glfw/examples/heightmap
+glfw/examples/offscreen
+glfw/examples/particles
+glfw/examples/splitview
+glfw/examples/sharing
+glfw/examples/triangle-opengl
+glfw/examples/wave
+glfw/examples/windows
+glfw/tests/*.app
+glfw/tests/*.exe
+glfw/tests/clipboard
+glfw/tests/cursor
+glfw/tests/empty
+glfw/tests/events
+glfw/tests/gamma
+glfw/tests/glfwinfo
+glfw/tests/icon
+glfw/tests/iconify
+glfw/tests/inputlag
+glfw/tests/joysticks
+glfw/tests/monitors
+glfw/tests/msaa
+glfw/tests/reopen
+glfw/tests/tearing
+glfw/tests/threads
+glfw/tests/timeout
+glfw/tests/title
+glfw/tests/triangle-vulkan
+glfw/tests/window
+glfw/tests/windows
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,cmake
