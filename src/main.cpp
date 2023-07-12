@@ -5,6 +5,21 @@
 #include <sstream>
 #include <string>
 
+static void
+GL_debug_clear_error()
+{
+  while (glGetError() != GL_NO_ERROR)
+    ;
+}
+
+static void
+GL_debug_chek_error()
+{
+  while (GLenum error = glGetError()) {
+    std::cout << "[OpenGL Error] (" << error << ")" << std::endl;
+  }
+}
+
 struct ShaderProgramSource
 {
   std::string VertexSource;
@@ -146,7 +161,7 @@ main(void)
   // index buffer
   unsigned int ibuffer;
   glGenBuffers(1, &ibuffer);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibuffer); // setup vertex buffer
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibuffer); // setup indices buffer
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
   size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
@@ -166,7 +181,9 @@ main(void)
 
     /* draw here */
 
-    glDrawElements(GL_TRIANGLES, indicies_len, GL_UNSIGNED_INT, nullptr);
+    GL_debug_clear_error();
+    glDrawElements(GL_TRIANGLES, indicies_len, GL_INT, nullptr);
+    GL_debug_chek_error();
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
