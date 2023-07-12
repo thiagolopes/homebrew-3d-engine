@@ -9,8 +9,7 @@
 #   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 #
 ---
-BasedOnStyle: Mozilla
-IndentWidth: 2
-UseTab: Never
+BasedOnStyle: LLVM
 ColumnLimit: 120
+AllowShortFunctionsOnASingleLine: false
 ...

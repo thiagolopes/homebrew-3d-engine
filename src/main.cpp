@@ -9,23 +9,15 @@
 #include "buffers.hh"
 #include "renderer.hh"
 
-struct ShaderProgramSource
-{
+struct ShaderProgramSource {
   std::string VertexSource;
   std::string FragmentSource;
 };
 
-static ShaderProgramSource
-parse_source(const std::string& filepath)
-{
+static ShaderProgramSource parse_source(const std::string &filepath) {
   std::fstream stream(filepath);
 
-  enum class ShaderType
-  {
-    NONE = -1,
-    VERTEX = 0,
-    FRAGMENT = 1
-  };
+  enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
 
   std::string line;
   std::stringstream ss[2];
@@ -42,14 +34,12 @@ parse_source(const std::string& filepath)
     }
   }
 
-  return { ss[0].str(), ss[1].str() };
+  return {ss[0].str(), ss[1].str()};
 }
 
-static unsigned int
-compile_shader(unsigned int type_shader, const std::string& source)
-{
+static unsigned int compile_shader(unsigned int type_shader, const std::string &source) {
   unsigned int id = glCreateShader(type_shader);
-  const char* src = source.c_str();
+  const char *src = source.c_str();
 
   glShaderSource(id, 1, &src, nullptr);
   glCompileShader(id);
@@ -60,7 +50,7 @@ compile_shader(unsigned int type_shader, const std::string& source)
   if (error == GL_FALSE) {
     int length;
     glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-    char* error_msg = (char*)alloca(length * sizeof(char));
+    char *error_msg = (char *)alloca(length * sizeof(char));
     glGetShaderInfoLog(id, length, &length, error_msg);
     std::cout << "Fail shader compilation!" << std::endl;
     std::cout << error_msg << std::endl;
@@ -71,9 +61,7 @@ compile_shader(unsigned int type_shader, const std::string& source)
   return id;
 }
 
-static unsigned int
-create_sharder(const std::string& vertex_shader, const std::string& fragments_shader)
-{
+static unsigned int create_sharder(const std::string &vertex_shader, const std::string &fragments_shader) {
   unsigned int program = glCreateProgram();
   unsigned int vs = compile_shader(GL_VERTEX_SHADER, vertex_shader);
   unsigned int fs = compile_shader(GL_FRAGMENT_SHADER, fragments_shader);
@@ -92,10 +80,8 @@ create_sharder(const std::string& vertex_shader, const std::string& fragments_sh
   return program;
 }
 
-int
-main(void)
-{
-  GLFWwindow* window;
+int main(void) {
+  GLFWwindow *window;
   /* Initialize the library */
   if (!glfwInit())
     return -1;
@@ -140,14 +126,14 @@ main(void)
   // triagle possitions and incidices
   int buffer_vertex_len = 2;
   float positions[] = {
-    -.5f, -.5f, // 0
-    .5f,  -.5f, // 1
-    .5f,  .5f,  // 2
-    -.5f, .5f,  // 3
+      -.5f, -.5f, // 0
+      .5f,  -.5f, // 1
+      .5f,  .5f,  // 2
+      -.5f, .5f,  // 3
   };
   unsigned int indices[] = {
-    0, 1, 2, // first triangle position
-    2, 3, 0, // second ..
+      0, 1, 2, // first triangle position
+      2, 3, 0, // second ..
   };
   size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
