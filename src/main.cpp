@@ -118,33 +118,37 @@ main(void)
   // vertex aka vertex buffer)
 
   // triagle possitions
-  // clang-format off
   int buffer_vertex_len = 2;
-  float positions_buffer[] = {
-    // first triangle
-    -.5f, -.5f,
-    .5f,  -.5f,
-    .5f,  .5f,
-
-    // second triangle
-    .5f,  .5f,
-    -.5f, .5f,
-    -.5f, -.5f,
+  float positions[] = {
+    -.5f, -.5f, // 0
+    .5f,  -.5f, // 1
+    .5f,  .5f,  // 2
+    -.5f, .5f,  // 3
   };
-  // clang-format on
-  int number_of_vextex_points = (sizeof(positions_buffer)/sizeof(float))/ buffer_vertex_len;
+  unsigned int indices[] = {
+    0, 1, 2, // first triangle position
+    2, 3, 0, // second ..
+  };
 
+  // buffer
   unsigned int buffer;
   glGenBuffers(1, &buffer);
   glBindBuffer(GL_ARRAY_BUFFER, buffer); // setup vertex buffer
   glBufferData(GL_ARRAY_BUFFER,
-               sizeof(positions_buffer),
-               positions_buffer,
+               sizeof(positions),
+               positions,
                GL_STATIC_DRAW); // https://docs.gl/gl4/glBufferData difference
                                 // between static and dynamic
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * buffer_vertex_len, 0);
+
+  // index buffer
+  unsigned int ibuffer;
+  glGenBuffers(1, &ibuffer);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibuffer); // setup vertex buffer
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+  size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
   ShaderProgramSource source_code_shaders = parse_source("res/shaders/basic.shader");
   std::cout << "VEXTEX" << std::endl;
@@ -162,7 +166,7 @@ main(void)
 
     /* draw here */
 
-    glDrawArrays(GL_TRIANGLES, 0, number_of_vextex_points);
+    glDrawElements(GL_TRIANGLES, indicies_len, GL_UNSIGNED_INT, nullptr);
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
