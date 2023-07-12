@@ -27,9 +27,14 @@ void Shader::set_uniform4f(const std::string &name, float v0, float v1, float v2
 };
 
 unsigned int Shader::get_uniform_location(const std::string &name) {
+  if (uniform_location_cache.find(name) != uniform_location_cache.end())
+    return uniform_location_cache[name];
+
   int location = glGetUniformLocation(shader_id, name.c_str());
   if (location == -1)
     std::cout << "[WARNING] uniform '" << name << "'doenst not exist" << std::endl;
+
+  uniform_location_cache[name] = location;
   return location;
 };
 

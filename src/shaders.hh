@@ -1,4 +1,5 @@
 #include <string>
+#include <unordered_map>
 
 struct ShaderSourceCode {
   std::string VertexSource;
@@ -14,6 +15,7 @@ class Shader {
 private:
   std::string source_filepath;
   unsigned int shader_id;
+  std::unordered_map<std::string, unsigned int> uniform_location_cache;
   // caching for uniforms
 
   unsigned int compile_shader(unsigned int type_shader, const std::string &source);
