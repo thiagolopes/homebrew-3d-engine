@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <fstream>
 #include <iostream>
+#include <math.h>
 #include <sstream>
 #include <string>
 
@@ -121,6 +122,9 @@ main(void)
   /* Make the window's context current */
   glfwMakeContextCurrent(window);
 
+  // set fps cap
+  glfwSwapInterval(1);
+
   // init glew
   if (glewInit() != GLEW_OK)
     std::cout << "Fail in load graphical drive" << std::endl;
@@ -166,24 +170,37 @@ main(void)
   size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
   ShaderProgramSource source_code_shaders = parse_source("res/shaders/basic.shader");
-  std::cout << "VEXTEX" << std::endl;
+  std::cout << "VEXTEX source code;" << std::endl;
   std::cout << source_code_shaders.VertexSource << std::endl;
-  std::cout << "FRAGMENT" << std::endl;
+  std::cout << "FRAGMENT source code:" << std::endl;
   std::cout << source_code_shaders.FragmentSource << std::endl;
 
   unsigned int shader = create_sharder(source_code_shaders.VertexSource, source_code_shaders.FragmentSource);
   glUseProgram(shader);
 
+  int location = glGetUniformLocation(shader, "u_Color");
+  glUniform4f(location, 0.8f, 0.3f, 0.8f, 1.0f);
+
+  float r_color = 0.0f;
+  float increment_color = 0.01f;
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
     glClear(GL_COLOR_BUFFER_BIT);
 
     /* draw here */
+    glUniform4f(location, r_color, 0.3f, 0.8f, 1.0f);
 
     GL_debug_clear_error();
     glDrawElements(GL_TRIANGLES, indicies_len, GL_UNSIGNED_INT, nullptr);
     GL_debug_chek_error();
+
+    // r color change
+    if (r_color > 1.0f)
+      increment_color = increment_color * -1;
+    else if (r_color < .0f)
+      increment_color = abs(increment_color);
+    r_color += increment_color;
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
