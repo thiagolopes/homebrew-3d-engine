@@ -28,3 +28,8 @@ target_link_libraries(OpenGLProject
         glfw
         glew
 )
+
+
+add_custom_target(lint
+    COMMAND clang-format --style=file src/*.cpp  -i
+ )
