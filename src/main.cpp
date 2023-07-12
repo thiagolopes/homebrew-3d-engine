@@ -182,7 +182,7 @@ main(void)
     /* draw here */
 
     GL_debug_clear_error();
-    glDrawElements(GL_TRIANGLES, indicies_len, GL_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, indicies_len, GL_UNSIGNED_INT, nullptr);
     GL_debug_chek_error();
 
     /* Swap front and back buffers */
