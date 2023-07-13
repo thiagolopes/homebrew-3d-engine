@@ -12,7 +12,6 @@ find_package(OpenGL REQUIRED)
 add_subdirectory(glew/build/cmake)
 include_directories(glew/include)
 
-
 add_subdirectory(glfw)
 include_directories(glfw/include)
 
@@ -21,6 +20,8 @@ set(SOURCES
   src/renderer.cpp
   src/buffers.cpp
   src/shaders.cpp
+  src/textures.cpp
+
 )
 
 add_executable(OpenGLProject ${SOURCES})
@@ -32,6 +33,11 @@ target_link_libraries(OpenGLProject
         glew
 )
 
+add_custom_command(
+  TARGET OpenGLProject
+  POST_BUILD
+  COMMAND OpenGLProject
+)
 
 add_custom_target(lint
     COMMAND clang-format --style=file src/*.cpp src/*.hh -i
