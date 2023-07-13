@@ -5,7 +5,6 @@
 #include <math.h>
 #include <sstream>
 #include <string>
-#include <assert.h>
 
 #include "renderer.hh"
 #include "buffers.hh"
@@ -28,8 +27,6 @@ unsigned int indices[] = {
 size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
 int main(void) {
-  assert(indicies_len == 6);
-
   GLFWwindow *window;
   /* Initialize the library */
   if (!glfwInit())
