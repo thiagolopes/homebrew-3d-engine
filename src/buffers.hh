@@ -1,5 +1,5 @@
 #pragma once
-#include "renderer.hh"
+
 #include <GL/glew.h>
 #include <vector>
 
@@ -46,7 +46,6 @@ struct VertexBufferElements {
     case GL_UNSIGNED_BYTE:
       return 1;
     }
-    ASSERT(false);
     return 0;
   }
   unsigned int bytes_size() const {

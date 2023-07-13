@@ -12,4 +12,5 @@
 BasedOnStyle: LLVM
 ColumnLimit: 120
 AllowShortFunctionsOnASingleLine: false
+SortIncludes: false
 ...

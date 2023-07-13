@@ -6,8 +6,8 @@
 #include <sstream>
 #include <string>
 
-#include "buffers.hh"
 #include "renderer.hh"
+#include "buffers.hh"
 #include "shaders.hh"
 
 int main(void) {
@@ -85,22 +85,19 @@ int main(void) {
   vb.unbind();
   ib.unbind();
 
+  Renderer render;
+
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
-    glClear(GL_COLOR_BUFFER_BIT);
+    render.clear();
 
     /* draw here */
     shader.bind();
     shader.set_uniform4f("u_Color", r_color, 0.3f, 0.8f, 1.0f);
 
-    // bind
-    va.bind();
-    ib.bind();
-
-    GL_debug_clear_error();
-    glDrawElements(GL_TRIANGLES, ib.get_count(), GL_UNSIGNED_INT, nullptr);
-    GL_debug_chek_error();
+    // render
+    render.draw(va, ib, shader);
 
     // r color change
     if (r_color > 1.0f)
