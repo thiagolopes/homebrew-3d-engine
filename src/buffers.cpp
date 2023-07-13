@@ -1,5 +1,6 @@
 #include "buffers.hh"
 #include "renderer.hh"
+#include <assert.h>
 
 VertexBuffer::VertexBuffer(const void *data, unsigned int size) {
   glGenBuffers(1, &vb_render_id);
@@ -59,16 +60,17 @@ void VertexArray::add_buffer(const VertexBuffer &vb, const VertexBufferLayout &l
   vb.bind();
 
   const std::vector<VertexBufferElements> &elements = layout.get_elements();
-  unsigned int *offset = 0;
+  unsigned int offset = 0;
   for (size_t i = 0; i < elements.size(); i++) {
-    const VertexBufferElements &element = elements[i];
+    const VertexBufferElements element = elements[i];
 
     // Enable vertex buffer
-    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(i);
     // link this buffer to vao;
-    glVertexAttribPointer(i, element.count, element.type, element.normalize, layout.get_stride(), (const void *)offset);
+    glVertexAttribPointer(i, element.count, element.type, element.normalize, layout.get_stride(),
+                          (void *)(uintptr_t)offset);
 
-    offset += element.bytes_size();
+    offset += element.count * VertexBufferElements::get_size_of_type(element.type);
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <vector>
+#include <iostream>
 
 class VertexBuffer {
 private:
@@ -46,10 +47,8 @@ struct VertexBufferElements {
     case GL_UNSIGNED_BYTE:
       return 1;
     }
+    std::cout << "[ERROR] GL type " << type << "not found" << std::endl;
     return 0;
-  }
-  unsigned int bytes_size() const {
-    return type * get_size_of_type(type);
   }
 };
 
