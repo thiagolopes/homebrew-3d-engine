@@ -5,12 +5,31 @@
 #include <math.h>
 #include <sstream>
 #include <string>
+#include <assert.h>
 
 #include "renderer.hh"
 #include "buffers.hh"
 #include "shaders.hh"
+#include "textures.hh"
+
+// triagle positions and incidices - vertex collection
+
+float positions[] = {
+    -0.5f, -0.5f, 0.0f, 0.0f, // 0
+    0.5f,  -0.5f, 1.0f, 0.0f, // 1
+    0.5f,  0.5f,  1.0f, 1.0f, // 2
+    -0.5f, 0.5f,  0.0f, 1.0f  // 3
+};
+
+unsigned int indices[] = {
+    0, 1, 2, // first triangle position
+    2, 3, 0, // second ..
+};
+size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
 int main(void) {
+  assert(indicies_len == 6);
+
   GLFWwindow *window;
   /* Initialize the library */
   if (!glfwInit())
@@ -19,7 +38,7 @@ int main(void) {
   // set opengl to 3 and use CORE. this will make VAO especification mandatory
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
   /* Create a windowed mode window and its OpenGL context */
   window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
@@ -41,49 +60,38 @@ int main(void) {
   // show opengl version
   std::cout << glGetString(GL_VERSION) << std::endl;
 
-  // load shader source code
-  Shader shader("res/shaders/basic.shader");
-  shader.bind();
-  shader.set_uniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
   // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
   // 2. shadder (describe how to rasterization will render the collecttion of
   // vertex aka vertex buffer)
 
-  // triagle possitions and incidices
-  int buffer_vertex_len = 2;
-  float positions[] = {
-      -.5f, -.5f, // 0
-      .5f,  -.5f, // 1
-      .5f,  .5f,  // 2
-      -.5f, .5f,  // 3
-  };
-  unsigned int indices[] = {
-      0, 1, 2, // first triangle position
-      2, 3, 0, // second ..
-  };
-  size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
-
   // bind VAO (vertex array)
   VertexArray va;
   VertexBuffer vb(positions, sizeof(positions));
-  VertexBufferLayout vbl;
+  IndexBuffer ib(indices, indicies_len);
 
-  vbl.push<float>(buffer_vertex_len);
+  VertexBufferLayout vbl;
+  vbl.push<float>(2);
+  vbl.push<float>(2);
+
   va.add_buffer(vb, vbl);
 
-  // index buffer
-  IndexBuffer ib(indices, indicies_len);
+  // load shader source code
+  Shader shader("res/shaders/basic.shader");
+  shader.bind();
+  shader.set_uniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+
+  // texture
+  Texture texture("res/textures/texture.jpg");
+  texture.bind();
+  shader.set_uniform1i("u_Texture", 0);
 
   // uniform
   float r_color = 0.0f;
   float increment_color = 0.01f;
-
-  // unbind vertex like this will disabled and make DrawElements without effect
-  va.unbind();
-  shader.unbind();
-  vb.unbind();
-  ib.unbind();
 
   Renderer render;
 
@@ -93,10 +101,7 @@ int main(void) {
     render.clear();
 
     /* draw here */
-    shader.bind();
     shader.set_uniform4f("u_Color", r_color, 0.3f, 0.8f, 1.0f);
-
-    // render
     render.draw(va, ib, shader);
 
     // r color change
