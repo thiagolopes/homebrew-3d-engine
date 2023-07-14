@@ -18,10 +18,10 @@
 // triagle positions and incidices - vertex collection
 float positions[] = {
     // positiion    //texture possition
-    100.0f, 100.0f, 0.0f, 0.0f, // 0
-    200.0f, 100.0f, 1.0f, 0.0f, // 1
-    200.0f, 200.0f, 1.0f, 1.0f, // 2
-    100.0f, 200.0f, 0.0f, 1.0f  // 3
+    -50.0f, -50.0f, 0.0f, 0.0f, // 0
+     50.0f, -50.0f, 1.0f, 0.0f, // 1
+     50.0f,  50.0f,  1.0f, 1.0f, // 2
+    -50.0f,  50.0f,  0.0f, 1.0f  // 3
 };
 
 unsigned int indices[] = {
@@ -42,7 +42,7 @@ int main(void) {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   /* Create a windowed mode window and its OpenGL context */
-  window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+  window = glfwCreateWindow(960, 540, "Hello World", NULL, NULL);
   if (!window) {
     glfwTerminate();
     return -1;
@@ -98,35 +98,49 @@ int main(void) {
 
   // used in every frame
   glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0));
+  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
   glm::mat4 model;
 
   glm::mat4 mvp;
 
-  glm::vec3 translation(200, 0, 0);
+  glm::vec3 translationA(200, 100, 0);
+  glm::vec3 translationB(400, 200, 0);
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
     imgui.clear();
     render.clear();
 
-    // update
-    model = glm::translate(glm::mat4(1.0f), translation);
-    mvp = proj * view * model;
-
-    // set values in uniforms
-    shader.set_uniform_mat4("u_MVP", mvp);
-
     // set mvp in imgui
     {
       ImGui::Begin("OpenGL MVP");
-      ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 960.0f);
+      ImGui::SliderFloat3("Translation A", &translationA.x, 0.0f, 960.0f);
+      ImGui::SliderFloat3("Translation B", &translationB.x, 0.0f, 960.0f);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
     }
 
     /* draw here */
-    render.draw(va, ib, shader);
+    shader.bind();
+
+    {
+      // first texture
+      model = glm::translate(glm::mat4(1.0f), translationA);
+      mvp = proj * view * model;
+      shader.set_uniform_mat4("u_MVP", mvp);
+
+      render.draw(va, ib, shader);
+    }
+
+    {
+      // second textures
+      model = glm::translate(glm::mat4(1.0f), translationB);
+      mvp = proj * view * model;
+      shader.set_uniform_mat4("u_MVP", mvp);
+
+      render.draw(va, ib, shader);
+    }
+
     imgui.draw();
 
     /* Swap front and back buffers */
