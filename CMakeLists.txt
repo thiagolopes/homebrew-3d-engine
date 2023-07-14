@@ -22,8 +22,17 @@ set(SOURCES
   src/shaders.cpp
   src/textures.cpp
 )
+set(IMGUI_SOURCES
+  src/vendor/imgui/imgui.cpp
+  src/vendor/imgui/imgui_demo.cpp
+  src/vendor/imgui/imgui_draw.cpp
+  src/vendor/imgui/imgui_impl_glfw.cpp
+  src/vendor/imgui/imgui_impl_opengl3.cpp
+  src/vendor/imgui/imgui_tables.cpp
+  src/vendor/imgui/imgui_widgets.cpp
+)
 
-add_executable(OpenGLProject ${SOURCES})
+add_executable(OpenGLProject ${SOURCES} ${IMGUI_SOURCES})
 
 target_link_libraries(OpenGLProject
     PRIVATE
@@ -38,10 +47,7 @@ add_custom_command(
   COMMAND OpenGLProject
 )
 
+
 add_custom_target(lint
     COMMAND clang-format --style=file src/*.cpp src/*.hh -i
  )
-
-
- include_directories(src/vendor/)
- target_sources(OpenGLProject  PRIVATE "src/")
