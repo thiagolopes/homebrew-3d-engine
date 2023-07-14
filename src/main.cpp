@@ -15,7 +15,6 @@
 #include "textures.hh"
 
 // triagle positions and incidices - vertex collection
-
 float positions[] = {
     // positiion      texture possition
     100.0f, 100.0f, 0.0f, 0.0f, // 0
@@ -39,7 +38,7 @@ int main(void) {
   // set opengl to 3 and use CORE. this will make VAO especification mandatory
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   /* Create a windowed mode window and its OpenGL context */
   window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
@@ -103,14 +102,20 @@ int main(void) {
 
   Renderer render;
 
+  // imgui
+  ImGuiRenderer imgui(window);
+
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
+    imgui.clear();
     render.clear();
 
     /* draw here */
     shader.set_uniform4f("u_Color", r_color, 0.3f, 0.8f, 1.0f);
     render.draw(va, ib, shader);
+
+    imgui.draw();
 
     // r color change
     if (r_color > 1.0f)
@@ -121,11 +126,11 @@ int main(void) {
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
-
     /* Poll for and process events */
     glfwPollEvents();
   }
 
+  // shutdown
   glfwTerminate();
   return 0;
 }
