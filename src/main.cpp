@@ -88,17 +88,12 @@ int main(void) {
   // load shader source code
   Shader shader("res/shaders/basic.shader");
   shader.bind();
-  shader.set_uniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
   shader.set_uniform_mat4("u_MVP", mvp);
 
   // texture
   Texture texture("res/textures/texture.jpg");
   texture.bind();
   shader.set_uniform1i("u_Texture", 0);
-
-  // uniform
-  float r_color = 0.0f;
-  float increment_color = 0.01f;
 
   Renderer render;
 
@@ -112,17 +107,8 @@ int main(void) {
     render.clear();
 
     /* draw here */
-    shader.set_uniform4f("u_Color", r_color, 0.3f, 0.8f, 1.0f);
     render.draw(va, ib, shader);
-
     imgui.draw();
-
-    // r color change
-    if (r_color > 1.0f)
-      increment_color = increment_color * -1;
-    else if (r_color < .0f)
-      increment_color = abs(increment_color);
-    r_color += increment_color;
 
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
