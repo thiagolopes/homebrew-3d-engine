@@ -6,6 +6,9 @@
 #include <sstream>
 #include <string>
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
 #include "renderer.hh"
 #include "buffers.hh"
 #include "shaders.hh"
@@ -14,10 +17,10 @@
 // triagle positions and incidices - vertex collection
 
 float positions[] = {
-    -0.5f, -0.5f, 0.0f, 0.0f, // 0
-    0.5f,  -0.5f, 1.0f, 0.0f, // 1
-    0.5f,  0.5f,  1.0f, 1.0f, // 2
-    -0.5f, 0.5f,  0.0f, 1.0f  // 3
+    100.0f, 100.0f, 0.0f, 0.0f, // 0
+    200.0f, 100.0f, 1.0f, 0.0f, // 1
+    200.0f, 200.0f, 1.0f, 1.0f, // 2
+    100.0f, 200.0f, 0.0f, 1.0f  // 3
 };
 
 unsigned int indices[] = {
@@ -60,6 +63,9 @@ int main(void) {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+  // ortho projection in 4:3
+  glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+
   // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
   // 2. shadder (describe how to rasterization will render the collecttion of
@@ -80,6 +86,7 @@ int main(void) {
   Shader shader("res/shaders/basic.shader");
   shader.bind();
   shader.set_uniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+  shader.set_uniform_mat4("u_MVP", proj);
 
   // texture
   Texture texture("res/textures/texture.jpg");

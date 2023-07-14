@@ -3,7 +3,8 @@
 #include <GL/glew.h>
 #include <iostream>
 
-#include "vendor/stb_image.cpp"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image/stb_image.h"
 
 Texture::Texture(const std::string &path)
     : t_render_id(0), t_filepath(path), t_localbuffer(nullptr), t_width(0), t_height(0), t_bpp(0) {

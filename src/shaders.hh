@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include "glm/glm.hpp"
 
 struct ShaderSourceCode {
   std::string VertexSource;
@@ -32,6 +33,7 @@ public:
   void set_uniform1i(const std::string &name, int value);
   void set_uniform1f(const std::string &name, float v0);
   void set_uniform4f(const std::string &name, float v0, float v1, float v2, float v3);
+  void set_uniform_mat4(const std::string &name, glm::mat4 &matrix);
   // TODO update to auto load from the source code and set automatic the uniforms
   int get_uniform_location(const std::string &name);
 };
