@@ -17,6 +17,7 @@
 // triagle positions and incidices - vertex collection
 
 float positions[] = {
+    // positiion      texture possition
     100.0f, 100.0f, 0.0f, 0.0f, // 0
     200.0f, 100.0f, 1.0f, 0.0f, // 1
     200.0f, 200.0f, 1.0f, 1.0f, // 2
@@ -63,8 +64,11 @@ int main(void) {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  // ortho projection in 4:3
-  glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+  glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);    // 4:3
+  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0)); // move "camera" to left
+  glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(500, 0, 0)); // move "camera" to top
+
+  glm::mat4 mvp = proj * view * model;
 
   // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
@@ -86,7 +90,7 @@ int main(void) {
   Shader shader("res/shaders/basic.shader");
   shader.bind();
   shader.set_uniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
-  shader.set_uniform_mat4("u_MVP", proj);
+  shader.set_uniform_mat4("u_MVP", mvp);
 
   // texture
   Texture texture("res/textures/texture.jpg");
