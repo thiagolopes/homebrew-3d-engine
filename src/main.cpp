@@ -6,7 +6,6 @@
 #include <sstream>
 #include <string>
 
-#include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "renderer.hh"
@@ -14,9 +13,11 @@
 #include "shaders.hh"
 #include "textures.hh"
 
+#include "vendor/imgui/imgui.h"
+
 // triagle positions and incidices - vertex collection
 float positions[] = {
-    // positiion      texture possition
+    // positiion    //texture possition
     100.0f, 100.0f, 0.0f, 0.0f, // 0
     200.0f, 100.0f, 1.0f, 0.0f, // 1
     200.0f, 200.0f, 1.0f, 1.0f, // 2
@@ -51,7 +52,7 @@ int main(void) {
   glfwMakeContextCurrent(window);
 
   // set fps cap
-  glfwSwapInterval(1);
+  glfwSwapInterval(false);
 
   // init glew
   if (glewInit() != GLEW_OK)
@@ -62,12 +63,6 @@ int main(void) {
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-  glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);    // 4:3
-  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0)); // move "camera" to left
-  glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(500, 0, 0)); // move "camera" to top
-
-  glm::mat4 mvp = proj * view * model;
 
   // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
@@ -88,7 +83,6 @@ int main(void) {
   // load shader source code
   Shader shader("res/shaders/basic.shader");
   shader.bind();
-  shader.set_uniform_mat4("u_MVP", mvp);
 
   // texture
   Texture texture("res/textures/texture.jpg");
@@ -99,12 +93,37 @@ int main(void) {
 
   // imgui
   ImGuiRenderer imgui(window);
+  ImGuiIO &imgui_io = ImGui::GetIO();
+  (void)imgui_io;
 
+  // used in every frame
+  glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0));
+  glm::mat4 model;
+
+  glm::mat4 mvp;
+
+  glm::vec3 translation(200, 0, 0);
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
     imgui.clear();
     render.clear();
+
+    // update
+    model = glm::translate(glm::mat4(1.0f), translation);
+    mvp = proj * view * model;
+
+    // set values in uniforms
+    shader.set_uniform_mat4("u_MVP", mvp);
+
+    // set mvp in imgui
+    {
+      ImGui::Begin("OpenGL MVP");
+      ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 960.0f);
+      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
+      ImGui::End();
+    }
 
     /* draw here */
     render.draw(va, ib, shader);
