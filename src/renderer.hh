@@ -3,6 +3,7 @@
 #include "buffers.hh"
 #include "shaders.hh"
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #define ASSERT(X)                                                                                                      \
   if (!(X))                                                                                                            \
@@ -20,5 +21,15 @@ class Renderer {
 private:
 public:
   void draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const;
+  void clear() const;
+};
+
+class ImGuiRenderer {
+private:
+public:
+  ImGuiRenderer(GLFWwindow *window);
+  ~ImGuiRenderer();
+
+  void draw() const;
   void clear() const;
 };

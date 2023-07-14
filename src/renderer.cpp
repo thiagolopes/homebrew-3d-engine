@@ -1,5 +1,10 @@
 #include "renderer.hh"
 #include <iostream>
+#include <GLFW/glfw3.h>
+
+#include "vendor/imgui/imgui.h"
+#include "vendor/imgui/imgui_impl_glfw.h"
+#include "vendor/imgui/imgui_impl_opengl3.h"
 
 void GL_debug_clear_error() {
   while (glGetError() != GL_NO_ERROR) {
@@ -25,3 +30,29 @@ void Renderer::draw(const VertexArray &va, const IndexBuffer &ib, const Shader &
 void Renderer::clear() const {
   glClear(GL_COLOR_BUFFER_BIT);
 };
+
+ImGuiRenderer::ImGuiRenderer(GLFWwindow *window) {
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGui_ImplGlfw_InitForOpenGL(window, true);
+  ImGui_ImplOpenGL3_Init("#version 130");
+  ImGui::StyleColorsDark();
+};
+
+ImGuiRenderer::~ImGuiRenderer() {
+  ImGui_ImplOpenGL3_Shutdown();
+  ImGui_ImplGlfw_Shutdown();
+  ImGui::DestroyContext();
+};
+
+void ImGuiRenderer::draw() const {
+  ImGui::Render();
+  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+  ImGui::EndFrame();
+};
+
+void ImGuiRenderer::clear() const {
+  ImGui_ImplOpenGL3_NewFrame();
+  ImGui_ImplGlfw_NewFrame();
+  ImGui::NewFrame();
+}
