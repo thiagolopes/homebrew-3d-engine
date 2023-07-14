@@ -112,4 +112,6 @@ glfw/tests/triangle-vulkan
 glfw/tests/window
 glfw/tests/windows
 
+#imgui
+imgui.ini
 # End of https://www.toptal.com/developers/gitignore/api/c++,cmake
