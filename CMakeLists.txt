@@ -21,7 +21,6 @@ set(SOURCES
   src/buffers.cpp
   src/shaders.cpp
   src/textures.cpp
-
 )
 
 add_executable(OpenGLProject ${SOURCES})
@@ -42,3 +41,7 @@ add_custom_command(
 add_custom_target(lint
     COMMAND clang-format --style=file src/*.cpp src/*.hh -i
  )
+
+
+ include_directories(src/vendor/)
+ target_sources(OpenGLProject  PRIVATE "src/")
