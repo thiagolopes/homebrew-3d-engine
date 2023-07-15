@@ -18,8 +18,8 @@
 // triagle positions and incidices - vertex collection
 float positions[] = {
     // positiion    //texture possition
-    -50.0f, -50.0f, 0.0f, 0.0f, // 0
-     50.0f, -50.0f, 1.0f, 0.0f, // 1
+    -50.0f, -50.0f,  0.0f, 0.0f, // 0
+     50.0f, -50.0f,  1.0f, 0.0f, // 1
      50.0f,  50.0f,  1.0f, 1.0f, // 2
     -50.0f,  50.0f,  0.0f, 1.0f  // 3
 };
