@@ -42,6 +42,4 @@ void Texture::bind(unsigned int slot) const {
   glBindTexture(GL_TEXTURE_2D, t_render_id);
 };
 
-void Texture::unbind() const {
-  glBindTexture(GL_TEXTURE_2D, 0);
-};
+void Texture::unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };

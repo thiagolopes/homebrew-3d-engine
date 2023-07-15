@@ -8,15 +8,9 @@ VertexBuffer::VertexBuffer(const void *data, unsigned int size) {
                GL_STATIC_DRAW); // https://docs.gl/gl4/glBufferData difference
                                 // between static and dynamic
 }
-VertexBuffer::~VertexBuffer() {
-  glDeleteBuffers(1, &vb_render_id);
-}
-void VertexBuffer::bind() const {
-  glBindBuffer(GL_ARRAY_BUFFER, vb_render_id);
-}
-void VertexBuffer::unbind() const {
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
+VertexBuffer::~VertexBuffer() { glDeleteBuffers(1, &vb_render_id); }
+void VertexBuffer::bind() const { glBindBuffer(GL_ARRAY_BUFFER, vb_render_id); }
+void VertexBuffer::unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 
 IndexBuffer::IndexBuffer(const unsigned int *data, unsigned int count) : ib_count(count) {
   ASSERT(sizeof(unsigned int) == sizeof(GLuint));
@@ -26,33 +20,19 @@ IndexBuffer::IndexBuffer(const unsigned int *data, unsigned int count) : ib_coun
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW);
 }
 
-IndexBuffer::~IndexBuffer() {
-  glDeleteFramebuffers(1, &ib_render_id);
-}
+IndexBuffer::~IndexBuffer() { glDeleteFramebuffers(1, &ib_render_id); }
 
-void IndexBuffer::bind() const {
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib_render_id);
-}
+void IndexBuffer::bind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib_render_id); }
 
-void IndexBuffer::unbind() const {
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
+void IndexBuffer::unbind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 
-VertexArray::VertexArray() {
-  glGenVertexArrays(1, &va_render_id);
-}
+VertexArray::VertexArray() { glGenVertexArrays(1, &va_render_id); }
 
-VertexArray::~VertexArray() {
-  glDeleteVertexArrays(1, &va_render_id);
-}
+VertexArray::~VertexArray() { glDeleteVertexArrays(1, &va_render_id); }
 
-void VertexArray::bind() const {
-  glBindVertexArray(va_render_id);
-}
+void VertexArray::bind() const { glBindVertexArray(va_render_id); }
 
-void VertexArray::unbind() const {
-  glBindVertexArray(0);
-}
+void VertexArray::unbind() const { glBindVertexArray(0); }
 
 void VertexArray::add_buffer(const VertexBuffer &vb, const VertexBufferLayout &layout) {
   bind();

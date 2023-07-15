@@ -28,9 +28,7 @@ public:
   void bind() const;
   void unbind() const;
 
-  inline unsigned int get_count() const {
-    return ib_count;
-  }
+  inline unsigned int get_count() const { return ib_count; }
 };
 
 struct VertexBufferElements {
@@ -58,19 +56,12 @@ private:
   unsigned int vbl_stride;
 
 public:
-  VertexBufferLayout() : vbl_stride(0) {
-  }
+  VertexBufferLayout() : vbl_stride(0) {}
 
-  template <typename T> void push(unsigned int count) {
-    return;
-  }
+  template <typename T> void push(unsigned int count) { return; }
 
-  inline const std::vector<VertexBufferElements> &get_elements() const {
-    return vbl_elements;
-  };
-  inline unsigned int get_stride() const {
-    return vbl_stride;
-  };
+  inline const std::vector<VertexBufferElements> &get_elements() const { return vbl_elements; };
+  inline unsigned int get_stride() const { return vbl_stride; };
 };
 
 class VertexArray {
