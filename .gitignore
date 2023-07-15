@@ -114,4 +114,11 @@ glfw/tests/windows
 
 #imgui
 imgui.ini
+# docs
+CMakeDoxyfile.in
+CMakeDoxygenDefaults.cmake
+Doxyfile
+doc_doxygen/
+doxyfile
+
 # End of https://www.toptal.com/developers/gitignore/api/c++,cmake
