@@ -6,7 +6,9 @@
 #include <sstream>
 #include <string>
 
+#include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
+#include <glm/gtc/type_ptr.hpp>
 
 #include "renderer.hh"
 #include "buffers.hh"
@@ -15,18 +17,24 @@
 
 #include "vendor/imgui/imgui.h"
 
+#define TAU 6.28
+
+int m_width = 960;
+int m_height = 540;
+
 // triagle positions and incidices - vertex collection
 float positions[] = {
     // positiion    //texture possition
-    -50.0f, -50.0f, 0.0f, 0.0f, // 0
-    50.0f,  -50.0f, 1.0f, 0.0f, // 1
-    50.0f,  50.0f,  1.0f, 1.0f, // 2
-    -50.0f, 50.0f,  0.0f, 1.0f  // 3
+    -50.0f, -50.0f, 0.0f, 0.0f, 0.0f, // 0
+    50.0f,  -50.0f, 0.0f, 1.0f, 0.0f, // 1
+    50.0f,  50.0f,  0.0f, 1.0f, 1.0f, // 2
+    -50.0f, 50.0f,  0.0f, 0.0f, 1.0f  // 3
 };
 
 unsigned int indices[] = {
     0, 1, 2, // first triangle position
-    2, 3, 0, // second ..
+    2, 3, 0,
+
 };
 size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
@@ -42,7 +50,7 @@ int main(void) {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   /* Create a windowed mode window and its OpenGL context */
-  window = glfwCreateWindow(960, 540, "Hello World", NULL, NULL);
+  window = glfwCreateWindow(m_width, m_height, "Hello World", NULL, NULL);
   if (!window) {
     glfwTerminate();
     return -1;
@@ -75,7 +83,7 @@ int main(void) {
   IndexBuffer ib(indices, indicies_len);
 
   VertexBufferLayout vbl;
-  vbl.push<float>(2);
+  vbl.push<float>(3);
   vbl.push<float>(2);
 
   va.add_buffer(vb, vbl);
@@ -97,14 +105,21 @@ int main(void) {
   (void)imgui_io;
 
   // used in every frame
-  glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+  glm::mat4 proj = glm::ortho(0.0f, (float)m_width, 0.0f, float(m_height), -1.0f, 1.0f);
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
   glm::mat4 model;
 
   glm::mat4 mvp;
 
+  glm::vec3 rotate_clockwise(0.0f, 0.0f, -1.0f);
+
   glm::vec3 translationA(200, 100, 0);
   glm::vec3 translationB(400, 200, 0);
+  float angleA = 0;
+  float angleB = 0;
+  float scaleA = 1;
+  float scaleB = 1;
+
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
     /* Render here */
@@ -114,8 +129,12 @@ int main(void) {
     // set mvp in imgui
     {
       ImGui::Begin("OpenGL MVP");
-      ImGui::SliderFloat3("Translation A", &translationA.x, 0.0f, 960.0f);
-      ImGui::SliderFloat3("Translation B", &translationB.x, 0.0f, 960.0f);
+      ImGui::SliderFloat3("Translation A", &translationA.x, 0.0f, m_width);
+      ImGui::SliderFloat("Rotate A", &angleA, 0.0f, TAU);
+      ImGui::SliderFloat("Scale A", &scaleA, 0.0f, 10.0f);
+      ImGui::SliderFloat3("Translation B", &translationB.x, 0.0f, m_width);
+      ImGui::SliderFloat("Rotate B", &angleB, 0.0f, TAU);
+      ImGui::SliderFloat("Scale B", &scaleB, 0.0f, 10.0f);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
     }
@@ -126,6 +145,9 @@ int main(void) {
     {
       // first texture
       model = glm::translate(glm::mat4(1.0f), translationA);
+      model = glm::rotate(model, angleA, rotate_clockwise);
+      model = glm::scale(model, glm::vec3(scaleA, scaleA, scaleA));
+
       mvp = proj * view * model;
       shader.set_uniform_mat4("u_MVP", mvp);
 
@@ -135,6 +157,9 @@ int main(void) {
     {
       // second textures
       model = glm::translate(glm::mat4(1.0f), translationB);
+      model = glm::rotate(model, angleB, rotate_clockwise);
+      model = glm::scale(model, glm::vec3(scaleB, scaleB, scaleB));
+
       mvp = proj * view * model;
       shader.set_uniform_mat4("u_MVP", mvp);
 
