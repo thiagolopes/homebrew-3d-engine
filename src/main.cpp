@@ -32,8 +32,8 @@ float positions[] = {
 };
 
 unsigned int indices[] = {
-    0, 1, 2, // first triangle position
-    2, 3, 0,
+    0, 1, 3, // first triangle position
+    1, 2, 3,
 
 };
 size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
@@ -93,7 +93,7 @@ int main(void) {
   shader.bind();
 
   // texture
-  Texture texture("res/textures/texture.jpg");
+  Texture texture("res/textures/tex.png");
   texture.bind();
   shader.set_uniform1i("u_Texture", 0);
 
@@ -104,10 +104,13 @@ int main(void) {
   ImGuiIO &imgui_io = ImGui::GetIO();
   (void)imgui_io;
 
-  // used in every frame
-  glm::mat4 proj = glm::ortho(0.0f, (float)m_width, 0.0f, float(m_height), -1.0f, 1.0f);
-  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+  // So, basically MVP:
+  // Model matrix: defines position, rotation and scale of the vertices of the model in the world.
+  // View matrix: defines position and orientation of the "camera".
+  // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective.
   glm::mat4 model;
+  glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+  glm::mat4 proj = glm::ortho(0.0f, (float)m_width, 0.0f, float(m_height), -1.0f, 1.0f);
 
   glm::mat4 mvp;
 
