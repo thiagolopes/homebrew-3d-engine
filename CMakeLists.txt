@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 project(OpenGLProject)
 
+option(BUILD_DOC "Build documentation" ON)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE Debug)
@@ -30,6 +32,18 @@ set(IMGUI_SOURCES
   src/vendor/imgui/imgui_impl_opengl3.cpp
   src/vendor/imgui/imgui_tables.cpp
   src/vendor/imgui/imgui_widgets.cpp
+)
+
+set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
+set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+message("Doxygen build started")
+add_custom_target( doc_doxygen ALL
+  COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  COMMENT "Generating API documentation with Doxygen"
+  VERBATIM
 )
 
 add_executable(OpenGLProject ${SOURCES} ${IMGUI_SOURCES})
