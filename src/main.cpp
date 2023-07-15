@@ -93,7 +93,7 @@ int main(void) {
   shader.bind();
 
   // texture
-  Texture texture("res/textures/tex.png");
+  Texture texture("res/textures/texture.jpg");
   texture.bind();
   shader.set_uniform1i("u_Texture", 0);
 
@@ -110,14 +110,16 @@ int main(void) {
   // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective.
   glm::mat4 model;
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-  glm::mat4 proj = glm::ortho(0.0f, (float)m_width, 0.0f, float(m_height), -1.0f, 1.0f);
+  // glm::mat4 proj = glm::ortho(0.0f, (float)m_width, 0.0f, float(m_height), -1.0f, 1.0f);
+  glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)m_height / (float)m_width, 0.1f, 1000.0f);
 
   glm::mat4 mvp;
 
-  glm::vec3 rotate_clockwise(0.0f, 0.0f, -1.0f);
+  glm::vec3 rotateA(1.0f, 1.0f, 1.0f);
+  glm::vec3 rotateB(1.0f, 1.0f, 1.0f);
 
-  glm::vec3 translationA(200, 100, 0);
-  glm::vec3 translationB(400, 200, 0);
+  glm::vec3 translationA(0, 0, 217.0f);
+  glm::vec3 translationB(0, 110, 500.0f);
   float angleA = 0;
   float angleB = 0;
   float scaleA = 1;
@@ -132,11 +134,14 @@ int main(void) {
     // set mvp in imgui
     {
       ImGui::Begin("OpenGL MVP");
-      ImGui::SliderFloat3("Translation A", &translationA.x, 0.0f, m_width);
-      ImGui::SliderFloat("Rotate A", &angleA, 0.0f, TAU);
+      ImGui::SliderFloat("Angle A", &angleA, 0.0f, TAU);
+      ImGui::SliderFloat3("RotationA", &rotateA.x, 0.0f, 1.0f);
+      ImGui::SliderFloat3("Translation A", &translationA.x, -1000.0f, 1000.0f);
       ImGui::SliderFloat("Scale A", &scaleA, 0.0f, 10.0f);
-      ImGui::SliderFloat3("Translation B", &translationB.x, 0.0f, m_width);
-      ImGui::SliderFloat("Rotate B", &angleB, 0.0f, TAU);
+      ImGui::Dummy(ImVec2(0.0f, 20.0f));
+      ImGui::SliderFloat("Angle B", &angleB, 0.0f, TAU);
+      ImGui::SliderFloat3("RotationB", &rotateB.x, 0.0f, 1.0f);
+      ImGui::SliderFloat3("Translation B", &translationB.x, -1000.0f, 1000.0f);
       ImGui::SliderFloat("Scale B", &scaleB, 0.0f, 10.0f);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
@@ -147,8 +152,9 @@ int main(void) {
 
     {
       // first texture
-      model = glm::translate(glm::mat4(1.0f), translationA);
-      model = glm::rotate(model, angleA, rotate_clockwise);
+      model = glm::translate(glm::mat4(1.0f),
+                             translationA * glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
+      model = glm::rotate(model, angleA, rotateA);
       model = glm::scale(model, glm::vec3(scaleA, scaleA, scaleA));
 
       mvp = proj * view * model;
@@ -159,8 +165,8 @@ int main(void) {
 
     {
       // second textures
-      model = glm::translate(glm::mat4(1.0f), translationB);
-      model = glm::rotate(model, angleB, rotate_clockwise);
+      model = glm::translate(glm::mat4(1.0f), translationB * glm::vec3(1.0, 1.0, -1.0));
+      model = glm::rotate(model, angleB, rotateB);
       model = glm::scale(model, glm::vec3(scaleB, scaleB, scaleB));
 
       mvp = proj * view * model;

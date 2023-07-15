@@ -14,3 +14,4 @@ make
 
 ## Screenshots
 ![image](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/d5368333-e06c-4b05-836b-d4904531e0e6)
+![gif](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/59cb054a-8211-4d80-916c-422ef54fbce2)
