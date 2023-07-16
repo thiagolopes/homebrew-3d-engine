@@ -76,9 +76,9 @@ unsigned int Shader::compile_shader(unsigned int type_shader, const std::string 
   if (error == GL_FALSE) {
     int length;
     glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-    char *error_msg = (char *)alloca(length * sizeof(char));
+    char error_msg[length];
     glGetShaderInfoLog(id, length, &length, error_msg);
-    std::cout << "Fail shader compilation!" << std::endl;
+    std::cout << "Fail shader compilation! \n";
     std::cout << error_msg << std::endl;
     glDeleteShader(id);
     return 0;

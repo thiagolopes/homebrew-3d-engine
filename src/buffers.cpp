@@ -47,8 +47,8 @@ void VertexArray::add_buffer(const VertexBuffer &vb, const VertexBufferLayout &l
     glEnableVertexAttribArray(i);
     // link this buffer to vao;
     glVertexAttribPointer(i, element.count, element.type, element.normalize, layout.get_stride(),
-                          (void *)(uintptr_t)offset);
-
+                          reinterpret_cast<void *>(static_cast<uintptr_t>(offset)));
+    // (void *)(uintptr_t)offset);
     offset += element.count * VertexBufferElements::get_size_of_type(element.type);
   }
 }
