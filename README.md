@@ -15,4 +15,4 @@ make
 ## Screenshots
 ![image](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/d5368333-e06c-4b05-836b-d4904531e0e6)
 ![gif](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/59cb054a-8211-4d80-916c-422ef54fbce2)
-![gif-3d](https://github.com/thiagolopes/opengl_engine_homebrew/assets/5994972/d10fbbe3-c0bf-4f22-a5b3-b2fe79406489)
+![3d](https://github.com/thiagolopes/opengl_engine_homebrew/assets/5994972/7aaded30-7710-4adc-b113-25dfdcab7508)
