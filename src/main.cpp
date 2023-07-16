@@ -24,18 +24,47 @@ int m_height = 540;
 
 // triagle positions and incidices - vertex collection
 float positions[] = {
-    // positiion    //texture possition
-    -50.0f, -50.0f, 0.0f, 0.0f, 0.0f, // 0
-    50.0f,  -50.0f, 0.0f, 1.0f, 0.0f, // 1
-    50.0f,  50.0f,  0.0f, 1.0f, 1.0f, // 2
-    -50.0f, 50.0f,  0.0f, 0.0f, 1.0f  // 3
+    -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, // A 0
+    0.5f,  -0.5f, -0.5f, 1.0f, 0.0f, // B 1
+    0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, // C 2
+    -0.5f, 0.5f,  -0.5f, 0.0f, 1.0f, // D 3
+    -0.5f, -0.5f, 0.5f,  0.0f, 0.0f, // E 4
+    0.5f,  -0.5f, 0.5f,  1.0f, 0.0f, // F 5
+    0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // G 6
+    -0.5f, 0.5f,  0.5f,  0.0f, 1.0f, // H 7
+
+    -0.5f, 0.5f,  -0.5f, 0.0f, 0.0f, // D 8
+    -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, // A 9
+    -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, // E 10
+    -0.5f, 0.5f,  0.5f,  0.0f, 1.0f, // H 11
+    0.5f,  -0.5f, -0.5f, 0.0f, 0.0f, // B 12
+    0.5f,  0.5f,  -0.5f, 1.0f, 0.0f, // C 13
+    0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // G 14
+    0.5f,  -0.5f, 0.5f,  0.0f, 1.0f, // F 15
+
+    -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, // A 16
+    0.5f,  -0.5f, -0.5f, 1.0f, 0.0f, // B 17
+    0.5f,  -0.5f, 0.5f,  1.0f, 1.0f, // F 18
+    -0.5f, -0.5f, 0.5f,  0.0f, 1.0f, // E 19
+    0.5f,  0.5f,  -0.5f, 0.0f, 0.0f, // C 20
+    -0.5f, 0.5f,  -0.5f, 1.0f, 0.0f, // D 21
+    -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, // H 22
+    0.5f,  0.5f,  0.5f,  0.0f, 1.0f, // G 23
 };
 
 unsigned int indices[] = {
-    0, 1, 3, // first triangle position
-    1, 2, 3,
-
-};
+    // front
+    0, 3, 2, 2, 1, 0,
+    // back
+    4, 5, 6, 6, 7, 4,
+    // left
+    11, 8, 9, 9, 10, 11,
+    //  right
+    12, 13, 14, 14, 15, 12,
+    // bottom
+    16, 17, 18, 18, 19, 16,
+    // top
+    20, 21, 22, 22, 23, 20};
 size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
 int main(void) {
@@ -61,6 +90,9 @@ int main(void) {
 
   // set fps cap
   glfwSwapInterval(false);
+
+  // start depth test
+  glEnable(GL_DEPTH_TEST);
 
   // init glew
   if (glewInit() != GLEW_OK)
@@ -122,8 +154,10 @@ int main(void) {
   glm::vec3 translationB(0, 110, 500.0f);
   float angleA = 0;
   float angleB = 0;
-  float scaleA = 1;
-  float scaleB = 1;
+  float scaleA = 30;
+  float scaleB = 50;
+
+  bool rotate = true;
 
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
@@ -136,13 +170,15 @@ int main(void) {
       ImGui::Begin("OpenGL MVP");
       ImGui::SliderFloat("Angle A", &angleA, 0.0f, TAU);
       ImGui::SliderFloat3("RotationA", &rotateA.x, 0.0f, 1.0f);
-      ImGui::SliderFloat3("Translation A", &translationA.x, -1000.0f, 1000.0f);
-      ImGui::SliderFloat("Scale A", &scaleA, 0.0f, 10.0f);
+      ImGui::SliderFloat3("Translation A", &translationA.x, -100.0f, 100.0f);
+      ImGui::SliderFloat("Scale A", &scaleA, 0.0f, 300.0f);
       ImGui::Dummy(ImVec2(0.0f, 20.0f));
       ImGui::SliderFloat("Angle B", &angleB, 0.0f, TAU);
       ImGui::SliderFloat3("RotationB", &rotateB.x, 0.0f, 1.0f);
-      ImGui::SliderFloat3("Translation B", &translationB.x, -1000.0f, 1000.0f);
-      ImGui::SliderFloat("Scale B", &scaleB, 0.0f, 10.0f);
+      ImGui::SliderFloat3("Translation B", &translationB.x, -100.0f, 100.0f);
+      ImGui::SliderFloat("Scale B", &scaleB, 0.0f, 300.0f);
+      ImGui::Dummy(ImVec2(0.0f, 20.0f));
+      ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
     }
@@ -151,11 +187,16 @@ int main(void) {
     shader.bind();
 
     {
-      // first texture
+      // first cube
+
       model = glm::translate(glm::mat4(1.0f),
                              translationA * glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
       model = glm::rotate(model, angleA, rotateA);
       model = glm::scale(model, glm::vec3(scaleA, scaleA, scaleA));
+
+      if (rotate) {
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+      };
 
       mvp = proj * view * model;
       shader.set_uniform_mat4("u_MVP", mvp);
@@ -164,15 +205,20 @@ int main(void) {
     }
 
     {
-      // second textures
+      // second cube
+
       model = glm::translate(glm::mat4(1.0f), translationB * glm::vec3(1.0, 1.0, -1.0));
       model = glm::rotate(model, angleB, rotateB);
       model = glm::scale(model, glm::vec3(scaleB, scaleB, scaleB));
 
+      if (rotate) {
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+      };
+
       mvp = proj * view * model;
       shader.set_uniform_mat4("u_MVP", mvp);
 
-      render.draw(va, ib, shader);
+      render.draw(va, ib, shader); // todo: movo to a batch render and draw once;
     }
 
     imgui.draw();

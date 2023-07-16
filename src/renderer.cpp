@@ -28,7 +28,7 @@ void Renderer::draw(const VertexArray &va, const IndexBuffer &ib, const Shader &
   GL_debug_chek_error();
 };
 
-void Renderer::clear() const { glClear(GL_COLOR_BUFFER_BIT); };
+void Renderer::clear() const { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); };
 
 ImGuiRenderer::ImGuiRenderer(GLFWwindow *window) {
   IMGUI_CHECKVERSION();
