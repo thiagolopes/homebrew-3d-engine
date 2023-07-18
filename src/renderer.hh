@@ -30,7 +30,7 @@ public:
   ~Renderer();
   void draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const;
   void clear() const;
-  void next_frame() const;
+  void end_frame() const;
   void set_depth_test(bool flag = true) const;
   void set_swap_interval(bool flag = true) const;
   bool running();

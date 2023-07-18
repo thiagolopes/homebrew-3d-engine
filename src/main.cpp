@@ -75,7 +75,6 @@ int main(void) {
   // 1. vertex buffer (in vram; collections of vertex)
   // 2. shadder (describe how to rasterization will render the collecttion of
   // vertex aka vertex buffer)
-
   // bind VAO (vertex array)
   VertexArray va;
   VertexBuffer vb(positions, sizeof(positions));
@@ -115,22 +114,37 @@ int main(void) {
   glm::vec3 rotateA(1.0f, 1.0f, 1.0f);
   glm::vec3 rotateB(1.0f, 1.0f, 1.0f);
 
-  glm::vec3 translationA(0, 0, 217.0f);
-  glm::vec3 translationB(0, 110, 500.0f);
+  glm::vec3 translationA(0, 0, 0);
+  glm::vec3 translationB(3, 3, 3);
+
   float angleA = 0;
-  float angleB = 0;
-  float scaleA = 30;
-  float scaleB = 50;
+  float angleB = 1;
+  float scaleA = 1.0;
+  float scaleB = 2.5;
 
   bool rotate = true;
 
+  glm::vec3 camera_pos = glm::vec3(0.0f, 0.0f, 3.0f);
+  glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
+  glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
+
   /* Loop until the user closes the window */
   while (render.running()) {
-    /* Render here */
     imgui.clear();
     render.clear();
 
-    // set mvp in imgui
+    {
+      const float cameraSpeed = 0.05f; // adjust accordingly
+      if (glfwGetKey(render.get_window(), GLFW_KEY_W) == GLFW_PRESS)
+        camera_pos += cameraSpeed * camera_front;
+      if (glfwGetKey(render.get_window(), GLFW_KEY_S) == GLFW_PRESS)
+        camera_pos -= cameraSpeed * camera_front;
+      if (glfwGetKey(render.get_window(), GLFW_KEY_A) == GLFW_PRESS)
+        camera_pos -= glm::normalize(glm::cross(camera_front, camera_up)) * cameraSpeed;
+      if (glfwGetKey(render.get_window(), GLFW_KEY_D) == GLFW_PRESS)
+        camera_pos += glm::normalize(glm::cross(camera_front, camera_up)) * cameraSpeed;
+    }
+
     {
       ImGui::Begin("OpenGL MVP");
       ImGui::SliderFloat("Angle A", &angleA, 0.0f, TAU);
@@ -153,7 +167,6 @@ int main(void) {
 
     {
       // first cube
-
       model = glm::translate(glm::mat4(1.0f),
                              translationA * glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
       model = glm::rotate(model, angleA, rotateA);
@@ -162,6 +175,8 @@ int main(void) {
       if (rotate) {
         model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
       };
+      // camera
+      view = glm::lookAt(camera_pos, camera_pos + camera_front, camera_up);
 
       mvp = proj * view * model;
       shader.set_uniform_mat4("u_MVP", mvp);
@@ -187,7 +202,7 @@ int main(void) {
     }
 
     imgui.draw();
-    render.next_frame();
+    render.end_frame();
   }
   return 0;
 }

@@ -10,13 +10,13 @@
 void GL_debug_clear_error() {
   while (glGetError() != GL_NO_ERROR) {
   };
-}
+};
 
 void GL_debug_chek_error() {
   while (GLenum error = glGetError()) {
     std::cout << "[OpenGL Error] (" << error << ")" << std::endl;
   }
-}
+};
 
 Renderer::Renderer(char *window_name, float width, float height) : m_window(nullptr), m_width(width), m_height(height) {
   /* Initialize the library */
@@ -53,21 +53,21 @@ Renderer::Renderer(char *window_name, float width, float height) : m_window(null
 
 Renderer::~Renderer() { glfwTerminate(); };
 
-void Renderer::next_frame() const {
+void Renderer::end_frame() const {
   glfwSwapBuffers(m_window);
   glfwPollEvents();
-}
+};
 
-void Renderer::set_swap_interval(bool flag) const { glfwSwapInterval(flag); }
+void Renderer::set_swap_interval(bool flag) const { glfwSwapInterval(flag); };
 
 void Renderer::set_depth_test(bool flag) const {
   if (flag)
     glEnable(GL_DEPTH_TEST);
   else
     glDisable(GL_DEPTH_TEST);
-}
+};
 
-bool Renderer::running() { return !glfwWindowShouldClose(m_window); }
+bool Renderer::running() { return !glfwWindowShouldClose(m_window); };
 
 void Renderer::draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const {
   shader.bind();
