@@ -17,9 +17,6 @@
 
 #define TAU 6.28
 
-int m_width = 960;
-int m_height = 540;
-
 // triagle positions and incidices - vertex collection
 float positions[] = {
     -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, // A 0
@@ -66,8 +63,11 @@ unsigned int indices[] = {
 size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
 int main(void) {
+  int width = 960;
+  int height = 540;
   char window_name[] = "Window Name";
-  Renderer render(window_name, m_width, m_height);
+
+  Renderer render(window_name, width, height);
   render.set_swap_interval();
   render.set_depth_test(true);
 
@@ -107,8 +107,8 @@ int main(void) {
   // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective.
   glm::mat4 model;
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-  // glm::mat4 proj = glm::ortho(0.0f, (float)m_width, 0.0f, float(m_height), -1.0f, 1.0f);
-  glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)m_height / (float)m_width, 0.1f, 1000.0f);
+  glm::mat4 proj =
+      glm::perspective(glm::radians(45.0f), (float)render.get_width() / (float)render.get_height(), 0.1f, 1000.0f);
 
   glm::mat4 mvp;
 

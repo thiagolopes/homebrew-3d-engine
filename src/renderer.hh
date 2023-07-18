@@ -22,8 +22,8 @@ void GL_debug_chek_error();
 class Renderer {
 private:
   GLFWwindow *m_window;
-  float m_width;
-  float m_height;
+  int m_width;
+  int m_height;
 
 public:
   Renderer(char *window_name, float width, float height);
@@ -36,6 +36,8 @@ public:
   bool running();
 
   inline GLFWwindow *get_window() const { return m_window; };
+  inline int get_width() const { return m_width; };
+  inline int get_height() const { return m_height; };
 };
 
 class ImGuiRenderer {
