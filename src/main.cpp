@@ -69,7 +69,7 @@ int main(void) {
 
   Renderer render(window_name, width, height);
   render.set_swap_interval();
-  render.set_depth_test(true);
+  render.set_depth_test();
 
   // // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)

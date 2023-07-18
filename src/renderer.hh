@@ -31,8 +31,8 @@ public:
   void draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const;
   void clear() const;
   void next_frame() const;
-  void set_depth_test(bool flag) const;
-  void set_swap_interval() const;
+  void set_depth_test(bool flag = true) const;
+  void set_swap_interval(bool flag = true) const;
   bool running();
 
   inline GLFWwindow *get_window() const { return m_window; };

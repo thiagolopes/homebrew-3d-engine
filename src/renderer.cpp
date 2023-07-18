@@ -58,7 +58,7 @@ void Renderer::next_frame() const {
   glfwPollEvents();
 }
 
-void Renderer::set_swap_interval() const { glfwSwapInterval(false); }
+void Renderer::set_swap_interval(bool flag) const { glfwSwapInterval(flag); }
 
 void Renderer::set_depth_test(bool flag) const {
   if (flag)
