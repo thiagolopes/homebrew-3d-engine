@@ -21,9 +21,21 @@ void GL_debug_chek_error();
 
 class Renderer {
 private:
+  GLFWwindow *m_window;
+  float m_width;
+  float m_height;
+
 public:
+  Renderer(char *window_name, float width, float height);
+  ~Renderer();
   void draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const;
   void clear() const;
+  void next_frame() const;
+  void set_depth_test(bool flag) const;
+  void set_swap_interval() const;
+  bool running();
+
+  inline GLFWwindow *get_window() const { return m_window; };
 };
 
 class ImGuiRenderer {

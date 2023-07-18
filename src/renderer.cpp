@@ -18,6 +18,57 @@ void GL_debug_chek_error() {
   }
 }
 
+Renderer::Renderer(char *window_name, float width, float height) : m_window(nullptr), m_width(width), m_height(height) {
+  /* Initialize the library */
+  if (!glfwInit()) {
+    std::cerr << "[ERROR] In load GLFW!" << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
+
+  // set opengl to 3 and use CORE. this will make VAO especification mandatory
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+  /* Create a windowed mode window and its OpenGL context */
+  m_window = glfwCreateWindow(m_width, m_height, "Hello World", nullptr, nullptr);
+  if (!m_window) {
+    std::cerr << "[ERROR] Fail in create window GLFW!" << std::endl;
+    glfwTerminate();
+    std::exit(EXIT_FAILURE);
+  }
+
+  /* Make the window's context current */
+  glfwMakeContextCurrent(m_window);
+  // init glew
+  if (glewInit() != GLEW_OK) {
+    std::cout << "[ERROR] Fail in load graphical drive" << std::endl;
+    glfwTerminate();
+    std::exit(EXIT_FAILURE);
+  }
+
+  // show opengl version
+  std::cout << "[LOG]" << glGetString(GL_VERSION) << std::endl;
+};
+
+Renderer::~Renderer() { glfwTerminate(); };
+
+void Renderer::next_frame() const {
+  glfwSwapBuffers(m_window);
+  glfwPollEvents();
+}
+
+void Renderer::set_swap_interval() const { glfwSwapInterval(false); }
+
+void Renderer::set_depth_test(bool flag) const {
+  if (flag)
+    glEnable(GL_DEPTH_TEST);
+  else
+    glDisable(GL_DEPTH_TEST);
+}
+
+bool Renderer::running() { return !glfwWindowShouldClose(m_window); }
+
 void Renderer::draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const {
   shader.bind();
   va.bind();

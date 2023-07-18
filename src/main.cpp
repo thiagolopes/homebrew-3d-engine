@@ -68,43 +68,12 @@ unsigned int indices[] = {
 size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
 int main(void) {
-  GLFWwindow *window;
-  /* Initialize the library */
-  if (!glfwInit())
-    return -1;
+  char window_name[] = "Window Name";
+  Renderer render(window_name, m_width, m_height);
+  render.set_swap_interval();
+  render.set_depth_test(true);
 
-  // set opengl to 3 and use CORE. this will make VAO especification mandatory
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-  /* Create a windowed mode window and its OpenGL context */
-  window = glfwCreateWindow(m_width, m_height, "Hello World", NULL, NULL);
-  if (!window) {
-    glfwTerminate();
-    return -1;
-  }
-
-  /* Make the window's context current */
-  glfwMakeContextCurrent(window);
-
-  // set fps cap
-  glfwSwapInterval(false);
-
-  // start depth test
-  glEnable(GL_DEPTH_TEST);
-
-  // init glew
-  if (glewInit() != GLEW_OK)
-    std::cout << "Fail in load graphical drive" << std::endl;
-
-  // show opengl version
-  std::cout << glGetString(GL_VERSION) << std::endl;
-
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-  // draw steps:
+  // // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
   // 2. shadder (describe how to rasterization will render the collecttion of
   // vertex aka vertex buffer)
@@ -129,10 +98,8 @@ int main(void) {
   texture.bind();
   shader.set_uniform1i("u_Texture", 0);
 
-  Renderer render;
-
   // imgui
-  ImGuiRenderer imgui(window);
+  ImGuiRenderer imgui(render.get_window());
   ImGuiIO &imgui_io = ImGui::GetIO();
   (void)imgui_io;
 
@@ -160,7 +127,7 @@ int main(void) {
   bool rotate = true;
 
   /* Loop until the user closes the window */
-  while (!glfwWindowShouldClose(window)) {
+  while (render.running()) {
     /* Render here */
     imgui.clear();
     render.clear();
@@ -222,14 +189,7 @@ int main(void) {
     }
 
     imgui.draw();
-
-    /* Swap front and back buffers */
-    glfwSwapBuffers(window);
-    /* Poll for and process events */
-    glfwPollEvents();
+    render.next_frame();
   }
-
-  // shutdown
-  glfwTerminate();
   return 0;
 }
