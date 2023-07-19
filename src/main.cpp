@@ -16,6 +16,62 @@
 #include "vendor/imgui/imgui.h"
 
 #define TAU 6.28
+// TODO CREATE CAMERA CLASS!
+bool firstMouse = true;
+float yaw = -90.0f; // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to
+                    // the right so we initially rotate a bit to the left.
+float pitch = 0.0f;
+float lastX = 800.0f / 2.0;
+float lastY = 600.0 / 2.0;
+float fov = 45.0f;
+
+glm::vec3 camera_pos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+void mouse_handler(GLFWwindow *window, double xposIn, double yposIn) {
+  float xpos = static_cast<float>(xposIn);
+  float ypos = static_cast<float>(yposIn);
+
+  if (firstMouse) {
+    lastX = xpos;
+    lastY = ypos;
+    firstMouse = false;
+  }
+
+  float xoffset = xpos - lastX;
+  float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+  lastX = xpos;
+  lastY = ypos;
+
+  float sensitivity = 0.1f; // change this value to your liking
+  xoffset *= sensitivity;
+  yoffset *= sensitivity;
+
+  yaw += xoffset;
+  pitch += yoffset;
+
+  // make sure that when pitch is out of bounds, screen doesn't get flipped
+  if (pitch > 89.0f)
+    pitch = 89.0f;
+  if (pitch < -89.0f)
+    pitch = -89.0f;
+
+  glm::vec3 front;
+  front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+  front.y = sin(glm::radians(pitch));
+  front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+  camera_front = glm::normalize(front);
+}
+
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
+  std::cout << "[SCROLL]" << fov << "\n";
+  fov -= (float)yoffset;
+  if (fov < 1.0f)
+    fov = 1.0f;
+  if (fov > 45.0f)
+    fov = 45.0f;
+}
 
 // triagle positions and incidices - vertex collection
 float positions[] = {
@@ -70,6 +126,8 @@ int main(void) {
   Renderer render(window_name, width, height);
   render.set_swap_interval();
   render.set_depth_test();
+  render.set_mouse_moviment_callback((void *)mouse_handler);
+  render.set_mouse_scroll_callback((void *)scroll_callback);
 
   // // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
@@ -106,8 +164,8 @@ int main(void) {
   // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective.
   glm::mat4 model;
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-  glm::mat4 proj =
-      glm::perspective(glm::radians(45.0f), (float)render.get_width() / (float)render.get_height(), 0.1f, 1000.0f);
+  glm::mat4 proj = glm::perspective(fovaaaaaaaaaaaaaaaaaaaaaaa, (float)render.get_width() / (float)render.get_height(),
+                                    0.1f, 1000.0f);
 
   glm::mat4 mvp;
 
@@ -123,10 +181,6 @@ int main(void) {
   float scaleB = 2.5;
 
   bool rotate = true;
-
-  glm::vec3 camera_pos = glm::vec3(0.0f, 0.0f, 3.0f);
-  glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
-  glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
 
   /* Loop until the user closes the window */
   while (render.running()) {

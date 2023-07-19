@@ -43,6 +43,8 @@ public:
   void set_swap_interval(bool flag = true) const;
   float get_time();
   bool running();
+  void set_mouse_moviment_callback(void *f);
+  void set_mouse_scroll_callback(void *f);
 
   inline GLFWwindow *get_window() const { return m_window; };
   inline int get_width() const { return m_width; };
