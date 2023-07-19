@@ -1,5 +1,5 @@
 # OpenGL Engine.
-This engine was made using ["The Cherno OpenGL Tutorial"](https://www.youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2) on youtube;
+This engine was made using ["The Cherno OpenGL Tutorial"](https://www.youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2) on youtube and [OpenGL tutorial](https://learnopengl.com/);
 
 ## How to build
 ```
