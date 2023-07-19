@@ -134,7 +134,7 @@ int main(void) {
     render.clear();
 
     {
-      const float cameraSpeed = 0.05f; // adjust accordingly
+      const float cameraSpeed = 3.5f * render.get_deltatime(); // adjust accordingly
       if (glfwGetKey(render.get_window(), GLFW_KEY_W) == GLFW_PRESS)
         camera_pos += cameraSpeed * camera_front;
       if (glfwGetKey(render.get_window(), GLFW_KEY_S) == GLFW_PRESS)

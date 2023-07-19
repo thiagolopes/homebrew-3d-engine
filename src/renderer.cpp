@@ -18,7 +18,8 @@ void GL_debug_chek_error() {
   }
 };
 
-Renderer::Renderer(char *window_name, float width, float height) : m_window(nullptr), m_width(width), m_height(height) {
+Renderer::Renderer(char *window_name, float width, float height)
+    : m_window(nullptr), m_width(width), m_height(height), m_deltatime(0), m_lastframe(0) {
   /* Initialize the library */
   if (!glfwInit()) {
     std::cerr << "[ERROR] In load GLFW!" << std::endl;
@@ -49,11 +50,15 @@ Renderer::Renderer(char *window_name, float width, float height) : m_window(null
 
   // show opengl version
   std::cout << "[LOG]" << glGetString(GL_VERSION) << std::endl;
+  update_deltatime_frame();
 };
 
 Renderer::~Renderer() { glfwTerminate(); };
 
-void Renderer::end_frame() const {
+float Renderer::get_time() { return glfwGetTime(); }
+
+void Renderer::end_frame() {
+  update_deltatime_frame();
   glfwSwapBuffers(m_window);
   glfwPollEvents();
 };
