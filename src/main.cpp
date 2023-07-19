@@ -165,7 +165,7 @@ int main(void) {
   glm::mat4 model;
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
   glm::mat4 proj = glm::perspective(glm::radians(fov), (float)render.get_width() / (float)render.get_height(),
-                                    0.1f, 1000.0f);
+                                    0.1f, 100.0f);
 
   glm::mat4 mvp;
 
