@@ -120,5 +120,5 @@ CMakeDoxygenDefaults.cmake
 Doxyfile
 doc_doxygen/
 doxyfile
-
+*TAGS*
 # End of https://www.toptal.com/developers/gitignore/api/c++,cmake
