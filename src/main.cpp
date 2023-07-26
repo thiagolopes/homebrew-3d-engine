@@ -131,15 +131,14 @@ int main(void) {
     render.clear();
 
     {
-      const float cameraSpeed = render.get_deltatime(); // adjust accordingly
       if (glfwGetKey(render.get_window(), GLFW_KEY_W) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::FORWARD, cameraSpeed);
+        camera.process_keyboard(camera_direction_t::FORWARD, render.get_deltatime());
       if (glfwGetKey(render.get_window(), GLFW_KEY_S) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::BACKWARD, cameraSpeed);
+        camera.process_keyboard(camera_direction_t::BACKWARD,  render.get_deltatime());
       if (glfwGetKey(render.get_window(), GLFW_KEY_A) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::LEFT, cameraSpeed);
+        camera.process_keyboard(camera_direction_t::LEFT, render.get_deltatime());
       if (glfwGetKey(render.get_window(), GLFW_KEY_D) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::RIGHT, cameraSpeed);
+        camera.process_keyboard(camera_direction_t::RIGHT, render.get_deltatime());
     }
 
     {
