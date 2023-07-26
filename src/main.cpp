@@ -134,7 +134,7 @@ int main(void) {
       if (glfwGetKey(render.get_window(), GLFW_KEY_W) == GLFW_PRESS)
         camera.process_keyboard(camera_direction_t::FORWARD, render.get_deltatime());
       if (glfwGetKey(render.get_window(), GLFW_KEY_S) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::BACKWARD,  render.get_deltatime());
+        camera.process_keyboard(camera_direction_t::BACKWARD, render.get_deltatime());
       if (glfwGetKey(render.get_window(), GLFW_KEY_A) == GLFW_PRESS)
         camera.process_keyboard(camera_direction_t::LEFT, render.get_deltatime());
       if (glfwGetKey(render.get_window(), GLFW_KEY_D) == GLFW_PRESS)
@@ -160,6 +160,8 @@ int main(void) {
 
     /* draw here */
     texture.bind();
+    view = camera.get_camera_matrix();
+    shader.set_uniform_mat4("u_V", view);
     {
       // first cube
       model = glm::translate(glm::mat4(1.0f),
@@ -171,11 +173,9 @@ int main(void) {
         model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
       };
       // camera
-      view = camera.get_camera_matrix();
       // view = glm::lookAt(camera_pos, camera_pos + camera_front, camera_up);
 
       shader.set_uniform_mat4("u_M", model);
-      shader.set_uniform_mat4("u_V", view);
       shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader);
@@ -196,7 +196,6 @@ int main(void) {
       };
 
       shader.set_uniform_mat4("u_M", model);
-      shader.set_uniform_mat4("u_V", view);
       shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader); // todo: movo to a batch render and draw once;
