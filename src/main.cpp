@@ -67,12 +67,13 @@ int main(void) {
   char window_name[] = "Engine3D";
 
   Renderer render(window_name, width, height);
-  render.set_swap_interval();
+  render.set_swap_interval(false);
   render.set_depth_test();
   // render.set_mouse_moviment_callback((void *)mouse_handler);
   // render.set_mouse_scroll_callback((void *)scroll_callback);
   // render.set_mouse_button_callback((void *)mouse_button_callback);
 
+  // setup free camera
   Camera camera(glm::vec3(0.0f, 0.0f, 8.0f));
 
   // // draw steps:
@@ -81,6 +82,8 @@ int main(void) {
   // vertex aka vertex buffer)
   // bind VAO (vertex array)
   VertexArray va;
+  VertexArray va_light;
+
   VertexBuffer vb(positions, sizeof(positions));
   IndexBuffer ib(indices, indicies_len);
 
@@ -89,16 +92,17 @@ int main(void) {
   vbl.push<float>(2);
 
   va.add_buffer(vb, vbl);
+  va_light.add_buffer(vb, vbl);
 
   // load shader source code
   Shader shader("res/shaders/basic.shader");
-  shader.bind();
+  Shader shader_light("res/shaders/light.shader");
 
   // texture
   Texture texture("res/textures/texture_mine.jpg");
   Texture texture_two("res/textures/texture.png");
-  texture.bind();
-  shader.set_uniform1i("u_Texture", 0);
+  Texture texture_light("res/textures/light.png");
+  shader_light.set_uniform1i("u_Texture", 0);
 
   // imgui
   ImGuiRenderer imgui(render.get_window());
@@ -112,17 +116,6 @@ int main(void) {
   glm::mat4 view;
   glm::mat4 proj = glm::perspective(glm::radians(camera.get_fov()),
                                     (float)render.get_width() / (float)render.get_height(), 0.1f, 100.0f);
-
-  glm::vec3 rotateA(1.0f, 1.0f, 1.0f);
-  glm::vec3 rotateB(1.0f, 1.0f, 1.0f);
-
-  glm::vec3 translationA(0, 0, 0);
-  glm::vec3 translationB(3, 3, 3);
-
-  float angleA = 0;
-  float angleB = 1;
-  float scaleA = 1.0;
-  float scaleB = 2.5;
 
   bool rotate = true;
   /* Loop until the user closes the window */
@@ -143,67 +136,86 @@ int main(void) {
 
     {
       ImGui::Begin("OpenGL MVP");
-      ImGui::SliderFloat("Angle A", &angleA, 0.0f, TAU);
-      ImGui::SliderFloat3("RotationA", &rotateA.x, 0.0f, 1.0f);
-      ImGui::SliderFloat3("Translation A", &translationA.x, -100.0f, 100.0f);
-      ImGui::SliderFloat("Scale A", &scaleA, 0.0f, 300.0f);
-      ImGui::Dummy(ImVec2(0.0f, 20.0f));
-      ImGui::SliderFloat("Angle B", &angleB, 0.0f, TAU);
-      ImGui::SliderFloat3("RotationB", &rotateB.x, 0.0f, 1.0f);
-      ImGui::SliderFloat3("Translation B", &translationB.x, -100.0f, 100.0f);
-      ImGui::SliderFloat("Scale B", &scaleB, 0.0f, 300.0f);
-      ImGui::Dummy(ImVec2(0.0f, 20.0f));
       ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
     }
 
     /* draw here */
-    texture.bind();
     view = camera.get_camera_matrix();
-    shader.set_uniform_mat4("u_V", view);
+
+    // first cube
     {
-      // first cube
-      model = glm::translate(glm::mat4(1.0f),
-                             translationA * glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
-      model = glm::rotate(model, angleA, rotateA);
-      model = glm::scale(model, glm::vec3(scaleA, scaleA, scaleA));
+      shader.bind();
+      texture.bind();
+      shader.set_uniform1i("u_Texture", 0);
+      shader.set_uniform_mat4("u_V", view);
 
+      model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
+      model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
       if (rotate) {
-        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+        model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
       };
-      // camera
-      // view = glm::lookAt(camera_pos, camera_pos + camera_front, camera_up);
 
+      shader.set_uniform3f("u_LightColor", 1.0f, 1.0f, 1.0f);
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader);
+
+      texture.unbind();
+      shader.unbind();
     }
-    texture.unbind();
 
-    // change texture
-    texture_two.bind();
+    // seconde cube
     {
-      // second cube
+      shader.bind();
+      texture_two.bind();
+      shader.set_uniform1i("u_Texture", 0);
+      shader.set_uniform_mat4("u_V", view);
 
-      model = glm::translate(glm::mat4(1.0f), translationB * glm::vec3(1.0, 1.0, -1.0));
-      model = glm::rotate(model, angleB, rotateB);
-      model = glm::scale(model, glm::vec3(scaleB, scaleB, scaleB));
+      model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0, 1.0, -3.0));
+      model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
       if (rotate) {
-        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+        model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
       };
 
+      shader.set_uniform3f("u_LightColor", 1.0f, 1.0f, 1.0f);
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader); // todo: movo to a batch render and draw once;
+
+      texture_two.unbind();
+      shader.unbind();
     }
-    texture_two.unbind();
+
+    // third cube
+    {
+      shader_light.bind();
+      texture_light.bind();
+      shader_light.set_uniform1i("u_Texture", 0);
+      shader_light.set_uniform_mat4("u_V", view);
+
+      model = glm::translate(glm::mat4(1.0f), glm::vec3(2.0, 1.0, 3.0));
+      model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+
+      if (rotate) {
+        model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+      };
+
+      shader_light.set_uniform_mat4("u_M", model);
+      shader_light.set_uniform_mat4("u_P", proj);
+
+      render.draw(va_light, ib, shader_light); // todo: movo to a batch render and draw once;
+      texture_light.unbind();
+      shader_light.unbind();
+    }
 
     imgui.draw();
     render.end_frame();
   }
+
   return 0;
 }
