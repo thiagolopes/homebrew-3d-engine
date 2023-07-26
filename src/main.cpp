@@ -14,10 +14,10 @@
 #include "textures.hh"
 
 #include "vendor/imgui/imgui.h"
-
 #define TAU 6.28
 // TODO CREATE CAMERA CLASS!
 bool firstMouse = true;
+bool movingMouse = false;
 float yaw = -90.0f; // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to
                     // the right so we initially rotate a bit to the left.
 float pitch = 0.0f;
@@ -25,11 +25,25 @@ float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 float fov = 45.0f;
 
-glm::vec3 camera_pos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 camera_pos = glm::vec3(0.0f, 0.0f, 13.0f);
 glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
 
+void mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
+  if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+    if (action == GLFW_PRESS)
+      movingMouse = true;
+    if (action == GLFW_RELEASE)
+      movingMouse = false;
+  };
+};
+
 void mouse_handler(GLFWwindow *window, double xposIn, double yposIn) {
+  ImGuiIO imgui_io = ImGui::GetIO();
+  if (imgui_io.WantCaptureMouse || !movingMouse) {
+    return;
+  }
+
   float xpos = static_cast<float>(xposIn);
   float ypos = static_cast<float>(yposIn);
 
@@ -119,8 +133,8 @@ unsigned int indices[] = {
 size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
 int main(void) {
-  int width = 960;
-  int height = 540;
+  int width = 1280;
+  int height = 720;
   char window_name[] = "Window Name";
 
   Renderer render(window_name, width, height);
@@ -128,6 +142,7 @@ int main(void) {
   render.set_depth_test();
   render.set_mouse_moviment_callback((void *)mouse_handler);
   render.set_mouse_scroll_callback((void *)scroll_callback);
+  render.set_mouse_button_callback((void *)mouse_button_callback);
 
   // // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
@@ -149,14 +164,14 @@ int main(void) {
   shader.bind();
 
   // texture
-  Texture texture("res/textures/texture.jpg");
+  Texture texture("res/textures/texture_mine.jpg");
+  Texture texture_two("res/textures/texture.png");
   texture.bind();
   shader.set_uniform1i("u_Texture", 0);
 
   // imgui
   ImGuiRenderer imgui(render.get_window());
   ImGuiIO &imgui_io = ImGui::GetIO();
-  (void)imgui_io;
 
   // So, basically MVP:
   // Model matrix: defines position, rotation and scale of the vertices of the model in the world.
@@ -164,8 +179,8 @@ int main(void) {
   // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective.
   glm::mat4 model;
   glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-  glm::mat4 proj = glm::perspective(glm::radians(fov), (float)render.get_width() / (float)render.get_height(),
-                                    0.1f, 100.0f);
+  glm::mat4 proj =
+      glm::perspective(glm::radians(fov), (float)render.get_width() / (float)render.get_height(), 0.1f, 100.0f);
 
   glm::mat4 mvp;
 
@@ -181,7 +196,6 @@ int main(void) {
   float scaleB = 2.5;
 
   bool rotate = true;
-
   /* Loop until the user closes the window */
   while (render.running()) {
     imgui.clear();
@@ -217,8 +231,7 @@ int main(void) {
     }
 
     /* draw here */
-    shader.bind();
-
+    texture.bind();
     {
       // first cube
       model = glm::translate(glm::mat4(1.0f),
@@ -238,6 +251,9 @@ int main(void) {
       render.draw(va, ib, shader);
     }
 
+    // change texture
+    texture.unbind();
+    texture_two.bind();
     {
       // second cube
 

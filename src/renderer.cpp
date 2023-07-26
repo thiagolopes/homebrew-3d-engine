@@ -57,6 +57,8 @@ Renderer::~Renderer() { glfwTerminate(); };
 
 void Renderer::set_mouse_scroll_callback(void *f) { glfwSetScrollCallback(get_window(), (GLFWscrollfun)f); };
 
+void Renderer::set_mouse_button_callback(void *f) { glfwSetMouseButtonCallback(get_window(), (GLFWmousebuttonfun)f); };
+
 void Renderer::set_mouse_moviment_callback(void *f) { glfwSetCursorPosCallback(get_window(), (GLFWcursorposfun)f); };
 
 float Renderer::get_time() { return glfwGetTime(); }
