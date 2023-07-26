@@ -32,7 +32,7 @@ Renderer::Renderer(char *window_name, float width, float height)
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   /* Create a windowed mode window and its OpenGL context */
-  m_window = glfwCreateWindow(m_width, m_height, "Hello World", nullptr, nullptr);
+  m_window = glfwCreateWindow(m_width, m_height, window_name, nullptr, nullptr);
   if (!m_window) {
     std::cerr << "[ERROR] Fail in create window GLFW!" << std::endl;
     glfwTerminate();

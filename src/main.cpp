@@ -64,7 +64,7 @@ size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 int main(void) {
   int width = 1280;
   int height = 720;
-  char window_name[] = "Window Name";
+  char window_name[] = "Engine3D";
 
   Renderer render(window_name, width, height);
   render.set_swap_interval();
