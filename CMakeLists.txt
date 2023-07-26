@@ -17,13 +17,7 @@ include_directories(glew/include)
 add_subdirectory(glfw)
 include_directories(glfw/include)
 
-set(SOURCES
-  src/main.cpp
-  src/renderer.cpp
-  src/buffers.cpp
-  src/shaders.cpp
-  src/textures.cpp
-)
+file(GLOB SOURCES "src/*.cpp")
 set(IMGUI_SOURCES
   src/vendor/imgui/imgui.cpp
   src/vendor/imgui/imgui_demo.cpp
