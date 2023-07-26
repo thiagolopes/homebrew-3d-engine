@@ -182,8 +182,6 @@ int main(void) {
   glm::mat4 proj =
       glm::perspective(glm::radians(fov), (float)render.get_width() / (float)render.get_height(), 0.1f, 100.0f);
 
-  glm::mat4 mvp;
-
   glm::vec3 rotateA(1.0f, 1.0f, 1.0f);
   glm::vec3 rotateB(1.0f, 1.0f, 1.0f);
 
@@ -245,8 +243,9 @@ int main(void) {
       // camera
       view = glm::lookAt(camera_pos, camera_pos + camera_front, camera_up);
 
-      mvp = proj * view * model;
-      shader.set_uniform_mat4("u_MVP", mvp);
+      shader.set_uniform_mat4("u_M", model);
+      shader.set_uniform_mat4("u_V", view);
+      shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader);
     }
@@ -265,8 +264,9 @@ int main(void) {
         model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
       };
 
-      mvp = proj * view * model;
-      shader.set_uniform_mat4("u_MVP", mvp);
+      shader.set_uniform_mat4("u_M", model);
+      shader.set_uniform_mat4("u_V", view);
+      shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader); // todo: movo to a batch render and draw once;
     }
