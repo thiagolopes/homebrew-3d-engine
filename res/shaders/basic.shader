@@ -3,8 +3,11 @@
 
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec2 texCoord;
+layout(location = 2) in vec3 normal;
 
 out vec2 v_TexCoord;
+out vec3 v_Normal;
+out vec3 v_FragPos;
 
 // MODEL VIEW PROJECTION
 uniform mat4 u_M;
@@ -12,8 +15,11 @@ uniform mat4 u_V;
 uniform mat4 u_P;
 
 void main(){
-    gl_Position =  u_P * u_V * u_M * vec4(position, 1.0);
+    v_FragPos = vec3(u_M * vec4(position, 1.0));
     v_TexCoord = texCoord;
+    v_Normal = mat3(transpose(inverse(u_M))) * normal;
+
+    gl_Position =  u_P * u_V * u_M * vec4(position, 1.0);
 }
 
 
@@ -23,11 +29,24 @@ void main(){
 layout(location = 0) out vec4 color;
 
 in vec2 v_TexCoord;
+in vec3 v_Normal;
+in vec3 v_FragPos;
 
 uniform sampler2D u_Texture;
 uniform vec3 u_LightColor;
+uniform vec3 u_LightPos;
 
 void main(){
+    // ambient
+    float ambient_streth = 0.4;
+    vec3 ambient = ambient_streth * u_LightColor;
+
+    // diffuse
+    vec3 norm = normalize(v_Normal);
+    vec3 light_dir = normalize(u_LightPos - v_FragPos);
+    float diff = max(dot(norm, light_dir), 0.0);
+    vec3 diffuse = diff * u_LightColor;
+
     vec4 texColor = texture(u_Texture, v_TexCoord);
-    color = texColor * vec4(u_LightColor, 1.0);
+    color = vec4((ambient + diffuse), 1.0) * texColor;
 }
