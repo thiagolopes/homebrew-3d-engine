@@ -77,7 +77,7 @@ int main(void) {
   // render.set_mouse_button_callback((void *)mouse_button_callback);
 
   // setup free camera
-  Camera camera(glm::vec3(0.0f, 0.0f, 8.0f));
+  Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
 
   // // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
@@ -124,7 +124,7 @@ int main(void) {
   bool rotate = true;
 
   // light position
-  glm::vec3 light_position(2.0, 1.0, 3.0);
+  glm::vec3 light_position(1.0, 1.0, 2.0);
   glm::vec3 light_color(1.0, 1.0, 1.0);
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -187,7 +187,7 @@ int main(void) {
       model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
       if (rotate) {
-        model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(0.5f, 5.0f, 1.0f));
+        model = glm::rotate(model, render.get_time() * glm::radians(40.0f), glm::vec3(0.5f, 5.0f, 1.0f));
       };
 
       shader.set_uniform_vec3("u_LightColor", light_color);
@@ -201,12 +201,15 @@ int main(void) {
       shader.unbind();
     }
 
-    // third cube
+    // third cube - the light
     {
       shader_light.bind();
       texture_light.bind();
       shader_light.set_uniform1i("u_Texture", 0);
       shader_light.set_uniform_mat4("u_V", view);
+
+      light_position.x = 5.0f * sin(render.get_time());
+      light_position.z = 5.0f * cos(render.get_time());
 
       model = glm::translate(glm::mat4(1.0f), light_position);
       model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
