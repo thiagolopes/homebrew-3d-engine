@@ -27,6 +27,13 @@ struct Material {
   float shininess;
 };
 
+struct Light {
+  glm::vec3 position;
+  glm::vec3 ambient;
+  glm::vec3 diffuse;
+  glm::vec3 specular;
+};
+
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 // triagle positions and incidices - vertex collection
 float positions[] = {
@@ -113,7 +120,6 @@ int main(void) {
   Texture texture("res/textures/texture_mine.jpg");
   Texture texture_two("res/textures/texture.png");
   Texture texture_light("res/textures/light.png");
-  shader_light.set_uniform_int1("u_Texture", 0);
 
   // imgui
   ImGuiRenderer imgui(render.get_window());
@@ -127,12 +133,15 @@ int main(void) {
   glm::mat4 view;
   glm::mat4 proj = glm::perspective(glm::radians(camera.get_fov()),
                                     (float)render.get_width() / (float)render.get_height(), 0.1f, 100.0f);
-
   bool rotate = true;
 
-  // light position
-  glm::vec3 light_position(1.0, 1.0, 2.0);
-  glm::vec3 light_color(1.0, 1.0, 1.0);
+  // light
+  Light light = {
+      glm::vec3(1.0, 1.0, 2.0),
+      glm::vec3(0.2f, 0.2f, 0.2f),
+      glm::vec3(0.5f, 0.5f, 0.5f),
+      glm::vec3(1.0f, 1.0f, 1.0f),
+  };
   // material
   Material material = {
       glm::vec3(0.3f, 0.3f, 0.3f),
@@ -180,9 +189,10 @@ int main(void) {
         model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
       };
 
-      shader.set_uniform_vec3("u_LightColor", light_color);
-      shader.set_uniform_vec3("u_LightPos", light_position);
-      shader.set_uniform_vec3("u_CameraPos", camera.get_position());
+      shader.set_uniform_vec3("u_light.position", light.position);
+      shader.set_uniform_vec3("u_light.ambient", light.ambient);
+      shader.set_uniform_vec3("u_light.diffuse", light.diffuse);
+      shader.set_uniform_vec3("u_light.specular", light.specular);
 
       shader.set_uniform_vec3("u_material.ambient", material.ambient);
       shader.set_uniform_vec3("u_material.diffuse", material.diffuse);
@@ -212,9 +222,10 @@ int main(void) {
         model = glm::rotate(model, render.get_time() * glm::radians(40.0f), glm::vec3(0.5f, 5.0f, 1.0f));
       };
 
-      shader.set_uniform_vec3("u_LightColor", light_color);
-      shader.set_uniform_vec3("u_LightPos", light_position);
-      shader.set_uniform_vec3("u_CameraPos", camera.get_position());
+      shader.set_uniform_vec3("u_light.position", light.position);
+      shader.set_uniform_vec3("u_light.ambient", light.ambient);
+      shader.set_uniform_vec3("u_light.diffuse", light.diffuse);
+      shader.set_uniform_vec3("u_light.specular", light.specular);
 
       shader.set_uniform_vec3("u_material.ambient", material.ambient);
       shader.set_uniform_vec3("u_material.diffuse", material.diffuse);
@@ -237,10 +248,13 @@ int main(void) {
       shader_light.set_uniform_int1("u_Texture", 0);
       shader_light.set_uniform_mat4("u_V", view);
 
-      light_position.x = 5.0f * sin(render.get_time() / 2);
-      light_position.z = 5.0f * cos(render.get_time() / 2);
+      shader_light.set_uniform_vec3("u_light.ambient", light.ambient);
+      shader_light.set_uniform_vec3("u_light.diffuse", light.diffuse);
 
-      model = glm::translate(glm::mat4(1.0f), light_position);
+      light.position.x = 5.0f * sin(render.get_time() / 2);
+      light.position.z = 5.0f * cos(render.get_time() / 2);
+
+      model = glm::translate(glm::mat4(1.0f), light.position);
       model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
       shader_light.set_uniform_mat4("u_M", model);

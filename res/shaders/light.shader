@@ -24,9 +24,15 @@ layout(location = 0) out vec4 color;
 
 in vec2 v_TexCoord;
 
+struct Light {
+    vec3 ambient;
+    vec3 diffuse;
+};
+
 uniform sampler2D u_Texture;
+uniform Light u_light;
 
 void main(){
     vec4 texColor = texture(u_Texture, v_TexCoord);
-    color = texColor * vec4(1.0);
+    color = texColor * vec4(u_light.diffuse + u_light.ambient, 1.0);
 }
