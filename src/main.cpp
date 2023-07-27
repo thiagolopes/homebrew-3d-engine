@@ -116,7 +116,9 @@ int main(void) {
 
   // texture
   Texture texture("res/textures/texture_mine.jpg");
+  Texture texture_spec("res/textures/texture_mine_spec.jpg");
   Texture texture_two("res/textures/texture.png");
+  Texture texture_two_spec("res/textures/texture_spec.png");
   Texture texture_light("res/textures/light.png");
 
   // imgui
