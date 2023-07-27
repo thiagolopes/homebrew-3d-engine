@@ -6,8 +6,6 @@
 
 #include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
-#include <glm/gtc/type_ptr.hpp>
-
 #include "renderer.hh"
 #include "buffers.hh"
 #include "shaders.hh"
@@ -184,7 +182,7 @@ int main(void) {
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
-      model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+      model = glm::scale(model, glm::vec3(1.0f));
       if (rotate) {
         model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
       };
@@ -216,7 +214,7 @@ int main(void) {
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0, 1.0, -3.0));
-      model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+      model = glm::scale(model, glm::vec3(1.0f));
 
       if (rotate) {
         model = glm::rotate(model, render.get_time() * glm::radians(40.0f), glm::vec3(0.5f, 5.0f, 1.0f));
@@ -255,7 +253,7 @@ int main(void) {
       light.position.z = 5.0f * cos(render.get_time() / 2);
 
       model = glm::translate(glm::mat4(1.0f), light.position);
-      model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+      model = glm::scale(model, glm::vec3(0.5));
 
       shader_light.set_uniform_mat4("u_M", model);
       shader_light.set_uniform_mat4("u_P", proj);
