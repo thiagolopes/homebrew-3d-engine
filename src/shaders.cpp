@@ -16,20 +16,20 @@ Shader::~Shader() { glDeleteProgram(shader_id); };
 void Shader::bind() const { glUseProgram(shader_id); };
 void Shader::unbind() const { glUseProgram(0); };
 
-void Shader::set_uniform1i(const std::string &name, int value) { glUniform1i(get_uniform_location(name), value); };
+void Shader::set_uniform_int1(const std::string &name, int value) { glUniform1i(get_uniform_location(name), value); };
 
-void Shader::set_uniform1f(const std::string &name, float v0) { glUniform1f(get_uniform_location(name), v0); };
+void Shader::set_uniform_float1(const std::string &name, float v0) { glUniform1f(get_uniform_location(name), v0); };
 
-void Shader::set_uniform4f(const std::string &name, float v0, float v1, float v2, float v3) {
+void Shader::set_uniform_float3(const std::string &name, float v0, float v1, float v2) {
+  glUniform3f(get_uniform_location(name), v0, v1, v2);
+};
+
+void Shader::set_uniform_float4(const std::string &name, float v0, float v1, float v2, float v3) {
   glUniform4f(get_uniform_location(name), v0, v1, v2, v3);
 };
 
 void Shader::set_uniform_vec3(const std::string &name, glm::vec3 &vec) {
   glUniform3fv(get_uniform_location(name), 1, &vec[0]);
-};
-
-void Shader::set_uniform3f(const std::string &name, float v0, float v1, float v2) {
-  glUniform3f(get_uniform_location(name), v0, v1, v2);
 };
 
 void Shader::set_uniform_mat4(const std::string &name, glm::mat4 &matrix) {

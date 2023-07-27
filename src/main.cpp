@@ -106,7 +106,7 @@ int main(void) {
   Texture texture("res/textures/texture_mine.jpg");
   Texture texture_two("res/textures/texture.png");
   Texture texture_light("res/textures/light.png");
-  shader_light.set_uniform1i("u_Texture", 0);
+  shader_light.set_uniform_int1("u_Texture", 0);
 
   // imgui
   ImGuiRenderer imgui(render.get_window());
@@ -156,7 +156,7 @@ int main(void) {
     {
       shader.bind();
       texture.bind();
-      shader.set_uniform1i("u_Texture", 0);
+      shader.set_uniform_int1("u_Texture", 0);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
@@ -181,7 +181,7 @@ int main(void) {
     {
       shader.bind();
       texture_two.bind();
-      shader.set_uniform1i("u_Texture", 0);
+      shader.set_uniform_int1("u_Texture", 0);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0, 1.0, -3.0));
@@ -207,7 +207,7 @@ int main(void) {
     {
       shader_light.bind();
       texture_light.bind();
-      shader_light.set_uniform1i("u_Texture", 0);
+      shader_light.set_uniform_int1("u_Texture", 0);
       shader_light.set_uniform_mat4("u_V", view);
 
       light_position.x = 5.0f * sin(render.get_time() / 2);
