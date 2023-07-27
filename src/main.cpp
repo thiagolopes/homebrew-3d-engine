@@ -134,6 +134,7 @@ int main(void) {
   bool rotate = true;
 
   // light
+  bool update_color = true;
   Light light = {
       glm::vec3(1.0, 1.0, 2.0),
       glm::vec3(0.2f, 0.2f, 0.2f),
@@ -153,6 +154,7 @@ int main(void) {
     imgui.clear();
     render.clear();
 
+    // handler key
     {
       if (glfwGetKey(render.get_window(), GLFW_KEY_W) == GLFW_PRESS)
         camera.process_keyboard(camera_direction_t::FORWARD, render.get_deltatime());
@@ -164,11 +166,27 @@ int main(void) {
         camera.process_keyboard(camera_direction_t::RIGHT, render.get_deltatime());
     }
 
+    // imgui panel
     {
       ImGui::Begin("Menu");
       ImGui::Checkbox("Rotate?", &rotate);
+      ImGui::Checkbox("Change Color?", &update_color);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
+    }
+
+    // color update
+    if (update_color) {
+      glm::vec3 light_color;
+      light_color.x = sin(glfwGetTime() * 2.0f);
+      light_color.y = sin(glfwGetTime() * 0.7f);
+      light_color.z = sin(glfwGetTime() * 1.3f);
+
+      light.diffuse = light_color * glm::vec3(0.5f);
+      light.ambient = light.diffuse * glm::vec3(0.2f);
+    } else {
+      light.ambient = glm::vec3(0.2f);
+      light.diffuse = glm::vec3(0.5f);
     }
 
     /* draw here */
