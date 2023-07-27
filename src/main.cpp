@@ -20,6 +20,13 @@
 int width = 1280;
 int height = 720;
 
+struct Material {
+  glm::vec3 ambient;
+  glm::vec3 diffuse;
+  glm::vec3 specular;
+  float shininess;
+};
+
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 // triagle positions and incidices - vertex collection
 float positions[] = {
@@ -126,6 +133,14 @@ int main(void) {
   // light position
   glm::vec3 light_position(1.0, 1.0, 2.0);
   glm::vec3 light_color(1.0, 1.0, 1.0);
+  // material
+  Material material = {
+      glm::vec3(0.3f, 0.3f, 0.3f),
+      glm::vec3(1.0f, 1.0f, 1.0f),
+      glm::vec3(0.5f, 0.5f, 0.5f),
+      32.0f,
+  };
+
   /* Loop until the user closes the window */
   while (render.running()) {
     imgui.clear();
@@ -168,6 +183,12 @@ int main(void) {
       shader.set_uniform_vec3("u_LightColor", light_color);
       shader.set_uniform_vec3("u_LightPos", light_position);
       shader.set_uniform_vec3("u_CameraPos", camera.get_position());
+
+      shader.set_uniform_vec3("u_material.ambient", material.ambient);
+      shader.set_uniform_vec3("u_material.diffuse", material.diffuse);
+      shader.set_uniform_vec3("u_material.specular", material.specular);
+      shader.set_uniform_float1("u_material.shininess", material.shininess);
+
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
@@ -194,6 +215,12 @@ int main(void) {
       shader.set_uniform_vec3("u_LightColor", light_color);
       shader.set_uniform_vec3("u_LightPos", light_position);
       shader.set_uniform_vec3("u_CameraPos", camera.get_position());
+
+      shader.set_uniform_vec3("u_material.ambient", material.ambient);
+      shader.set_uniform_vec3("u_material.diffuse", material.diffuse);
+      shader.set_uniform_vec3("u_material.specular", material.specular);
+      shader.set_uniform_float1("u_material.shininess", material.shininess);
+
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
