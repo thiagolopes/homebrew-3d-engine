@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(OpenGLProject)
+project(Engine)
 
 option(BUILD_DOC "Build documentation" ON)
 
@@ -47,9 +47,9 @@ else (DOXYGEN_FOUND)
   message("Doxygen need to be installed to generate the doxygen documentation")
 endif (DOXYGEN_FOUND)
 
-add_executable(OpenGLProject ${SOURCES} ${IMGUI_SOURCES})
+add_executable(Engine ${SOURCES} ${IMGUI_SOURCES})
 
-target_link_libraries(OpenGLProject
+target_link_libraries(Engine
   PRIVATE
   OpenGL::GL
   glfw
@@ -61,7 +61,7 @@ add_custom_target(lint
 )
 
 add_custom_target(run
-  COMMAND OpenGLProject
-  DEPENDS OpenGLProject
+  COMMAND Engine
+  DEPENDS Engine
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )

@@ -52,6 +52,7 @@ _deps
 lib/
 bin/
 OpenGLProject
+Engine
 
 # glfw gitignore
 # Generated files
