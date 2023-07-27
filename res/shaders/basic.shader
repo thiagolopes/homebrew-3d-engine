@@ -65,7 +65,7 @@ void main(){
     // specular lighting (brightness)
     vec3 camera_dir = normalize(u_CameraPos - v_FragPos);
     vec3 reflect_dir = reflect(-light_dir, v_Normal);
-    float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), u_material.shininess);
+    float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), (u_material.shininess * 128.0));
     vec3 specular = (spec * u_material.specular) * u_light.specular;
 
     vec4 texColor = texture(u_Texture, v_TexCoord);

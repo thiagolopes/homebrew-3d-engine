@@ -148,7 +148,7 @@ int main(void) {
       glm::vec3(0.3f, 0.3f, 0.3f),
       glm::vec3(1.0f, 1.0f, 1.0f),
       glm::vec3(0.5f, 0.5f, 0.5f),
-      32.0f,
+      0.01f,
   };
 
   /* Loop until the user closes the window */
