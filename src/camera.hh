@@ -31,4 +31,5 @@ public:
   glm::mat4 get_camera_matrix();
 
   inline float get_fov() { return m_fov; };
+  inline glm::vec3 &get_position() { return m_position; };
 };

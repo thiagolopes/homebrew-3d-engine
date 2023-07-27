@@ -167,6 +167,7 @@ int main(void) {
 
       shader.set_uniform_vec3("u_LightColor", light_color);
       shader.set_uniform_vec3("u_LightPos", light_position);
+      shader.set_uniform_vec3("u_CameraPos", camera.get_position());
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
@@ -192,6 +193,7 @@ int main(void) {
 
       shader.set_uniform_vec3("u_LightColor", light_color);
       shader.set_uniform_vec3("u_LightPos", light_position);
+      shader.set_uniform_vec3("u_CameraPos", camera.get_position());
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
@@ -208,8 +210,8 @@ int main(void) {
       shader_light.set_uniform1i("u_Texture", 0);
       shader_light.set_uniform_mat4("u_V", view);
 
-      light_position.x = 5.0f * sin(render.get_time());
-      light_position.z = 5.0f * cos(render.get_time());
+      light_position.x = 5.0f * sin(render.get_time() / 2);
+      light_position.z = 5.0f * cos(render.get_time() / 2);
 
       model = glm::translate(glm::mat4(1.0f), light_position);
       model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
