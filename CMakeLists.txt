@@ -18,15 +18,7 @@ add_subdirectory(glfw)
 include_directories(glfw/include)
 
 file(GLOB SOURCES "src/*.cpp")
-set(IMGUI_SOURCES
-  src/vendor/imgui/imgui.cpp
-  src/vendor/imgui/imgui_demo.cpp
-  src/vendor/imgui/imgui_draw.cpp
-  src/vendor/imgui/imgui_impl_glfw.cpp
-  src/vendor/imgui/imgui_impl_opengl3.cpp
-  src/vendor/imgui/imgui_tables.cpp
-  src/vendor/imgui/imgui_widgets.cpp
-)
+file(GLOB IMGUI_SOURCES "src/vendor/imgui/*.cpp")
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
