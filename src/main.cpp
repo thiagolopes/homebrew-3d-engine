@@ -30,6 +30,7 @@ struct Material {
   // Texture diffuse;
   float shininess;
   float emission;
+  bool emission_mask;
 };
 
 struct Light {
@@ -154,7 +155,8 @@ int main(void) {
       // TODO add texture ambient
       // TODO add texture specular
       1.0f,
-      1.0f, // emission off
+      1.0f,  // emission off
+      false, // emission mask off
   };
 
   /* Loop until the user closes the window */
@@ -181,8 +183,10 @@ int main(void) {
       ImGui::SliderFloat3("Diffuse light", &light.diffuse.x, 0.0f, 1.0f);
       ImGui::SliderFloat3("Specular light", &light.specular.x, 0.0f, 1.0f);
       ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
+      ImGui::SliderFloat("Emission material", &material.emission, 0.0f, 1.0f);
       ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Checkbox("Change Color?", &update_color);
+      ImGui::Checkbox("Emission mask?", &material.emission_mask);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
     }
@@ -227,6 +231,7 @@ int main(void) {
 
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
       shader.set_uniform_float1("u_Material.emission_level", material.emission);
+      shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
 
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
@@ -264,6 +269,7 @@ int main(void) {
 
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
       shader.set_uniform_float1("u_Material.emission_level", material.emission);
+      shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
 
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);

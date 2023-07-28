@@ -38,6 +38,7 @@ struct Material {
     sampler2D emission;
     float shininess;
     float emission_level;
+    bool emission_mask;
 };
 
 struct Light {
@@ -71,8 +72,11 @@ void main(){
     vec3 specular = u_Light.specular * spec * specular_texture.rgb;
 
     // emission
-    // vec3 emission_mask = step(vec3(1.0f), vec3(1.0f)- specular_texture.rgb); do this to put specular over emission.
     vec3 emission = texture(u_Material.emission, v_TexCoord).rgb * u_Material.emission_level;
+    if (u_Material.emission_mask){ // flag enable draw specular OVER emission.
+        vec3 emission_mask_rgb = step(vec3(1.0f), vec3(1.0f) - specular_texture.rgb);
+        emission *= emission_mask_rgb;
+    }
 
     // output
     color = vec4((ambient + diffuse + specular + emission), 1.0);
