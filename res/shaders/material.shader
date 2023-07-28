@@ -33,9 +33,11 @@ in vec3 v_Normal;
 in vec3 v_FragPos;
 
 struct Material {
-    sampler2D diffuse_texture;
-    sampler2D specular_texture;
+    sampler2D diffuse;
+    sampler2D specular;
+    sampler2D emission;
     float shininess;
+    float emission_level;
 };
 
 struct Light {
@@ -51,23 +53,26 @@ uniform Material u_Material;
 uniform Light u_Light;
 
 void main(){
-    vec4 texColor = texture(u_Material.diffuse_texture, v_TexCoord);
-    vec4 textColorSpecular = texture(u_Material.specular_texture, v_TexCoord);
-
     // ambient lighting
-    vec3 ambient = u_Light.ambient * texColor.rgb;
+    vec4 material_texture = texture(u_Material.diffuse, v_TexCoord);
+    vec3 ambient = u_Light.ambient * material_texture.rgb;
 
     // diffuse lighting (light source)
     vec3 norm = normalize(v_Normal);
     vec3 light_dir = normalize(u_Light.position - v_FragPos);
     float diff = max(dot(norm, light_dir), 0.0);
-    vec3 diffuse = u_Light.diffuse * diff * texColor.rgb;
+    vec3 diffuse = u_Light.diffuse * diff * material_texture.rgb;
 
     // specular lighting (brightness)
+    vec4 specular_texture = texture(u_Material.specular, v_TexCoord);
     vec3 camera_dir = normalize(u_CameraPos - v_FragPos);
     vec3 reflect_dir = reflect(-light_dir, v_Normal);
     float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), (u_Material.shininess * 128.0));
-    vec3 specular = u_Light.specular * spec * textColorSpecular.rgb;
+    vec3 specular = u_Light.specular * spec * specular_texture.rgb;
 
-    color = vec4((ambient + diffuse + specular), 1.0);
+    // emission
+    vec3 emission = texture(u_Material.emission, v_TexCoord).rgb * u_Material.emission_level;
+
+    // output
+    color = vec4((ambient + diffuse + specular + emission), 1.0);
 }

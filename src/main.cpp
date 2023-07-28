@@ -15,14 +15,21 @@
 #include "vendor/imgui/imgui.h"
 #define TAU 6.28
 
+// settings
 int width = 1280;
 int height = 720;
+bool first_mouse_call = true;
+float mouse_last_x = width / 2.0f;
+float mouse_last_y = height / 2.0f;
+
 // setup free camera
 Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
 
+// TODO move to mesh class
 struct Material {
   // Texture diffuse;
   float shininess;
+  float emission;
 };
 
 struct Light {
@@ -32,9 +39,6 @@ struct Light {
   glm::vec3 specular;
 };
 
-bool first_mouse_call = true;
-float mouse_last_x = width / 2.0f;
-float mouse_last_y = height / 2.0f;
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 // triagle positions and incidices - vertex collection
@@ -122,6 +126,7 @@ int main(void) {
   Texture texture_wood("res/textures/texture_wood.png");
   Texture texture_wood_spec("res/textures/texture_wood_spec.png");
   Texture texture_light("res/textures/light.png");
+  Texture texture_matrix("res/textures/matrix.png");
 
   // imgui
   ImGuiRenderer imgui(render.get_window());
@@ -148,7 +153,8 @@ int main(void) {
   Material material = {
       // TODO add texture ambient
       // TODO add texture specular
-      0.7f,
+      1.0f,
+      0.0f, // emission off
   };
 
   /* Loop until the user closes the window */
@@ -202,8 +208,10 @@ int main(void) {
       shader.bind();
       texture_dirty.bind();
       texture_dirty_spec.bind(1);
-      shader.set_uniform_int1("u_Material.diffuse_texture", 0);
-      shader.set_uniform_int1("u_Material.specular_texture", 1);
+      texture_matrix.bind(2);
+      shader.set_uniform_int1("u_Material.diffuse", 0);
+      shader.set_uniform_int1("u_Material.specular", 1);
+      shader.set_uniform_int1("u_Material.emission", 2);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
@@ -218,6 +226,7 @@ int main(void) {
       shader.set_uniform_vec3("u_Light.specular", light.specular);
 
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
+      shader.set_uniform_float1("u_Material.emission_level", material.emission);
 
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
@@ -225,6 +234,8 @@ int main(void) {
       render.draw(va, ib, shader);
 
       texture_dirty.unbind();
+      texture_dirty_spec.unbind();
+      texture_matrix.unbind();
       shader.unbind();
     }
 
@@ -233,8 +244,10 @@ int main(void) {
       shader.bind();
       texture_wood.bind();
       texture_wood_spec.bind(1);
-      shader.set_uniform_int1("u_Material.diffuse_texture", 0);
-      shader.set_uniform_int1("u_Material.specular_texture", 1);
+      texture_matrix.bind(2);
+      shader.set_uniform_int1("u_Material.diffuse", 0);
+      shader.set_uniform_int1("u_Material.specular", 1);
+      shader.set_uniform_int1("u_Material.emission", 2);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0, 1.0, -3.0));
@@ -250,6 +263,7 @@ int main(void) {
       shader.set_uniform_vec3("u_Light.specular", light.specular);
 
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
+      shader.set_uniform_float1("u_Material.emission_level", material.emission);
 
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
@@ -257,6 +271,8 @@ int main(void) {
       render.draw(va, ib, shader); // todo: movo to a batch render and draw once;
 
       texture_wood.unbind();
+      texture_wood_spec.unbind();
+      texture_matrix.unbind();
       shader.unbind();
     }
 
