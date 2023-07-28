@@ -22,7 +22,7 @@ void main(){
     gl_Position =  u_P * u_V * u_M * vec4(position, 1.0);
 }
 
-
+//-----------------------------------------------------------------------------
 #shader fragment
 #version 330 core
 
