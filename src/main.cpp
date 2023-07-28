@@ -149,7 +149,7 @@ int main(void) {
   Material material = {
       // texture,
       glm::vec3(0.5f, 0.5f, 0.5f),
-      64.0f,
+      0.01f,
   };
 
   /* Loop until the user closes the window */
@@ -175,7 +175,7 @@ int main(void) {
       ImGui::SliderFloat3("Ambiant light", &light.ambient.x, 0.0f, 1.0f);
       ImGui::SliderFloat3("Diffuse light", &light.diffuse.x, 0.0f, 1.0f);
       ImGui::SliderFloat3("Specular light", &light.specular.x, 0.0f, 1.0f);
-      ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 256.0f);
+      ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
       ImGui::SliderFloat3("Specular material", &material.specular.x, 0.0f, 1.0f);
       ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Checkbox("Change Color?", &update_color);
@@ -204,8 +204,8 @@ int main(void) {
       shader.bind();
       texture.bind();
       texture_spec.bind(1);
-      shader.set_uniform_int1("u_material.diffuse_texture", 0);
-      shader.set_uniform_int1("u_material.specular_texture", 1);
+      shader.set_uniform_int1("u_Material.diffuse_texture", 0);
+      shader.set_uniform_int1("u_Material.specular_texture", 1);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
@@ -214,12 +214,12 @@ int main(void) {
         model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
       };
 
-      shader.set_uniform_vec3("u_light.position", light.position);
-      shader.set_uniform_vec3("u_light.ambient", light.ambient);
-      shader.set_uniform_vec3("u_light.diffuse", light.diffuse);
-      shader.set_uniform_vec3("u_light.specular", light.specular);
+      shader.set_uniform_vec3("u_Light.position", light.position);
+      shader.set_uniform_vec3("u_Light.ambient", light.ambient);
+      shader.set_uniform_vec3("u_Light.diffuse", light.diffuse);
+      shader.set_uniform_vec3("u_Light.specular", light.specular);
 
-      shader.set_uniform_float1("u_material.shininess", material.shininess);
+      shader.set_uniform_float1("u_Material.shininess", material.shininess);
 
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
@@ -235,8 +235,8 @@ int main(void) {
       shader.bind();
       texture_two.bind();
       texture_two_spec.bind(1);
-      shader.set_uniform_int1("u_material.diffuse_texture", 0);
-      shader.set_uniform_int1("u_material.specular_texture", 1);
+      shader.set_uniform_int1("u_Material.diffuse_texture", 0);
+      shader.set_uniform_int1("u_Material.specular_texture", 1);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0, 1.0, -3.0));
@@ -246,12 +246,12 @@ int main(void) {
         model = glm::rotate(model, render.get_time() * glm::radians(40.0f), glm::vec3(0.5f, 5.0f, 1.0f));
       };
 
-      shader.set_uniform_vec3("u_light.position", light.position);
-      shader.set_uniform_vec3("u_light.ambient", light.ambient);
-      shader.set_uniform_vec3("u_light.diffuse", light.diffuse);
-      shader.set_uniform_vec3("u_light.specular", light.specular);
+      shader.set_uniform_vec3("u_Light.position", light.position);
+      shader.set_uniform_vec3("u_Light.ambient", light.ambient);
+      shader.set_uniform_vec3("u_Light.diffuse", light.diffuse);
+      shader.set_uniform_vec3("u_Light.specular", light.specular);
 
-      shader.set_uniform_float1("u_material.shininess", material.shininess);
+      shader.set_uniform_float1("u_Material.shininess", material.shininess);
 
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
@@ -268,8 +268,8 @@ int main(void) {
       texture_light.bind();
       shader_light.set_uniform_mat4("u_V", view);
 
-      shader_light.set_uniform_vec3("u_light.ambient", light.ambient);
-      shader_light.set_uniform_vec3("u_light.diffuse", light.diffuse);
+      shader_light.set_uniform_vec3("u_Light.ambient", light.ambient);
+      shader_light.set_uniform_vec3("u_Light.diffuse", light.diffuse);
 
       light.position.x = 4.0f * sin(render.get_time());
       light.position.z = 5.0f * cos(render.get_time());

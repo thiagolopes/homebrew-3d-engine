@@ -47,27 +47,27 @@ struct Light {
 };
 
 uniform vec3 u_CameraPos;
-uniform Material u_material;
-uniform Light u_light;
+uniform Material u_Material;
+uniform Light u_Light;
 
 void main(){
-    vec4 texColor = texture(u_material.diffuse_texture, v_TexCoord);
-    vec4 textColorSpecular = texture(u_material.specular_texture, v_TexCoord);
+    vec4 texColor = texture(u_Material.diffuse_texture, v_TexCoord);
+    vec4 textColorSpecular = texture(u_Material.specular_texture, v_TexCoord);
 
     // ambient lighting
-    vec3 ambient = u_light.ambient * vec3(texColor);
+    vec3 ambient = u_Light.ambient * texColor.rgb;
 
     // diffuse lighting (light source)
     vec3 norm = normalize(v_Normal);
-    vec3 light_dir = normalize(u_light.position - v_FragPos);
+    vec3 light_dir = normalize(u_Light.position - v_FragPos);
     float diff = max(dot(norm, light_dir), 0.0);
-    vec3 diffuse = u_light.diffuse * diff * texColor.rgb;
+    vec3 diffuse = u_Light.diffuse * diff * texColor.rgb;
 
     // specular lighting (brightness)
     vec3 camera_dir = normalize(u_CameraPos - v_FragPos);
     vec3 reflect_dir = reflect(-light_dir, v_Normal);
-    float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), u_material.shininess);
-    vec3 specular = u_light.specular * spec * textColorSpecular.rgb;
+    float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), (u_Material.shininess * 128.0));
+    vec3 specular = u_Light.specular * spec * textColorSpecular.rgb;
 
     color = vec4((ambient + diffuse + specular), 1.0);
 }

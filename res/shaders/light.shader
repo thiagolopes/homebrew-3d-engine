@@ -30,9 +30,9 @@ struct Light {
 };
 
 uniform sampler2D u_Texture;
-uniform Light u_light;
+uniform Light u_Light;
 
 void main(){
     vec4 texColor = texture(u_Texture, v_TexCoord);
-    color = texColor * vec4(u_light.diffuse + u_light.ambient, 1.0);
+    color = texColor * vec4(u_Light.diffuse + u_Light.ambient, 1.0);
 }
