@@ -22,7 +22,6 @@ Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
 
 struct Material {
   // Texture diffuse;
-  glm::vec3 specular;
   float shininess;
 };
 
@@ -147,8 +146,8 @@ int main(void) {
   };
   // material
   Material material = {
-      // texture,
-      glm::vec3(0.5f, 0.5f, 0.5f),
+      // TODO add texture ambient
+      // TODO add texture specular
       0.7f,
   };
 
@@ -176,7 +175,6 @@ int main(void) {
       ImGui::SliderFloat3("Diffuse light", &light.diffuse.x, 0.0f, 1.0f);
       ImGui::SliderFloat3("Specular light", &light.specular.x, 0.0f, 1.0f);
       ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
-      ImGui::SliderFloat3("Specular material", &material.specular.x, 0.0f, 1.0f);
       ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Checkbox("Change Color?", &update_color);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
