@@ -154,7 +154,7 @@ int main(void) {
       // TODO add texture ambient
       // TODO add texture specular
       1.0f,
-      0.0f, // emission off
+      1.0f, // emission off
   };
 
   /* Loop until the user closes the window */
