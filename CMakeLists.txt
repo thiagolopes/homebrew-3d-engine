@@ -20,6 +20,18 @@ include_directories(glfw/include)
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB IMGUI_SOURCES "src/vendor/imgui/*.cpp")
 
+file(GLOB HEADER_FILES "src/*.hh")
+function(CHECK_PRAGMA_HEADER FILES)
+  foreach(FILE ${${FILES}})
+    file(STRINGS ${FILE} FILE_CONTENTS)
+    list(GET FILE_CONTENTS 0 FIRST_LINE)
+    if(NOT "${FIRST_LINE}" MATCHES "#pragma")
+      message(FATAL_ERROR "${FILE} need a #pragma!! #################")
+    endif()
+  endforeach()
+endfunction()
+CHECK_PRAGMA_HEADER(HEADER_FILES)
+
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
 
