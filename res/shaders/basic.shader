@@ -34,7 +34,7 @@ in vec3 v_FragPos;
 
 struct Material {
     sampler2D diffuse_texture;
-    vec3 specular;
+    sampler2D specular_texture;
     float shininess;
 };
 
@@ -52,6 +52,7 @@ uniform Light u_light;
 
 void main(){
     vec4 texColor = texture(u_material.diffuse_texture, v_TexCoord);
+    vec4 textColorSpecular = texture(u_material.specular_texture, v_TexCoord);
 
     // ambient lighting
     vec3 ambient = u_light.ambient * vec3(texColor);
@@ -60,13 +61,13 @@ void main(){
     vec3 norm = normalize(v_Normal);
     vec3 light_dir = normalize(u_light.position - v_FragPos);
     float diff = max(dot(norm, light_dir), 0.0);
-    vec3 diffuse = u_light.diffuse * diff * vec3(texColor);
+    vec3 diffuse = u_light.diffuse * diff * texColor.rgb;
 
     // specular lighting (brightness)
     vec3 camera_dir = normalize(u_CameraPos - v_FragPos);
     vec3 reflect_dir = reflect(-light_dir, v_Normal);
-    float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), (u_material.shininess * 128.0));
-    vec3 specular = (spec * u_material.specular) * u_light.specular;
+    float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), u_material.shininess);
+    vec3 specular = u_light.specular * spec * textColorSpecular.rgb;
 
     color = vec4((ambient + diffuse + specular), 1.0) * texColor;
 }

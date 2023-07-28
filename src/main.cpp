@@ -135,10 +135,10 @@ int main(void) {
   bool rotate = true;
 
   // light
-  bool update_color = true;
+  bool update_color = false;
   Light light = {
       glm::vec3(1.0, 1.0, 2.0),
-      glm::vec3(0.2f, 0.2f, 0.2f),
+      glm::vec3(0.4f, 0.4f, 0.4f),
       glm::vec3(0.5f, 0.5f, 0.5f),
       glm::vec3(1.0f, 1.0f, 1.0f),
   };
@@ -146,7 +146,7 @@ int main(void) {
   Material material = {
       // texture,
       glm::vec3(0.5f, 0.5f, 0.5f),
-      0.01f,
+      64.0f,
   };
 
   /* Loop until the user closes the window */
@@ -169,6 +169,11 @@ int main(void) {
     // imgui panel
     {
       ImGui::Begin("Menu");
+      ImGui::SliderFloat3("Ambiant light", &light.ambient.x, 0.0f, 1.0f);
+      ImGui::SliderFloat3("Diffuse light", &light.diffuse.x, 0.0f, 1.0f);
+      ImGui::SliderFloat3("Specular light", &light.specular.x, 0.0f, 1.0f);
+      ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 256.0f);
+      ImGui::SliderFloat3("Specular material", &material.specular.x, 0.0f, 1.0f);
       ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Checkbox("Change Color?", &update_color);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
@@ -184,9 +189,6 @@ int main(void) {
 
       light.diffuse = light_color * glm::vec3(0.5f);
       light.ambient = light.diffuse * glm::vec3(0.2f);
-    } else {
-      light.ambient = glm::vec3(0.2f);
-      light.diffuse = glm::vec3(0.5f);
     }
 
     /* draw here */
@@ -196,7 +198,9 @@ int main(void) {
     {
       shader.bind();
       texture.bind();
+      texture_spec.bind(1);
       shader.set_uniform_int1("u_material.diffuse_texture", 0);
+      shader.set_uniform_int1("u_material.specular_texture", 1);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
@@ -210,7 +214,6 @@ int main(void) {
       shader.set_uniform_vec3("u_light.diffuse", light.diffuse);
       shader.set_uniform_vec3("u_light.specular", light.specular);
 
-      shader.set_uniform_vec3("u_material.specular", material.specular);
       shader.set_uniform_float1("u_material.shininess", material.shininess);
 
       shader.set_uniform_mat4("u_M", model);
@@ -226,7 +229,9 @@ int main(void) {
     {
       shader.bind();
       texture_two.bind();
+      texture_two_spec.bind(1);
       shader.set_uniform_int1("u_material.diffuse_texture", 0);
+      shader.set_uniform_int1("u_material.specular_texture", 1);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0, 1.0, -3.0));
@@ -241,7 +246,6 @@ int main(void) {
       shader.set_uniform_vec3("u_light.diffuse", light.diffuse);
       shader.set_uniform_vec3("u_light.specular", light.specular);
 
-      shader.set_uniform_vec3("u_material.specular", material.specular);
       shader.set_uniform_float1("u_material.shininess", material.shininess);
 
       shader.set_uniform_mat4("u_M", model);
