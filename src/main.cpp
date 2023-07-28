@@ -114,14 +114,14 @@ int main(void) {
   va_light.add_buffer(vb, vbl);
 
   // load shader source code
-  Shader shader("res/shaders/basic.shader");
+  Shader shader("res/shaders/material.shader");
   Shader shader_light("res/shaders/light.shader");
 
   // texture
-  Texture texture("res/textures/texture_mine.jpg");
-  Texture texture_spec("res/textures/texture_mine_spec.jpg");
-  Texture texture_two("res/textures/texture.png");
-  Texture texture_two_spec("res/textures/texture_spec.png");
+  Texture texture_dirty("res/textures/texture_dirty.png");
+  Texture texture_dirty_spec("res/textures/texture_dirty_spec.png");
+  Texture texture_wood("res/textures/texture_wood.png");
+  Texture texture_wood_spec("res/textures/texture_wood_spec.png");
   Texture texture_light("res/textures/light.png");
 
   // imgui
@@ -149,7 +149,7 @@ int main(void) {
   Material material = {
       // texture,
       glm::vec3(0.5f, 0.5f, 0.5f),
-      0.01f,
+      0.7f,
   };
 
   /* Loop until the user closes the window */
@@ -202,8 +202,8 @@ int main(void) {
     // first cube
     {
       shader.bind();
-      texture.bind();
-      texture_spec.bind(1);
+      texture_dirty.bind();
+      texture_dirty_spec.bind(1);
       shader.set_uniform_int1("u_Material.diffuse_texture", 0);
       shader.set_uniform_int1("u_Material.specular_texture", 1);
       shader.set_uniform_mat4("u_V", view);
@@ -226,15 +226,15 @@ int main(void) {
 
       render.draw(va, ib, shader);
 
-      texture.unbind();
+      texture_dirty.unbind();
       shader.unbind();
     }
 
     // seconde cube
     {
       shader.bind();
-      texture_two.bind();
-      texture_two_spec.bind(1);
+      texture_wood.bind();
+      texture_wood_spec.bind(1);
       shader.set_uniform_int1("u_Material.diffuse_texture", 0);
       shader.set_uniform_int1("u_Material.specular_texture", 1);
       shader.set_uniform_mat4("u_V", view);
@@ -258,7 +258,7 @@ int main(void) {
 
       render.draw(va, ib, shader); // todo: movo to a batch render and draw once;
 
-      texture_two.unbind();
+      texture_wood.unbind();
       shader.unbind();
     }
 
