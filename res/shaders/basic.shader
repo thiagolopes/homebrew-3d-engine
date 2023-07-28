@@ -69,5 +69,5 @@ void main(){
     float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), u_material.shininess);
     vec3 specular = u_light.specular * spec * textColorSpecular.rgb;
 
-    color = vec4((ambient + diffuse + specular), 1.0) * texColor;
+    color = vec4((ambient + diffuse + specular), 1.0);
 }
