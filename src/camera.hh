@@ -24,12 +24,13 @@ public:
   Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
          float yaw = -90.0f, float pitch = 0.0f, float fov = 45.0f);
 
-  // void process_mouse_moviment();
-  // void process_mouse_scroll();
+  void process_mouse_moviment(float x_offset, float y_offset, bool constrian_pitch = true);
+  void process_mouse_scroll(float y_offset);
   void process_keyboard(camera_direction_t d, float delta_time);
 
   glm::mat4 get_camera_matrix();
 
   inline float get_fov() { return m_fov; };
   inline glm::vec3 &get_position() { return m_position; };
+  inline void set_moviment_speed(float m) { m_moviment_speed = m; };
 };

@@ -17,6 +17,8 @@
 
 int width = 1280;
 int height = 720;
+// setup free camera
+Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
 
 struct Material {
   // Texture diffuse;
@@ -31,7 +33,11 @@ struct Light {
   glm::vec3 specular;
 };
 
+bool first_mouse_call = true;
+float mouse_last_x = width / 2.0f;
+float mouse_last_y = height / 2.0f;
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 // triagle positions and incidices - vertex collection
 float positions[] = {
     -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  -1.0f, // A 0 NORMAL A
@@ -79,16 +85,14 @@ size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
 int main(void) {
   char window_name[] = "Engine3D";
+  camera.set_moviment_speed(8.0f);
 
   Renderer render(window_name, width, height);
   render.set_swap_interval(false);
   render.set_depth_test();
-  // render.set_mouse_moviment_callback((void *)mouse_handler);
-  // render.set_mouse_scroll_callback((void *)scroll_callback);
+  render.set_mouse_moviment_callback((void *)mouse_callback);
+  render.set_mouse_scroll_callback((void *)scroll_callback);
   // render.set_mouse_button_callback((void *)mouse_button_callback);
-
-  // setup free camera
-  Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
 
   // // draw steps:
   // 1. vertex buffer (in vram; collections of vertex)
@@ -130,8 +134,7 @@ int main(void) {
   // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective.
   glm::mat4 model;
   glm::mat4 view;
-  glm::mat4 proj = glm::perspective(glm::radians(camera.get_fov()),
-                                    (float)render.get_width() / (float)render.get_height(), 0.1f, 100.0f);
+  glm::mat4 proj;
   bool rotate = true;
 
   // light
@@ -193,6 +196,8 @@ int main(void) {
 
     /* draw here */
     view = camera.get_camera_matrix();
+    proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
+                            0.1f, 100.0f);
 
     // first cube
     {
@@ -266,8 +271,8 @@ int main(void) {
       shader_light.set_uniform_vec3("u_light.ambient", light.ambient);
       shader_light.set_uniform_vec3("u_light.diffuse", light.diffuse);
 
-      light.position.x = 5.0f * sin(render.get_time() / 2);
-      light.position.z = 5.0f * cos(render.get_time() / 2);
+      light.position.x = 4.0f * sin(render.get_time());
+      light.position.z = 5.0f * cos(render.get_time());
 
       model = glm::translate(glm::mat4(1.0f), light.position);
       model = glm::scale(model, glm::vec3(0.5));
@@ -286,3 +291,27 @@ int main(void) {
 
   return 0;
 }
+
+void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
+  float xpos = static_cast<float>(xposIn);
+  float ypos = static_cast<float>(yposIn);
+
+  if (first_mouse_call) {
+    mouse_last_x = xpos;
+    mouse_last_y = ypos;
+    first_mouse_call = false;
+  }
+
+  float xoffset = xpos - mouse_last_x;
+  float yoffset = mouse_last_y - ypos; // reversed since y-coordinates go from bottom to top
+
+  mouse_last_x = xpos;
+  mouse_last_y = ypos;
+
+  int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
+  if (state) {
+    camera.process_mouse_moviment(xoffset, yoffset);
+  }
+}
+
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) { camera.process_mouse_scroll(yoffset); }
