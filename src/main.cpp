@@ -19,8 +19,7 @@ int width = 1280;
 int height = 720;
 
 struct Material {
-  glm::vec3 ambient;
-  glm::vec3 diffuse;
+  // Texture diffuse;
   glm::vec3 specular;
   float shininess;
 };
@@ -145,8 +144,7 @@ int main(void) {
   };
   // material
   Material material = {
-      glm::vec3(0.3f, 0.3f, 0.3f),
-      glm::vec3(1.0f, 1.0f, 1.0f),
+      // texture,
       glm::vec3(0.5f, 0.5f, 0.5f),
       0.01f,
   };
@@ -198,7 +196,7 @@ int main(void) {
     {
       shader.bind();
       texture.bind();
-      shader.set_uniform_int1("u_Texture", 0);
+      shader.set_uniform_int1("u_material.diffuse_texture", 0);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
@@ -212,8 +210,6 @@ int main(void) {
       shader.set_uniform_vec3("u_light.diffuse", light.diffuse);
       shader.set_uniform_vec3("u_light.specular", light.specular);
 
-      shader.set_uniform_vec3("u_material.ambient", material.ambient);
-      shader.set_uniform_vec3("u_material.diffuse", material.diffuse);
       shader.set_uniform_vec3("u_material.specular", material.specular);
       shader.set_uniform_float1("u_material.shininess", material.shininess);
 
@@ -230,7 +226,7 @@ int main(void) {
     {
       shader.bind();
       texture_two.bind();
-      shader.set_uniform_int1("u_Texture", 0);
+      shader.set_uniform_int1("u_material.diffuse_texture", 0);
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0, 1.0, -3.0));
@@ -245,8 +241,6 @@ int main(void) {
       shader.set_uniform_vec3("u_light.diffuse", light.diffuse);
       shader.set_uniform_vec3("u_light.specular", light.specular);
 
-      shader.set_uniform_vec3("u_material.ambient", material.ambient);
-      shader.set_uniform_vec3("u_material.diffuse", material.diffuse);
       shader.set_uniform_vec3("u_material.specular", material.specular);
       shader.set_uniform_float1("u_material.shininess", material.shininess);
 
@@ -263,7 +257,6 @@ int main(void) {
     {
       shader_light.bind();
       texture_light.bind();
-      shader_light.set_uniform_int1("u_Texture", 0);
       shader_light.set_uniform_mat4("u_V", view);
 
       shader_light.set_uniform_vec3("u_light.ambient", light.ambient);

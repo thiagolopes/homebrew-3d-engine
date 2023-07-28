@@ -33,8 +33,7 @@ in vec3 v_Normal;
 in vec3 v_FragPos;
 
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
+    sampler2D diffuse_texture;
     vec3 specular;
     float shininess;
 };
@@ -47,20 +46,21 @@ struct Light {
     vec3 specular;
 };
 
-uniform sampler2D u_Texture;
 uniform vec3 u_CameraPos;
 uniform Material u_material;
 uniform Light u_light;
 
 void main(){
+    vec4 texColor = texture(u_material.diffuse_texture, v_TexCoord);
+
     // ambient lighting
-    vec3 ambient = u_material.ambient * u_light.ambient;
+    vec3 ambient = u_light.ambient * vec3(texColor);
 
     // diffuse lighting (light source)
     vec3 norm = normalize(v_Normal);
     vec3 light_dir = normalize(u_light.position - v_FragPos);
     float diff = max(dot(norm, light_dir), 0.0);
-    vec3 diffuse = (diff * u_material.diffuse) * u_light.diffuse;
+    vec3 diffuse = u_light.diffuse * diff * vec3(texColor);
 
     // specular lighting (brightness)
     vec3 camera_dir = normalize(u_CameraPos - v_FragPos);
@@ -68,6 +68,5 @@ void main(){
     float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), (u_material.shininess * 128.0));
     vec3 specular = (spec * u_material.specular) * u_light.specular;
 
-    vec4 texColor = texture(u_Texture, v_TexCoord);
     color = vec4((ambient + diffuse + specular), 1.0) * texColor;
 }
