@@ -42,7 +42,8 @@ struct Material {
 };
 
 struct Light {
-    vec3 position;
+    // vec3 position; // no longer necessary when using directional lights.
+    vec3 direction;
 
     vec3 ambient;
     vec3 diffuse;
@@ -60,7 +61,7 @@ void main(){
 
     // diffuse lighting (light source)
     vec3 norm = normalize(v_Normal);
-    vec3 light_dir = normalize(u_Light.position - v_FragPos);
+    vec3 light_dir = normalize(-u_Light.direction);
     float diff = max(dot(norm, light_dir), 0.0);
     vec3 diffuse = u_Light.diffuse * diff * material_texture.rgb;
 

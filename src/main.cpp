@@ -34,7 +34,8 @@ struct Material {
 };
 
 struct Light {
-  glm::vec3 position;
+  // glm::vec3 position;
+  glm::vec3 direction;
   glm::vec3 ambient;
   glm::vec3 diffuse;
   glm::vec3 specular;
@@ -71,6 +72,12 @@ float positions[] = {
     -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 0.0f,  1.0f,  0.0f, // H 22 NORMAL F
     0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f, // G 23 NORMAL F
 };
+
+glm::vec3 cube_word_positions[] = {glm::vec3(0.0f, 0.0f, 0.0f),    glm::vec3(2.0f, 5.0f, -15.0f),
+                                   glm::vec3(-1.5f, -2.2f, -2.5f), glm::vec3(-3.8f, -2.0f, -12.3f),
+                                   glm::vec3(2.4f, -0.4f, -3.5f),  glm::vec3(-1.7f, 3.0f, -7.5f),
+                                   glm::vec3(1.3f, -2.0f, -2.5f),  glm::vec3(1.5f, 2.0f, -2.5f),
+                                   glm::vec3(1.5f, 0.2f, -1.5f),   glm::vec3(-1.3f, 1.0f, -1.5f)};
 
 unsigned int indices[] = {
     // front
@@ -145,7 +152,7 @@ int main(void) {
   // light
   bool update_color = false;
   Light light = {
-      glm::vec3(1.0, 1.0, 2.0),
+      glm::vec3(-0.2f, -1.0f, -0.3f),
       glm::vec3(0.4f, 0.4f, 0.4f),
       glm::vec3(0.5f, 0.5f, 0.5f),
       glm::vec3(1.0f, 1.0f, 1.0f),
@@ -207,8 +214,7 @@ int main(void) {
     proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
                             0.1f, 100.0f);
 
-    // first cube
-    {
+    for (size_t i = 0; i < 5; i++) {
       shader.bind();
       texture_dirty.bind();
       texture_dirty_spec.bind(1);
@@ -218,13 +224,13 @@ int main(void) {
       shader.set_uniform_int1("u_Material.emission", 2);
       shader.set_uniform_mat4("u_V", view);
 
-      model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, -1.0)); // multiply z to use positive bar in gui
+      model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]); // multiply z to use positive bar in gui
       model = glm::scale(model, glm::vec3(1.0f));
       if (rotate) {
         model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
       };
 
-      shader.set_uniform_vec3("u_Light.position", light.position);
+      shader.set_uniform_vec3("u_Light.direction", light.direction);
       shader.set_uniform_vec3("u_Light.ambient", light.ambient);
       shader.set_uniform_vec3("u_Light.diffuse", light.diffuse);
       shader.set_uniform_vec3("u_Light.specular", light.specular);
@@ -242,10 +248,10 @@ int main(void) {
       texture_dirty_spec.unbind();
       texture_matrix.unbind();
       shader.unbind();
-    }
+    };
 
     // seconde cube
-    {
+    for (size_t i = 5; i < 10; i++) {
       shader.bind();
       texture_wood.bind();
       texture_wood_spec.bind(1);
@@ -255,14 +261,14 @@ int main(void) {
       shader.set_uniform_int1("u_Material.emission", 2);
       shader.set_uniform_mat4("u_V", view);
 
-      model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0, 1.0, -3.0));
+      model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]);
       model = glm::scale(model, glm::vec3(1.0f));
 
       if (rotate) {
         model = glm::rotate(model, render.get_time() * glm::radians(40.0f), glm::vec3(0.5f, 5.0f, 1.0f));
       };
 
-      shader.set_uniform_vec3("u_Light.position", light.position);
+      shader.set_uniform_vec3("u_Light.direction", light.direction);
       shader.set_uniform_vec3("u_Light.ambient", light.ambient);
       shader.set_uniform_vec3("u_Light.diffuse", light.diffuse);
       shader.set_uniform_vec3("u_Light.specular", light.specular);
@@ -282,7 +288,8 @@ int main(void) {
       shader.unbind();
     }
 
-    // third cube - the light
+// third cube - the light
+#if 0
     {
       shader_light.bind();
       texture_light.bind();
@@ -304,6 +311,7 @@ int main(void) {
       texture_light.unbind();
       shader_light.unbind();
     }
+#endif
 
     imgui.draw();
     render.end_frame();

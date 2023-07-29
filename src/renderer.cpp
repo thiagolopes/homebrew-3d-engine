@@ -72,9 +72,10 @@ void Renderer::end_frame() {
 void Renderer::set_swap_interval(bool flag) const { glfwSwapInterval(flag); };
 
 void Renderer::set_depth_test(bool flag) const {
-  if (flag)
+  if (flag) {
     glEnable(GL_DEPTH_TEST);
-  else
+    glDepthFunc(GL_LESS);
+  } else
     glDisable(GL_DEPTH_TEST);
 };
 
