@@ -12,7 +12,7 @@
 #include "textures.hh"
 #include "camera.hh"
 
-#include "vendor/imgui/imgui.h"
+#include "imgui.h"
 #define TAU 6.28
 
 // settings
@@ -99,7 +99,7 @@ int main(void) {
   camera.set_moviment_speed(8.0f);
 
   Renderer render(window_name, width, height);
-  render.set_swap_interval(false);
+  render.set_swap_interval(true);
   render.set_depth_test();
   render.set_mouse_moviment_callback((void *)mouse_callback);
   render.set_mouse_scroll_callback((void *)scroll_callback);
@@ -143,7 +143,7 @@ int main(void) {
   // So, basically MVP:
   // Model matrix: defines position, rotation and scale of the vertices of the model in the world.
   // View matrix: defines position and orientation of the "camera".
-  // Projection matrix: Maps what the "camera" sees to NDC, taking care of aspect ratio and perspective.
+  // Projection matrix: Maps what the "camera" sees to NDC, taking carX1e of aspect ratio and perspective.
   glm::mat4 model;
   glm::mat4 view;
   glm::mat4 proj;
