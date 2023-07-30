@@ -42,16 +42,20 @@ struct Material {
 };
 
 struct Light {
-    // vec3 position; // no longer necessary when using directional lights.
-    vec3 direction;
+    vec3 position;
 
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+    float constant;
+    float linear;
+    float quadratic;
 };
 
 uniform vec3 u_CameraPos;
 uniform Material u_Material;
+// uniform PositionalLight u_Light;
 uniform Light u_Light;
 
 void main(){
@@ -61,7 +65,8 @@ void main(){
 
     // diffuse lighting (light source)
     vec3 norm = normalize(v_Normal);
-    vec3 light_dir = normalize(-u_Light.direction);
+    // vec3 light_dir = normalize(-u_Light.direction); // using direction in positional light
+    vec3 light_dir = normalize(u_Light.position); // using position in directional light
     float diff = max(dot(norm, light_dir), 0.0);
     vec3 diffuse = u_Light.diffuse * diff * material_texture.rgb;
 
@@ -78,6 +83,13 @@ void main(){
         vec3 emission_mask_rgb = step(vec3(1.0f), vec3(1.0f) - specular_texture.rgb);
         emission *= emission_mask_rgb;
     }
+
+    // directional lighting
+    float distance_l = length(u_Light.position - v_FragPos);
+    float attenuation = 1.0 / (u_Light.constant + u_Light.linear * distance_l + u_Light.quadratic * (distance_l * distance_l));
+    ambient *= attenuation;
+    diffuse *= attenuation;
+    specular *= attenuation;
 
     // output
     color = vec4((ambient + diffuse + specular + emission), 1.0);

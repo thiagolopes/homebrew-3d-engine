@@ -33,12 +33,17 @@ struct Material {
   bool emission_mask;
 };
 
+// types os lights:
 struct Light {
-  // glm::vec3 position;
-  glm::vec3 direction;
+  glm::vec3 position;
+
   glm::vec3 ambient;
   glm::vec3 diffuse;
   glm::vec3 specular;
+
+  float constant;
+  float linear;
+  float quadratic;
 };
 
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
@@ -150,13 +155,19 @@ int main(void) {
   bool rotate = true;
 
   // light
-  bool update_color = false;
   Light light = {
-      glm::vec3(-0.2f, -1.0f, -0.3f),
+
+      glm::vec3(0.7f, 0.2f, 2.0f),
+
       glm::vec3(0.4f, 0.4f, 0.4f),
       glm::vec3(0.5f, 0.5f, 0.5f),
       glm::vec3(1.0f, 1.0f, 1.0f),
+
+      1.0f,
+      0.09f,
+      0.032f,
   };
+
   // material
   Material material = {
       // TODO add texture ambient
@@ -192,21 +203,9 @@ int main(void) {
       ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
       ImGui::SliderFloat("Emission material", &material.emission, 0.0f, 1.0f);
       ImGui::Checkbox("Rotate?", &rotate);
-      ImGui::Checkbox("Change Color?", &update_color);
       ImGui::Checkbox("Emission mask?", &material.emission_mask);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
-    }
-
-    // color update
-    if (update_color) {
-      glm::vec3 light_color;
-      light_color.x = sin(glfwGetTime() * 2.0f);
-      light_color.y = sin(glfwGetTime() * 0.7f);
-      light_color.z = sin(glfwGetTime() * 1.3f);
-
-      light.diffuse = light_color * glm::vec3(0.5f);
-      light.ambient = light.diffuse * glm::vec3(0.2f);
     }
 
     /* draw here */
@@ -230,10 +229,13 @@ int main(void) {
         model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
       };
 
-      shader.set_uniform_vec3("u_Light.direction", light.direction);
+      shader.set_uniform_vec3("u_Light.position", light.position);
       shader.set_uniform_vec3("u_Light.ambient", light.ambient);
       shader.set_uniform_vec3("u_Light.diffuse", light.diffuse);
       shader.set_uniform_vec3("u_Light.specular", light.specular);
+      shader.set_uniform_float1("u_Light.constant", light.constant);
+      shader.set_uniform_float1("u_Light.linear", light.linear);
+      shader.set_uniform_float1("u_Light.quadratic", light.quadratic);
 
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
       shader.set_uniform_float1("u_Material.emission_level", material.emission);
@@ -268,10 +270,13 @@ int main(void) {
         model = glm::rotate(model, render.get_time() * glm::radians(40.0f), glm::vec3(0.5f, 5.0f, 1.0f));
       };
 
-      shader.set_uniform_vec3("u_Light.direction", light.direction);
+      shader.set_uniform_vec3("u_Light.position", light.position);
       shader.set_uniform_vec3("u_Light.ambient", light.ambient);
       shader.set_uniform_vec3("u_Light.diffuse", light.diffuse);
       shader.set_uniform_vec3("u_Light.specular", light.specular);
+      shader.set_uniform_float1("u_Light.constant", light.constant);
+      shader.set_uniform_float1("u_Light.linear", light.linear);
+      shader.set_uniform_float1("u_Light.quadratic", light.quadratic);
 
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
       shader.set_uniform_float1("u_Material.emission_level", material.emission);
@@ -288,8 +293,7 @@ int main(void) {
       shader.unbind();
     }
 
-// third cube - the light
-#if 0
+    // third cube - the light
     {
       shader_light.bind();
       texture_light.bind();
@@ -311,7 +315,6 @@ int main(void) {
       texture_light.unbind();
       shader_light.unbind();
     }
-#endif
 
     imgui.draw();
     render.end_frame();
