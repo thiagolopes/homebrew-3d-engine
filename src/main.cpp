@@ -28,7 +28,10 @@ Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
 // TODO move to mesh class
 struct Material {
   // Texture diffuse;
+  // Texture specular;
+
   float shininess;
+
   float emission;
   bool emission_mask;
 };
@@ -147,6 +150,8 @@ int main(void) {
   Texture texture_wood("res/textures/texture_wood.png");
   Texture texture_wood_spec("res/textures/texture_wood_spec.png");
   Texture texture_light("res/textures/light.png");
+  Texture container("res/textures/container.png");
+  Texture container_spec("res/textures/container_specular.png");
   Texture texture_matrix("res/textures/matrix.png");
 
   // imgui
@@ -175,19 +180,17 @@ int main(void) {
       0.032f,
   };
   DirLight directional_light = {
-      glm::vec3(3.0f, 3.0f, 2.0f),
+      glm::vec3(-0.2f, -1.0f, -0.3f),
 
+      glm::vec3(0.5f, 0.5f, 0.5f),
       glm::vec3(0.4f, 0.4f, 0.4f),
       glm::vec3(0.5f, 0.5f, 0.5f),
-      glm::vec3(1.0f, 1.0f, 1.0f),
   };
 
   // material
   Material material = {
-      // TODO add texture ambient
-      // TODO add texture specular
       1.0f,
-      1.0f,  // emission off
+      0.0f,
       false, // emission mask off
   };
 
@@ -244,12 +247,17 @@ int main(void) {
 
     for (size_t i = 0; i < 5; i++) {
       shader.bind();
-      texture_dirty.bind();
-      texture_dirty_spec.bind(1);
+      container.bind();
+      container_spec.bind(1);
       texture_matrix.bind(2);
+
       shader.set_uniform_int1("u_Material.diffuse", 0);
       shader.set_uniform_int1("u_Material.specular", 1);
       shader.set_uniform_int1("u_Material.emission", 2);
+      shader.set_uniform_float1("u_Material.shininess", material.shininess);
+      shader.set_uniform_float1("u_Material.emission_level", material.emission);
+      shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
+
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]); // multiply z to use positive bar in gui
@@ -271,17 +279,12 @@ int main(void) {
       shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
       shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
 
-      shader.set_uniform_float1("u_Material.shininess", material.shininess);
-      shader.set_uniform_float1("u_Material.emission_level", material.emission);
-      shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
-
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader);
-
-      texture_dirty.unbind();
-      texture_dirty_spec.unbind();
+      container.unbind();
+      container_spec.unbind();
       texture_matrix.unbind();
       shader.unbind();
     };
@@ -289,12 +292,17 @@ int main(void) {
     // seconde cube
     for (size_t i = 5; i < 10; i++) {
       shader.bind();
-      texture_wood.bind();
-      texture_wood_spec.bind(1);
+      container.bind();
+      container_spec.bind(1);
       texture_matrix.bind(2);
+
       shader.set_uniform_int1("u_Material.diffuse", 0);
       shader.set_uniform_int1("u_Material.specular", 1);
       shader.set_uniform_int1("u_Material.emission", 2);
+      shader.set_uniform_float1("u_Material.shininess", material.shininess);
+      shader.set_uniform_float1("u_Material.emission_level", material.emission);
+      shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
+
       shader.set_uniform_mat4("u_V", view);
 
       model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]);
@@ -317,17 +325,13 @@ int main(void) {
       shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
       shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
 
-      shader.set_uniform_float1("u_Material.shininess", material.shininess);
-      shader.set_uniform_float1("u_Material.emission_level", material.emission);
-      shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
-
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader); // todo: movo to a batch render and draw once;
 
-      texture_wood.unbind();
-      texture_wood_spec.unbind();
+      container.unbind();
+      container_spec.unbind();
       texture_matrix.unbind();
       shader.unbind();
     }
@@ -335,7 +339,6 @@ int main(void) {
     // third cube - the light
     {
       shader_light.bind();
-      texture_light.bind();
       shader_light.set_uniform_mat4("u_V", view);
 
       shader_light.set_uniform_vec3("u_Light.ambient", point_light.ambient);
@@ -351,7 +354,6 @@ int main(void) {
       shader_light.set_uniform_mat4("u_P", proj);
 
       render.draw(va_light, ib, shader_light); // todo: movo to a batch render and draw once;
-      texture_light.unbind();
       shader_light.unbind();
     }
 
