@@ -34,7 +34,7 @@ struct Material {
 };
 
 // types os lights:
-struct Light {
+struct PointLight {
   glm::vec3 position;
 
   glm::vec3 ambient;
@@ -44,6 +44,14 @@ struct Light {
   float constant;
   float linear;
   float quadratic;
+};
+
+struct DirLight {
+  glm::vec3 direction;
+
+  glm::vec3 ambient;
+  glm::vec3 diffuse;
+  glm::vec3 specular;
 };
 
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
@@ -155,8 +163,7 @@ int main(void) {
   bool rotate = true;
 
   // light
-  Light light = {
-
+  PointLight point_light = {
       glm::vec3(0.7f, 0.2f, 2.0f),
 
       glm::vec3(0.4f, 0.4f, 0.4f),
@@ -166,6 +173,13 @@ int main(void) {
       1.0f,
       0.09f,
       0.032f,
+  };
+  DirLight directional_light = {
+      glm::vec3(3.0f, 3.0f, 2.0f),
+
+      glm::vec3(0.4f, 0.4f, 0.4f),
+      glm::vec3(0.5f, 0.5f, 0.5f),
+      glm::vec3(1.0f, 1.0f, 1.0f),
   };
 
   // material
@@ -197,13 +211,28 @@ int main(void) {
     // imgui panel
     {
       ImGui::Begin("Menu");
-      ImGui::SliderFloat3("Ambiant light", &light.ambient.x, 0.0f, 1.0f);
-      ImGui::SliderFloat3("Diffuse light", &light.diffuse.x, 0.0f, 1.0f);
-      ImGui::SliderFloat3("Specular light", &light.specular.x, 0.0f, 1.0f);
-      ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
-      ImGui::SliderFloat("Emission material", &material.emission, 0.0f, 1.0f);
+      if (ImGui::TreeNode("Point Light")) {
+        ImGui::ColorEdit3("Ambiant light", &directional_light.ambient.x);
+        ImGui::ColorEdit3("Diffuse light", &directional_light.diffuse.x);
+        ImGui::ColorEdit3("Specular light", &directional_light.specular.x);
+        ImGui::TreePop();
+      }
+      if (ImGui::TreeNode("Directional Light")) {
+        ImGui::ColorEdit3("Ambiant light", &point_light.ambient.x);
+        ImGui::ColorEdit3("Diffuse light", &point_light.diffuse.x);
+        ImGui::ColorEdit3("Specular light", &point_light.specular.x);
+        ImGui::SliderFloat("Constant", &point_light.constant, 0.0f, 1.0f);
+        ImGui::SliderFloat("Linear", &point_light.linear, 0.0f, 1.0f);
+        ImGui::SliderFloat("Quadratic", &point_light.quadratic, 0.0f, 1.0f);
+        ImGui::TreePop();
+      }
+      if (ImGui::TreeNode("Material")) {
+        ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
+        ImGui::SliderFloat("Emission material", &material.emission, 0.0f, 1.0f);
+        ImGui::Checkbox("Emission mask?", &material.emission_mask);
+        ImGui::TreePop();
+      }
       ImGui::Checkbox("Rotate?", &rotate);
-      ImGui::Checkbox("Emission mask?", &material.emission_mask);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
     }
@@ -229,13 +258,18 @@ int main(void) {
         model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
       };
 
-      shader.set_uniform_vec3("u_Light.position", light.position);
-      shader.set_uniform_vec3("u_Light.ambient", light.ambient);
-      shader.set_uniform_vec3("u_Light.diffuse", light.diffuse);
-      shader.set_uniform_vec3("u_Light.specular", light.specular);
-      shader.set_uniform_float1("u_Light.constant", light.constant);
-      shader.set_uniform_float1("u_Light.linear", light.linear);
-      shader.set_uniform_float1("u_Light.quadratic", light.quadratic);
+      shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
+      shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
+      shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
+      shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
+
+      shader.set_uniform_vec3("u_PointLight.position", point_light.position);
+      shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
+      shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
+      shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
+      shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
+      shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
+      shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
 
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
       shader.set_uniform_float1("u_Material.emission_level", material.emission);
@@ -270,13 +304,18 @@ int main(void) {
         model = glm::rotate(model, render.get_time() * glm::radians(40.0f), glm::vec3(0.5f, 5.0f, 1.0f));
       };
 
-      shader.set_uniform_vec3("u_Light.position", light.position);
-      shader.set_uniform_vec3("u_Light.ambient", light.ambient);
-      shader.set_uniform_vec3("u_Light.diffuse", light.diffuse);
-      shader.set_uniform_vec3("u_Light.specular", light.specular);
-      shader.set_uniform_float1("u_Light.constant", light.constant);
-      shader.set_uniform_float1("u_Light.linear", light.linear);
-      shader.set_uniform_float1("u_Light.quadratic", light.quadratic);
+      shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
+      shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
+      shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
+      shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
+
+      shader.set_uniform_vec3("u_PointLight.position", point_light.position);
+      shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
+      shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
+      shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
+      shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
+      shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
+      shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
 
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
       shader.set_uniform_float1("u_Material.emission_level", material.emission);
@@ -299,13 +338,13 @@ int main(void) {
       texture_light.bind();
       shader_light.set_uniform_mat4("u_V", view);
 
-      shader_light.set_uniform_vec3("u_Light.ambient", light.ambient);
-      shader_light.set_uniform_vec3("u_Light.diffuse", light.diffuse);
+      shader_light.set_uniform_vec3("u_Light.ambient", point_light.ambient);
+      shader_light.set_uniform_vec3("u_Light.diffuse", point_light.diffuse);
 
-      light.position.x = 4.0f * sin(render.get_time());
-      light.position.z = 5.0f * cos(render.get_time());
+      point_light.position.x = 4.0f * sin(render.get_time());
+      point_light.position.z = 5.0f * cos(render.get_time());
 
-      model = glm::translate(glm::mat4(1.0f), light.position);
+      model = glm::translate(glm::mat4(1.0f), point_light.position);
       model = glm::scale(model, glm::vec3(0.5));
 
       shader_light.set_uniform_mat4("u_M", model);

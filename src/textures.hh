@@ -9,7 +9,7 @@ private:
   int t_width, t_height, t_bpp;
 
 public:
-  Texture(const std::string &file);
+  explicit Texture(const std::string &file);
   ~Texture();
 
   void bind(unsigned int slot = 0) const;

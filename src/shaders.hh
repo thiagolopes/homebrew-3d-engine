@@ -23,7 +23,7 @@ private:
   unsigned int compile_shader(unsigned int type_shader, const std::string &source);
 
 public:
-  Shader(const std::string &filepath);
+  explicit Shader(const std::string &filepath);
   ~Shader();
 
   void bind() const;
