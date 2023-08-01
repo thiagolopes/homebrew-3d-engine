@@ -1,7 +1,5 @@
-#include <fstream>
 #include <iostream>
 #include <math.h>
-#include <sstream>
 #include <string>
 
 #include <glm/glm.hpp>
@@ -12,7 +10,6 @@
 #include "textures.hh"
 #include "camera.hh"
 
-#include "imgui.h"
 #define TAU 6.28
 
 // settings
@@ -189,8 +186,8 @@ int main(void) {
 
   // material
   Material material = {
-      1.0f,
-      0.0f,
+      1.0f,  //
+      0.0f,  //
       false, // emission mask off
   };
 
