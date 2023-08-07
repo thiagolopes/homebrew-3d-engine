@@ -1,15 +1,23 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 #include <vector>
 #include <iostream>
+#include <assert.h>
+
+struct Vertex {
+  glm::vec3 position;
+  glm::vec2 tex_coord;
+  glm::vec3 normal;
+};
 
 class VertexBuffer {
 private:
   unsigned int vb_render_id;
 
 public:
-  VertexBuffer(const void *data, unsigned int size);
+  VertexBuffer(const std::vector<Vertex> &data);
   ~VertexBuffer();
 
   void bind() const;
@@ -22,7 +30,7 @@ private:
   unsigned int ib_count;
 
 public:
-  IndexBuffer(const unsigned int *data, unsigned int count);
+  IndexBuffer(const std::vector<unsigned int> data);
   ~IndexBuffer();
 
   void bind() const;

@@ -1,13 +1,8 @@
 #include <glm/glm.hpp>
 #include <vector>
+#include "buffers.hh"
 
 namespace Container {
-struct Vertex {
-  glm::vec3 position;
-  glm::vec2 tex_coord;
-  glm::vec3 normal;
-};
-
 std::vector<Vertex> positions = {
     {
         glm::vec3(-0.5f, -0.5f, -0.5f),

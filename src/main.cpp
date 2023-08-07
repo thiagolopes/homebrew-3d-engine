@@ -10,6 +10,8 @@
 #include "textures.hh"
 #include "camera.hh"
 
+#include "containers.hh"
+
 #define TAU 6.28
 
 // settings
@@ -24,12 +26,13 @@ Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
 
 // TODO move to mesh class
 struct Material {
-  // Texture diffuse;
-  // Texture specular;
+  Texture diffuse;
+  Texture specular;
+  Texture emission;
 
   float shininess;
+  float emissioness;
 
-  float emission;
   bool emission_mask;
 };
 
@@ -54,58 +57,16 @@ struct DirLight {
   glm::vec3 specular;
 };
 
+void viewport_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 // triagle positions and incidices - vertex collection
-float positions[] = {
-    -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  -1.0f, // A 0 NORMAL A
-    0.5f,  -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,  0.0f,  -1.0f, // B 1 NORMAL A
-    0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 0.0f,  0.0f,  -1.0f, // C 2 NORMAL A
-    -0.5f, 0.5f,  -0.5f, 0.0f, 1.0f, 0.0f,  0.0f,  -1.0f, // D 3 NORMAL A
-    -0.5f, -0.5f, 0.5f,  0.0f, 0.0f, 0.0f,  0.0f,  1.0f,  // E 4 NORMAL B
-    0.5f,  -0.5f, 0.5f,  1.0f, 0.0f, 0.0f,  0.0f,  1.0f,  // F 5 NORMAL B
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f,  0.0f,  1.0f,  // G 6 NORMAL B
-    -0.5f, 0.5f,  0.5f,  0.0f, 1.0f, 0.0f,  0.0f,  1.0f,  // H 7 NORMAL B
-
-    -0.5f, 0.5f,  -0.5f, 0.0f, 0.0f, -1.0f, 0.0f,  0.0f, // D 8  NORMAL C
-    -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, -1.0f, 0.0f,  0.0f, // A 9  NORMAL C
-    -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, -1.0f, 0.0f,  0.0f, // E 10 NORMAL C
-    -0.5f, 0.5f,  0.5f,  0.0f, 1.0f, -1.0f, 0.0f,  0.0f, // H 11 NORMAL C
-    0.5f,  -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,  0.0f,  0.0f, // B 12 NORMAL D
-    0.5f,  0.5f,  -0.5f, 1.0f, 0.0f, 1.0f,  0.0f,  0.0f, // C 13 NORMAL D
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,  0.0f,  0.0f, // G 14 NORMAL D
-    0.5f,  -0.5f, 0.5f,  0.0f, 1.0f, 1.0f,  0.0f,  0.0f, // F 15 NORMAL D
-
-    -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  -1.0f, 0.0f, // A 16 NORMAL E
-    0.5f,  -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,  -1.0f, 0.0f, // B 17 NORMAL E
-    0.5f,  -0.5f, 0.5f,  1.0f, 1.0f, 0.0f,  -1.0f, 0.0f, // F 18 NORMAL E
-    -0.5f, -0.5f, 0.5f,  0.0f, 1.0f, 0.0f,  -1.0f, 0.0f, // E 19 NORMAL E
-    0.5f,  0.5f,  -0.5f, 0.0f, 0.0f, 0.0f,  1.0f,  0.0f, // C 20 NORMAL F
-    -0.5f, 0.5f,  -0.5f, 1.0f, 0.0f, 0.0f,  1.0f,  0.0f, // D 21 NORMAL F
-    -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 0.0f,  1.0f,  0.0f, // H 22 NORMAL F
-    0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f, // G 23 NORMAL F
-};
 
 glm::vec3 cube_word_positions[] = {glm::vec3(0.0f, 0.0f, 0.0f),    glm::vec3(2.0f, 5.0f, -15.0f),
                                    glm::vec3(-1.5f, -2.2f, -2.5f), glm::vec3(-3.8f, -2.0f, -12.3f),
                                    glm::vec3(2.4f, -0.4f, -3.5f),  glm::vec3(-1.7f, 3.0f, -7.5f),
                                    glm::vec3(1.3f, -2.0f, -2.5f),  glm::vec3(1.5f, 2.0f, -2.5f),
                                    glm::vec3(1.5f, 0.2f, -1.5f),   glm::vec3(-1.3f, 1.0f, -1.5f)};
-
-unsigned int indices[] = {
-    // front
-    0, 3, 2, 2, 1, 0,
-    // back
-    4, 5, 6, 6, 7, 4,
-    // left
-    11, 8, 9, 9, 10, 11,
-    //  right
-    12, 13, 14, 14, 15, 12,
-    // bottom
-    16, 17, 18, 18, 19, 16,
-    // top
-    20, 21, 22, 22, 23, 20};
-size_t indicies_len = sizeof(indices) / sizeof(unsigned int);
 
 int main(void) {
   char window_name[] = "Engine3D";
@@ -116,6 +77,7 @@ int main(void) {
   render.set_depth_test();
   render.set_mouse_moviment_callback((void *)mouse_callback);
   render.set_mouse_scroll_callback((void *)scroll_callback);
+  render.set_viewport_size_callback((void *)viewport_size_callback);
   // render.set_mouse_button_callback((void *)mouse_button_callback);
 
   // // draw steps:
@@ -126,8 +88,8 @@ int main(void) {
   VertexArray va;
   VertexArray va_light;
 
-  VertexBuffer vb(positions, sizeof(positions));
-  IndexBuffer ib(indices, indicies_len);
+  VertexBuffer vb(Container::positions);
+  IndexBuffer ib(Container::indices);
 
   VertexBufferLayout vbl;
   vbl.push<float>(3);
@@ -140,16 +102,6 @@ int main(void) {
   // load shader source code
   Shader shader("res/shaders/material.shader");
   Shader shader_light("res/shaders/light.shader");
-
-  // texture
-  Texture texture_dirty("res/textures/texture_dirty.png");
-  Texture texture_dirty_spec("res/textures/texture_dirty_spec.png");
-  Texture texture_wood("res/textures/texture_wood.png");
-  Texture texture_wood_spec("res/textures/texture_wood_spec.png");
-  Texture texture_light("res/textures/light.png");
-  Texture container("res/textures/container.png");
-  Texture container_spec("res/textures/container_specular.png");
-  Texture texture_matrix("res/textures/matrix.png");
 
   // imgui
   ImGuiRenderer imgui(render.get_window());
@@ -186,6 +138,9 @@ int main(void) {
 
   // material
   Material material = {
+      Texture("res/textures/container.png"),
+      Texture("res/textures/container_specular.png"),
+      Texture("res/textures/matrix.png"),
       1.0f,  //
       0.0f,  //
       false, // emission mask off
@@ -228,7 +183,7 @@ int main(void) {
       }
       if (ImGui::TreeNode("Material")) {
         ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
-        ImGui::SliderFloat("Emission material", &material.emission, 0.0f, 1.0f);
+        ImGui::SliderFloat("Emission material", &material.emissioness, 0.0f, 1.0f);
         ImGui::Checkbox("Emission mask?", &material.emission_mask);
         ImGui::TreePop();
       }
@@ -242,17 +197,17 @@ int main(void) {
     proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
                             0.1f, 100.0f);
 
-    for (size_t i = 0; i < 5; i++) {
+    for (size_t i = 0; i < 10; i++) {
       shader.bind();
-      container.bind();
-      container_spec.bind(1);
-      texture_matrix.bind(2);
+      material.diffuse.bind();
+      material.specular.bind(1);
+      material.emission.bind(2);
 
       shader.set_uniform_int1("u_Material.diffuse", 0);
       shader.set_uniform_int1("u_Material.specular", 1);
       shader.set_uniform_int1("u_Material.emission", 2);
       shader.set_uniform_float1("u_Material.shininess", material.shininess);
-      shader.set_uniform_float1("u_Material.emission_level", material.emission);
+      shader.set_uniform_float1("u_Material.emission_level", material.emissioness);
       shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
 
       shader.set_uniform_mat4("u_V", view);
@@ -280,58 +235,11 @@ int main(void) {
       shader.set_uniform_mat4("u_P", proj);
 
       render.draw(va, ib, shader);
-      container.unbind();
-      container_spec.unbind();
-      texture_matrix.unbind();
+      material.diffuse.unbind();
+      material.specular.unbind();
+      material.emission.unbind();
       shader.unbind();
     };
-
-    // seconde cube
-    for (size_t i = 5; i < 10; i++) {
-      shader.bind();
-      container.bind();
-      container_spec.bind(1);
-      texture_matrix.bind(2);
-
-      shader.set_uniform_int1("u_Material.diffuse", 0);
-      shader.set_uniform_int1("u_Material.specular", 1);
-      shader.set_uniform_int1("u_Material.emission", 2);
-      shader.set_uniform_float1("u_Material.shininess", material.shininess);
-      shader.set_uniform_float1("u_Material.emission_level", material.emission);
-      shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
-
-      shader.set_uniform_mat4("u_V", view);
-
-      model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]);
-      model = glm::scale(model, glm::vec3(1.0f));
-
-      if (rotate) {
-        model = glm::rotate(model, render.get_time() * glm::radians(40.0f), glm::vec3(0.5f, 5.0f, 1.0f));
-      };
-
-      shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
-      shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
-      shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
-      shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
-
-      shader.set_uniform_vec3("u_PointLight.position", point_light.position);
-      shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
-      shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
-      shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
-      shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
-      shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
-      shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
-
-      shader.set_uniform_mat4("u_M", model);
-      shader.set_uniform_mat4("u_P", proj);
-
-      render.draw(va, ib, shader); // todo: movo to a batch render and draw once;
-
-      container.unbind();
-      container_spec.unbind();
-      texture_matrix.unbind();
-      shader.unbind();
-    }
 
     // third cube - the light
     {
@@ -384,3 +292,4 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
 }
 
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) { camera.process_mouse_scroll(yoffset); }
+void viewport_size_callback(GLFWwindow *window, int width, int height) { glViewport(0, 0, width, height); }
