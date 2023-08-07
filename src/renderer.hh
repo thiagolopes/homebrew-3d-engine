@@ -1,15 +1,10 @@
 #pragma once
-
-#include "buffers.hh"
-#include "shaders.hh"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "buffers.hh"
+#include "shaders.hh"
 #include "imgui.h"
-
-#define ASSERT(X)                                                                                                      \
-  if (!(X))                                                                                                            \
-    __builtin_trap();
 
 #define GLAssert(X)                                                                                                    \
   GLClearError();                                                                                                      \
@@ -46,6 +41,7 @@ public:
   void set_mouse_moviment_callback(void *f);
   void set_mouse_scroll_callback(void *f);
   void set_mouse_button_callback(void *f);
+  void set_viewport_size_callback(void *f);
 
   inline GLFWwindow *get_window() const { return m_window; };
   inline int get_width() const { return m_width; };
