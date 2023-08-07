@@ -7,7 +7,6 @@
 
 Texture::Texture(const std::string &path)
     : t_render_id(0), t_filepath(path), t_localbuffer(nullptr), t_width(0), t_height(0), t_bpp(0) {
-
   glGenTextures(1, &t_render_id);
   glBindTexture(GL_TEXTURE_2D, t_render_id);
 

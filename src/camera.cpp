@@ -6,8 +6,14 @@
 #include <iostream>
 #include <ostream>
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch, float fov)
-    : m_position(position), m_front(glm::vec3(0.0f, 0.0f, -1.0f)), m_up(glm::vec3(0.0f, 0.0f, 0.0f)),
-      m_right(glm::vec3(0.0f, 0.0f, 0.0f)), m_word_up(up), m_yaw(yaw), m_pitch(pitch), m_fov(fov) {
+    : m_position(position),
+      m_front(glm::vec3(0.0f, 0.0f, -1.0f)),
+      m_up(glm::vec3(0.0f, 0.0f, 0.0f)),
+      m_right(glm::vec3(0.0f, 0.0f, 0.0f)),
+      m_word_up(up),
+      m_yaw(yaw),
+      m_pitch(pitch),
+      m_fov(fov) {
   update_camera();
 };
 
@@ -42,18 +48,18 @@ void Camera::process_keyboard(camera_direction_t d, float delta_time) {
   float velocity = m_moviment_speed * delta_time;
 
   switch (d) {
-  case camera_direction_t::FORWARD:
-    m_position += m_front * velocity;
-    break;
-  case camera_direction_t::BACKWARD:
-    m_position -= m_front * velocity;
-    break;
-  case camera_direction_t::RIGHT:
-    m_position += m_right * velocity;
-    break;
-  case camera_direction_t::LEFT:
-    m_position -= m_right * velocity;
-    break;
+    case camera_direction_t::FORWARD:
+      m_position += m_front * velocity;
+      break;
+    case camera_direction_t::BACKWARD:
+      m_position -= m_front * velocity;
+      break;
+    case camera_direction_t::RIGHT:
+      m_position += m_right * velocity;
+      break;
+    case camera_direction_t::LEFT:
+      m_position -= m_right * velocity;
+      break;
   }
 };
 

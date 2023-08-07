@@ -54,17 +54,20 @@ void VertexArray::add_buffer(const VertexBuffer &vb, const VertexBufferLayout &l
   }
 }
 
-template <> void VertexBufferLayout::push<float>(unsigned int count) {
+template <>
+void VertexBufferLayout::push<float>(unsigned int count) {
   vbl_elements.push_back({GL_FLOAT, count, GL_FALSE});
   vbl_stride += count * VertexBufferElements::get_size_of_type(GL_FLOAT);
 }
 
-template <> void VertexBufferLayout::push<unsigned int>(unsigned int count) {
+template <>
+void VertexBufferLayout::push<unsigned int>(unsigned int count) {
   vbl_elements.push_back({GL_UNSIGNED_INT, count, GL_FALSE});
   vbl_stride += count * VertexBufferElements::get_size_of_type(GL_UNSIGNED_INT);
 }
 
-template <> void VertexBufferLayout::push<unsigned char>(unsigned int count) {
+template <>
+void VertexBufferLayout::push<unsigned char>(unsigned int count) {
   vbl_elements.push_back({GL_UNSIGNED_BYTE, count, GL_TRUE});
   vbl_stride += count * VertexBufferElements::get_size_of_type(GL_UNSIGNED_BYTE);
 }

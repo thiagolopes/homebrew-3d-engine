@@ -80,11 +80,6 @@ int main(void) {
   render.set_viewport_size_callback((void *)viewport_size_callback);
   // render.set_mouse_button_callback((void *)mouse_button_callback);
 
-  // // draw steps:
-  // 1. vertex buffer (in vram; collections of vertex)
-  // 2. shadder (describe how to rasterization will render the collecttion of
-  // vertex aka vertex buffer)
-  // bind VAO (vertex array)
   VertexArray va;
   VertexArray va_light;
 
@@ -141,9 +136,9 @@ int main(void) {
       Texture("res/textures/container.png"),
       Texture("res/textures/container_specular.png"),
       Texture("res/textures/matrix.png"),
-      1.0f,  //
-      0.0f,  //
-      false, // emission mask off
+      1.0f,   //
+      0.0f,   //
+      false,  // emission mask off
   };
 
   /* Loop until the user closes the window */
@@ -212,7 +207,7 @@ int main(void) {
 
       shader.set_uniform_mat4("u_V", view);
 
-      model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]); // multiply z to use positive bar in gui
+      model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]);  // multiply z to use positive bar in gui
       model = glm::scale(model, glm::vec3(1.0f));
       if (rotate) {
         model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
@@ -258,7 +253,7 @@ int main(void) {
       shader_light.set_uniform_mat4("u_M", model);
       shader_light.set_uniform_mat4("u_P", proj);
 
-      render.draw(va_light, ib, shader_light); // todo: movo to a batch render and draw once;
+      render.draw(va_light, ib, shader_light);  // todo: movo to a batch render and draw once;
       shader_light.unbind();
     }
 
@@ -280,7 +275,7 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
   }
 
   float xoffset = xpos - mouse_last_x;
-  float yoffset = mouse_last_y - ypos; // reversed since y-coordinates go from bottom to top
+  float yoffset = mouse_last_y - ypos;  // reversed since y-coordinates go from bottom to top
 
   mouse_last_x = xpos;
   mouse_last_y = ypos;

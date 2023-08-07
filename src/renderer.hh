@@ -6,16 +6,16 @@
 #include "shaders.hh"
 #include "imgui.h"
 
-#define GLAssert(X)                                                                                                    \
-  GLClearError();                                                                                                      \
-  X;                                                                                                                   \
+#define GLAssert(X) \
+  GLClearError();   \
+  X;                \
   ASSERT(GLLogCall(#X, __FILE__, __LINE__))
 
 void GL_debug_clear_error();
 void GL_debug_chek_error();
 
 class Renderer {
-private:
+ private:
   GLFWwindow *m_window;
   int m_width;
   int m_height;
@@ -28,7 +28,7 @@ private:
     m_lastframe = current_frame;
   }
 
-public:
+ public:
   Renderer(char *window_name, float width, float height);
   ~Renderer();
   void draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const;
@@ -50,8 +50,8 @@ public:
 };
 
 class ImGuiRenderer {
-private:
-public:
+ private:
+ public:
   ImGuiRenderer(GLFWwindow *window);
   ~ImGuiRenderer();
 

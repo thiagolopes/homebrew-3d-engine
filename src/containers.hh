@@ -10,122 +10,122 @@ std::vector<Vertex> positions = {
         glm::vec3(-0.5f, -0.5f, -0.5f),
         glm::vec2(0.0f, 0.0f),
         glm::vec3(0.0f, 0.0f, -1.0f),
-    }, // A 0 NORMAL A
+    },  // A 0 NORMAL A
     {
         glm::vec3(0.5f, -0.5f, -0.5f),
         glm::vec2(1.0f, 0.0f),
         glm::vec3(0.0f, 0.0f, -1.0f),
-    }, // B 1 NORMAL A
+    },  // B 1 NORMAL A
     {
         glm::vec3(0.5f, 0.5f, -0.5f),
         glm::vec2(1.0f, 1.0f),
         glm::vec3(0.0f, 0.0f, -1.0f),
-    }, // C 2 NORMAL A
+    },  // C 2 NORMAL A
     {
         glm::vec3(-0.5f, 0.5f, -0.5f),
         glm::vec2(0.0f, 1.0f),
         glm::vec3(0.0f, 0.0f, -1.0f),
-    }, // D 3 NORMAL A
+    },  // D 3 NORMAL A
     {
         glm::vec3(-0.5f, -0.5f, 0.5f),
         glm::vec2(0.0f, 0.0f),
         glm::vec3(0.0f, 0.0f, 1.0f),
-    }, // E 4 NORMAL B
+    },  // E 4 NORMAL B
     {
         glm::vec3(0.5f, -0.5f, 0.5f),
         glm::vec2(1.0f, 0.0f),
         glm::vec3(0.0f, 0.0f, 1.0f),
-    }, // F 5 NORMAL B
+    },  // F 5 NORMAL B
     {
         glm::vec3(0.5f, 0.5f, 0.5f),
         glm::vec2(1.0f, 1.0f),
         glm::vec3(0.0f, 0.0f, 1.0f),
-    }, // G 6 NORMAL B
+    },  // G 6 NORMAL B
     {
         glm::vec3(-0.5f, 0.5f, 0.5f),
         glm::vec2(0.0f, 1.0f),
         glm::vec3(0.0f, 0.0f, 1.0f),
-    }, // H 7 NORMAL B
+    },  // H 7 NORMAL B
     {
         glm::vec3(-0.5f, 0.5f, -0.5f),
         glm::vec2(0.0f, 0.0f),
         glm::vec3(-1.0f, 0.0f, 0.0f),
-    }, // D 8  NORMAL C
+    },  // D 8  NORMAL C
     {
         glm::vec3(-0.5f, -0.5f, -0.5f),
         glm::vec2(1.0f, 0.0f),
         glm::vec3(-1.0f, 0.0f, 0.0f),
-    }, // A 9  NORMAL C
+    },  // A 9  NORMAL C
     {
         glm::vec3(-0.5f, -0.5f, 0.5f),
         glm::vec2(1.0f, 1.0f),
         glm::vec3(-1.0f, 0.0f, 0.0f),
-    }, // E 10 NORMAL C
+    },  // E 10 NORMAL C
     {
         glm::vec3(-0.5f, 0.5f, 0.5f),
         glm::vec2(0.0f, 1.0f),
         glm::vec3(-1.0f, 0.0f, 0.0f),
-    }, // H 11 NORMAL C
+    },  // H 11 NORMAL C
     {
         glm::vec3(0.5f, -0.5f, -0.5f),
         glm::vec2(0.0f, 0.0f),
         glm::vec3(1.0f, 0.0f, 0.0f),
-    }, // B 12 NORMAL D
+    },  // B 12 NORMAL D
     {
         glm::vec3(0.5f, 0.5f, -0.5f),
         glm::vec2(1.0f, 0.0f),
         glm::vec3(1.0f, 0.0f, 0.0f),
-    }, // C 13 NORMAL D
+    },  // C 13 NORMAL D
     {
         glm::vec3(0.5f, 0.5f, 0.5f),
         glm::vec2(1.0f, 1.0f),
         glm::vec3(1.0f, 0.0f, 0.0f),
-    }, // G 14 NORMAL D
+    },  // G 14 NORMAL D
     {
         glm::vec3(0.5f, -0.5f, 0.5f),
         glm::vec2(0.0f, 1.0f),
         glm::vec3(1.0f, 0.0f, 0.0f),
-    }, // F 15 NORMAL D
+    },  // F 15 NORMAL D
     {
         glm::vec3(-0.5f, -0.5f, -0.5f),
         glm::vec2(0.0f, 0.0f),
         glm::vec3(0.0f, -1.0f, 0.0f),
-    }, // A 16 NORMAL E
+    },  // A 16 NORMAL E
     {
         glm::vec3(0.5f, -0.5f, -0.5f),
         glm::vec2(1.0f, 0.0f),
         glm::vec3(0.0f, -1.0f, 0.0f),
-    }, // B 17 NORMAL E
+    },  // B 17 NORMAL E
     {
         glm::vec3(0.5f, -0.5f, 0.5f),
         glm::vec2(1.0f, 1.0f),
         glm::vec3(0.0f, -1.0f, 0.0f),
-    }, // F 18 NORMAL E
+    },  // F 18 NORMAL E
     {
         glm::vec3(-0.5f, -0.5f, 0.5f),
         glm::vec2(0.0f, 1.0f),
         glm::vec3(0.0f, -1.0f, 0.0f),
-    }, // E 19 NORMAL E
+    },  // E 19 NORMAL E
     {
         glm::vec3(0.5f, 0.5f, -0.5f),
         glm::vec2(0.0f, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f),
-    }, // C 20 NORMAL F
+    },  // C 20 NORMAL F
     {
         glm::vec3(-0.5f, 0.5f, -0.5f),
         glm::vec2(1.0f, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f),
-    }, // D 21 NORMAL F
+    },  // D 21 NORMAL F
     {
         glm::vec3(-0.5f, 0.5f, 0.5f),
         glm::vec2(1.0f, 1.0f),
         glm::vec3(0.0f, 1.0f, 0.0f),
-    }, // H 22 NORMAL F
+    },  // H 22 NORMAL F
     {
         glm::vec3(0.5f, 0.5f, 0.5f),
         glm::vec2(0.0f, 1.0f),
         glm::vec3(0.0f, 1.0f, 0.0f),
-    }, // G 23 NORMAL F
+    },  // G 23 NORMAL F
 };
 
 std::vector<unsigned int> indices = {
@@ -141,4 +141,4 @@ std::vector<unsigned int> indices = {
     16, 17, 18, 18, 19, 16,
     // top
     20, 21, 22, 22, 23, 20};
-} // namespace Container
+}  // namespace Container

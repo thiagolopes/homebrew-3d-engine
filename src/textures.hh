@@ -2,13 +2,13 @@
 #include <string>
 
 class Texture {
-private:
+ private:
   unsigned int t_render_id;
   std::string t_filepath;
   unsigned char *t_localbuffer;
   int t_width, t_height, t_bpp;
 
-public:
+ public:
   explicit Texture(const std::string &file);
   ~Texture();
 

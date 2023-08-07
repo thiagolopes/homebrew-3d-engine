@@ -14,7 +14,7 @@ class Shader {
   // - bind
   // - unbind
   // - set uniforms to a shader
-private:
+ private:
   std::string source_filepath;
   unsigned int shader_id;
   std::unordered_map<std::string, int> uniform_location_cache;
@@ -22,7 +22,7 @@ private:
 
   unsigned int compile_shader(unsigned int type_shader, const std::string &source);
 
-public:
+ public:
   explicit Shader(const std::string &filepath);
   ~Shader();
 

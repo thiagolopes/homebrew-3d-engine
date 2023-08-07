@@ -5,7 +5,7 @@
 enum camera_direction_t { FORWARD, BACKWARD, LEFT, RIGHT };
 
 class Camera {
-private:
+ private:
   glm::vec3 m_position;
   glm::vec3 m_front;
   glm::vec3 m_up;
@@ -20,7 +20,7 @@ private:
 
   void update_camera();
 
-public:
+ public:
   Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
          float yaw = -90.0f, float pitch = 0.0f, float fov = 45.0f);
 
