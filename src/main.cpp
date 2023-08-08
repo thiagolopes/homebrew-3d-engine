@@ -9,6 +9,7 @@
 #include "shaders.hh"
 #include "textures.hh"
 #include "camera.hh"
+#include "mesh.hh"
 
 #include "containers.hh"
 
@@ -141,6 +142,9 @@ int main(void) {
       false,  // emission mask off
   };
 
+  Mesh mesh(Container::positions, Container::indices);
+  Mesh mesh_light(Container::positions, Container::indices);
+
   /* Loop until the user closes the window */
   while (render.running()) {
     imgui.clear();
@@ -229,7 +233,7 @@ int main(void) {
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
-      render.draw(va, ib, shader);
+      mesh.draw(render, shader);
       material.diffuse.unbind();
       material.specular.unbind();
       material.emission.unbind();
@@ -253,7 +257,7 @@ int main(void) {
       shader_light.set_uniform_mat4("u_M", model);
       shader_light.set_uniform_mat4("u_P", proj);
 
-      render.draw(va_light, ib, shader_light);  // todo: movo to a batch render and draw once;
+      mesh_light.draw(render, shader_light);  // todo: movo to a batch render and draw once;
       shader_light.unbind();
     }
 
