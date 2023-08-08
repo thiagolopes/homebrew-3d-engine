@@ -10,6 +10,7 @@
 #include "camera.hh"
 #include "mesh.hh"
 #include "materials.hh"
+#include "models.hh"
 
 #include "containers.hh"
 
