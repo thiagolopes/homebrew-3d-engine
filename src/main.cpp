@@ -120,8 +120,8 @@ int main(void) {
       glm::vec3(0.5f, 0.5f, 0.5f),
   };
 
-  Material material_container("res/textures/container.png", "res/textures/container_specular.png", "res/textures/matrix.png",
-                    1.0f, 0.0f, false);
+  Material material_container("res/textures/container.png", "res/textures/container_specular.png",
+                              "res/textures/matrix.png", 1.0f, 0.0f, false);
   Mesh mesh_container(Container::positions, Container::indices);
   Mesh mesh_light(Container::positions, Container::indices);
 
