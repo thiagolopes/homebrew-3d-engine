@@ -11,4 +11,7 @@ Mesh::Mesh(std::vector<Vertex> vertex, std::vector<unsigned int> indices) : m_vb
   m_va.add_buffer(m_vb, m_vbl);
 };
 
-void Mesh::draw(Renderer& render, Shader& shader) { render.draw(m_va, m_ib, shader); };
+void Mesh::draw(Renderer& render, Shader& shader) {
+  shader.bind();
+  render.draw(m_va, m_ib, shader);
+};

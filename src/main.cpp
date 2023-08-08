@@ -7,9 +7,9 @@
 #include "renderer.hh"
 #include "buffers.hh"
 #include "shaders.hh"
-#include "textures.hh"
 #include "camera.hh"
 #include "mesh.hh"
+#include "materials.hh"
 
 #include "containers.hh"
 
@@ -24,18 +24,6 @@ float mouse_last_y = height / 2.0f;
 
 // setup free camera
 Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
-
-// TODO move to mesh class
-struct Material {
-  Texture diffuse;
-  Texture specular;
-  Texture emission;
-
-  float shininess;
-  float emissioness;
-
-  bool emission_mask;
-};
 
 // types os lights:
 struct PointLight {
@@ -132,17 +120,9 @@ int main(void) {
       glm::vec3(0.5f, 0.5f, 0.5f),
   };
 
-  // material
-  Material material = {
-      Texture("res/textures/container.png"),
-      Texture("res/textures/container_specular.png"),
-      Texture("res/textures/matrix.png"),
-      1.0f,   //
-      0.0f,   //
-      false,  // emission mask off
-  };
-
-  Mesh mesh(Container::positions, Container::indices);
+  Material material_container("res/textures/container.png", "res/textures/container_specular.png", "res/textures/matrix.png",
+                    1.0f, 0.0f, false);
+  Mesh mesh_container(Container::positions, Container::indices);
   Mesh mesh_light(Container::positions, Container::indices);
 
   /* Loop until the user closes the window */
@@ -180,12 +160,13 @@ int main(void) {
         ImGui::SliderFloat("Quadratic", &point_light.quadratic, 0.0f, 1.0f);
         ImGui::TreePop();
       }
-      if (ImGui::TreeNode("Material")) {
-        ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
-        ImGui::SliderFloat("Emission material", &material.emissioness, 0.0f, 1.0f);
-        ImGui::Checkbox("Emission mask?", &material.emission_mask);
-        ImGui::TreePop();
-      }
+      // TODO move to material debug option
+      // if (ImGui::TreeNode("Material")) {
+      //   ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
+      //   ImGui::SliderFloat("Emission material", &material.emissioness, 0.0f, 1.0f);
+      //   ImGui::Checkbox("Emission mask?", &material.emission_mask);
+      //   ImGui::TreePop();
+      // }
       ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
@@ -197,20 +178,6 @@ int main(void) {
                             0.1f, 100.0f);
 
     for (size_t i = 0; i < 10; i++) {
-      shader.bind();
-      material.diffuse.bind();
-      material.specular.bind(1);
-      material.emission.bind(2);
-
-      shader.set_uniform_int1("u_Material.diffuse", 0);
-      shader.set_uniform_int1("u_Material.specular", 1);
-      shader.set_uniform_int1("u_Material.emission", 2);
-      shader.set_uniform_float1("u_Material.shininess", material.shininess);
-      shader.set_uniform_float1("u_Material.emission_level", material.emissioness);
-      shader.set_uniform_int1("u_Material.emission_mask", material.emission_mask);
-
-      shader.set_uniform_mat4("u_V", view);
-
       model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]);  // multiply z to use positive bar in gui
       model = glm::scale(model, glm::vec3(1.0f));
       if (rotate) {
@@ -230,14 +197,14 @@ int main(void) {
       shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
       shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
 
+      shader.set_uniform_mat4("u_V", view);
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
-      mesh.draw(render, shader);
-      material.diffuse.unbind();
-      material.specular.unbind();
-      material.emission.unbind();
-      shader.unbind();
+      material_container.bind(shader);
+      mesh_container.draw(render, shader);
+      material_container.unbind();
+      // shader.unbind();
     };
 
     // third cube - the light
