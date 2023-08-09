@@ -164,6 +164,7 @@ int main(void) {
                             0.1f, 100.0f);
 
     for (size_t i = 0; i < 10; i++) {
+      shader.bind();
       model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]);  // multiply z to use positive bar in gui
       model = glm::scale(model, glm::vec3(1.0f));
       if (rotate) {
@@ -190,7 +191,6 @@ int main(void) {
       material_container.bind(shader);
       mesh_container.draw(render, shader);
       material_container.unbind();
-      // shader.unbind();
     };
 
     // third cube - the light
@@ -211,7 +211,6 @@ int main(void) {
       shader_light.set_uniform_mat4("u_P", proj);
 
       mesh_light.draw(render, shader_light);  // todo: movo to a batch render and draw once;
-      shader_light.unbind();
     }
 
     imgui.draw();
