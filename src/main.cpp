@@ -10,7 +10,6 @@
 #include "camera.hh"
 #include "mesh.hh"
 #include "materials.hh"
-#include "models.hh"
 
 #include "containers.hh"
 
@@ -69,20 +68,6 @@ int main(void) {
   render.set_mouse_scroll_callback((void *)scroll_callback);
   render.set_viewport_size_callback((void *)viewport_size_callback);
   // render.set_mouse_button_callback((void *)mouse_button_callback);
-
-  VertexArray va;
-  VertexArray va_light;
-
-  VertexBuffer vb(Container::positions);
-  IndexBuffer ib(Container::indices);
-
-  VertexBufferLayout vbl;
-  vbl.push<float>(3);
-  vbl.push<float>(2);
-  vbl.push<float>(3);
-
-  va.add_buffer(vb, vbl);
-  va_light.add_buffer(vb, vbl);
 
   // load shader source code
   Shader shader("res/shaders/material.shader");
