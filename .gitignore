@@ -123,3 +123,7 @@ doc_doxygen/
 doxyfile
 *TAGS*
 # End of https://www.toptal.com/developers/gitignore/api/c++,cmake
+.cache/
+.ccls-cache/
+.idea/
+build/
