@@ -7,7 +7,7 @@ VertexBuffer::VertexBuffer(const std::vector<Vertex> &data) {
 
   glGenBuffers(1, &vb_render_id);
   glBindBuffer(GL_ARRAY_BUFFER, vb_render_id);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * data.size(), (void *)&data[0], GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * data.size(), (void *)data.data(), GL_STATIC_DRAW);
 }
 VertexBuffer::~VertexBuffer() { glDeleteBuffers(1, &vb_render_id); }
 void VertexBuffer::bind() const { glBindBuffer(GL_ARRAY_BUFFER, vb_render_id); }
@@ -18,7 +18,7 @@ IndexBuffer::IndexBuffer(const std::vector<unsigned int> data) : ib_count(data.s
 
   glGenBuffers(1, &ib_render_id);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib_render_id);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, ib_count * sizeof(unsigned int), (unsigned int *)&data[0], GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, ib_count * sizeof(unsigned int), (unsigned int *)data.data(), GL_STATIC_DRAW);
 }
 
 IndexBuffer::~IndexBuffer() { glDeleteFramebuffers(1, &ib_render_id); }
