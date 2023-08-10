@@ -4,6 +4,7 @@ This project is a implementation of engine using OpenGL as GPU API.
 
 Basic features:
 
+- 3D/2D perspectives;
 - "dynamic lighting" by shaders;
 - Support multiple types of light: Directional, Point, Flashlight;
 - Load .obj and others formats; (PROGRESS)
@@ -48,5 +49,5 @@ make run -j5
 
 
 ## Screenshots
-![image](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/d5368333-e06c-4b05-836b-d4904531e0e6)
-![light](https://github.com/thiagolopes/opengl_engine_homebrew/assets/5994972/c30248a1-d737-403c-bceb-97fecadf65e6)
+![2d](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/d5368333-e06c-4b05-836b-d4904531e0e6)
+![rock](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/e64df078-cd8d-476f-9583-a2c192bcb1a2)
