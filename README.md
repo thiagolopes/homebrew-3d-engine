@@ -7,11 +7,14 @@ Basic features:
 - 3D/2D perspectives;
 - "dynamic lighting" by shaders;
 - Support multiple types of light: Directional, Point, Flashlight;
-- Load .obj and others formats; (PROGRESS)
+- Load .obj and others formats;
 - Stencil testing; (TODO)
 - Cubemaps aka skybox; (TODO)
-- HDR;
-- Bloom... other;
+- HDR; (TODO)
+- Bloom... other; (TODO)
+- Skeleton animation; (PROGRESS)
+- Basic Physics engine; (TODO)
+- Basic logic game/scenario/menu/UI; (TODO)
 
 Future uses:
 

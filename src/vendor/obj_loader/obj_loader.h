@@ -1104,7 +1104,7 @@ namespace objl
                                 // Specular Exponent
                                 if (algorithm::firstToken(curline) == "Ns")
                                 {
-                                        tempMaterial.Ns = std::stof(algorithm::tail(curline));
+                                        tempMaterial.Ns = std::stof(algorithm::tail(curline)) / 1000;
                                 }
                                 // Optical Density
                                 if (algorithm::firstToken(curline) == "Ni")

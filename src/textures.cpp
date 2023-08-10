@@ -26,14 +26,11 @@ Texture::Texture(const std::string &path)
 
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t_width, t_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, t_localbuffer);
   unbind();
-
   if (t_localbuffer)
     stbi_image_free(t_localbuffer);
 };
 
-Texture::~Texture() {
-  glDeleteTextures(1, &t_render_id);
-}
+Texture::~Texture() { glDeleteTextures(1, &t_render_id); }
 
 void Texture::bind(unsigned int slot) const {
   glActiveTexture(GL_TEXTURE0 + slot);

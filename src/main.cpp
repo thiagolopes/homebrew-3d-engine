@@ -12,9 +12,8 @@
 #include "shaders.hh"
 #include "camera.hh"
 #include "mesh.hh"
-#include "materials.hh"
 #include "lights.hh"
-#include "vendor/obj_loader/obj_loader.h"
+#include "models.hh"
 
 #include "containers.hh"
 
@@ -90,46 +89,7 @@ int main(void) {
   };
 
   Mesh light(Container::vertices, Container::indices);
-
-  std::vector<Mesh *> meshes;
-  Material *material;
-  {
-    objl::Loader loader;
-    std::string path_models = "res/models/";
-    std::string obj = "backpack";
-    std::string obj_name = path_models + obj;
-    if (!loader.LoadFile(obj_name + "/" + obj + ".obj")) {
-      std::cout << "[ERROR] Fail to load model" << std::endl;
-    }
-
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
-    // int m = 0;
-
-    for (size_t m = 0; m < loader.LoadedMeshes.size(); m++) {
-      for (size_t i = 0; i < loader.LoadedMeshes[m].Vertices.size(); i++) {
-        Vertex v;
-        v.position.x = loader.LoadedMeshes[m].Vertices[i].Position.X;
-        v.position.y = loader.LoadedMeshes[m].Vertices[i].Position.Y;
-        v.position.z = loader.LoadedMeshes[m].Vertices[i].Position.Z;
-
-        v.normal.x = loader.LoadedMeshes[m].Vertices[i].Normal.X;
-        v.normal.y = loader.LoadedMeshes[m].Vertices[i].Normal.Y;
-        v.normal.z = loader.LoadedMeshes[m].Vertices[i].Normal.Z;
-
-        v.tex_coord.x = loader.LoadedMeshes[m].Vertices[i].TextureCoordinate.X;
-        v.tex_coord.y = loader.LoadedMeshes[m].Vertices[i].TextureCoordinate.Y;
-        vertices.push_back(v);
-      }
-    }
-    for (size_t i = 0; i < loader.LoadedIndices.size(); i++) {
-      indices.push_back(loader.LoadedIndices[i]);
-    }
-    meshes.push_back(new Mesh(vertices, indices));
-    material = new Material(obj_name + "/" + loader.LoadedMaterials[0].map_Kd,
-                            obj_name + "/" + loader.LoadedMaterials[0].map_Ks,
-                            obj_name + "/" + loader.LoadedMaterials[0].map_Ke, 1.0f, 1.0f, false);
-  }
+  Model backpack("backpack");
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -204,9 +164,7 @@ int main(void) {
     shader.set_uniform_mat4("u_M", model);
     shader.set_uniform_mat4("u_P", proj);
 
-    material->bind(shader);
-    meshes[0]->draw(render, shader);
-    material->unbind();
+    backpack.draw(render, shader);
 
     // third cube - the light
     {
