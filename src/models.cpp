@@ -13,6 +13,7 @@ Model::Model(const std::string &model_name) {
     std::cout << "[ERROR] Fail to load model" << std::endl;
   }
 
+  meshes.reserve(loader.LoadedMeshes.size());
   for (size_t m = 0; m < loader.LoadedMeshes.size(); m++) {
     std::vector<Vertex> vertices(loader.LoadedMeshes[m].Vertices.size());
     std::vector<unsigned int> indices(loader.LoadedMeshes[m].Indices.size());
