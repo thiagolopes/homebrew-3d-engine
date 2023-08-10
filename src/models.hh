@@ -6,7 +6,7 @@
 
 class Model {
  private:
-  std::vector<Mesh *> meshes;
+  Mesh *mesh;
   Material *material;
 
  public:
