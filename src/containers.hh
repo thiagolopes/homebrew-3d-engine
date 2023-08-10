@@ -5,7 +5,7 @@
 #include "buffers.hh"
 
 namespace Container {
-std::vector<Vertex> positions = {
+std::vector<Vertex> vertices = {
     {
         glm::vec3(-0.5f, -0.5f, -0.5f),
         glm::vec2(0.0f, 0.0f),

@@ -13,6 +13,7 @@
 #include "camera.hh"
 #include "mesh.hh"
 #include "materials.hh"
+#include "lights.hh"
 #include "vendor/obj_loader/obj_loader.h"
 
 #include "containers.hh"
@@ -28,27 +29,6 @@ float mouse_last_y = height / 2.0f;
 
 // setup free camera
 Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
-
-// types os lights:
-struct PointLight {
-  glm::vec3 position;
-
-  glm::vec3 ambient;
-  glm::vec3 diffuse;
-  glm::vec3 specular;
-
-  float constant;
-  float linear;
-  float quadratic;
-};
-
-struct DirLight {
-  glm::vec3 direction;
-
-  glm::vec3 ambient;
-  glm::vec3 diffuse;
-  glm::vec3 specular;
-};
 
 void viewport_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
@@ -88,7 +68,6 @@ int main(void) {
   glm::mat4 model;
   glm::mat4 view;
   glm::mat4 proj;
-  bool rotate = true;
 
   // light
   PointLight point_light = {
@@ -110,37 +89,50 @@ int main(void) {
       glm::vec3(0.5f, 0.5f, 0.5f),
   };
 
+  Mesh light(Container::vertices, Container::indices);
+
+  std::vector<Mesh> meshes;
+  std::vector<Material> materials;
+  // {
   objl::Loader loader;
-  if (!loader.LoadFile("res/models/rock/rock.obj")) {
+  std::string path_models = "res/models/";
+  std::string obj = "rock";
+  std::string obj_name = path_models + obj;
+  if (!loader.LoadFile(obj_name + "/" + obj + ".obj")) {
     std::cout << "[ERROR] Fail to load model" << std::endl;
   }
 
   std::vector<Vertex> vertices;
   std::vector<unsigned int> indices;
+  // int m = 0;
 
-  int m = 0;
-  for (size_t i = 0; i < loader.LoadedMeshes[m].Vertices.size(); i++) {
-    Vertex v;
-    v.position.x = loader.LoadedMeshes[m].Vertices[i].Position.X;
-    v.position.y = loader.LoadedMeshes[m].Vertices[i].Position.Y;
-    v.position.z = loader.LoadedMeshes[m].Vertices[i].Position.Z;
+  for (size_t m = 0; m < loader.LoadedMeshes.size(); m++) {
+    for (size_t i = 0; i < loader.LoadedMeshes[m].Vertices.size(); i++) {
+      Vertex v;
+      v.position.x = loader.LoadedMeshes[m].Vertices[i].Position.X;
+      v.position.y = loader.LoadedMeshes[m].Vertices[i].Position.Y;
+      v.position.z = loader.LoadedMeshes[m].Vertices[i].Position.Z;
 
-    v.normal.x = loader.LoadedMeshes[m].Vertices[i].Normal.X;
-    v.normal.y = loader.LoadedMeshes[m].Vertices[i].Normal.Y;
-    v.normal.z = loader.LoadedMeshes[m].Vertices[i].Normal.Z;
+      v.normal.x = loader.LoadedMeshes[m].Vertices[i].Normal.X;
+      v.normal.y = loader.LoadedMeshes[m].Vertices[i].Normal.Y;
+      v.normal.z = loader.LoadedMeshes[m].Vertices[i].Normal.Z;
 
-    v.tex_coord.x = loader.LoadedMeshes[m].Vertices[i].TextureCoordinate.X;
-    v.tex_coord.y = loader.LoadedMeshes[m].Vertices[i].TextureCoordinate.Y;
-    vertices.push_back(v);
+      v.tex_coord.x = loader.LoadedMeshes[m].Vertices[i].TextureCoordinate.X;
+      v.tex_coord.y = loader.LoadedMeshes[m].Vertices[i].TextureCoordinate.Y;
+      vertices.push_back(v);
+    }
   }
-  for (size_t i = 0; i < loader.LoadedMeshes[m].Indices.size(); i++) {
-    indices.push_back(loader.LoadedMeshes[m].Indices[i]);
+  for (size_t i = 0; i < loader.LoadedIndices.size(); i++) {
+    indices.push_back(loader.LoadedIndices[i]);
   }
-
   Mesh mesh(vertices, indices);
-  Material material("res/models/rock/" + loader.LoadedMaterials[0].map_Ka,
-                    "res/models/rock/" + loader.LoadedMaterials[0].map_Kd,
-                    "res/models/rock/" + loader.LoadedMaterials[0].map_Ks, 1.0f, 1.0f, false);
+  Material material_rock(obj_name + "/" + loader.LoadedMaterials[0].map_Ka,
+                         obj_name + "/" + loader.LoadedMaterials[0].map_Kd,
+                         obj_name + "/" + loader.LoadedMaterials[0].map_Ks, 1.0f, 1.0f, false);
+
+  materials.push_back(material_rock);
+  meshes.push_back(mesh);
+  // }
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -184,7 +176,7 @@ int main(void) {
       //   ImGui::Checkbox("Emission mask?", &material.emission_mask);
       //   ImGui::TreePop();
       // }
-      ImGui::Checkbox("Rotate?", &rotate);
+      // ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
     }
@@ -195,11 +187,8 @@ int main(void) {
                             0.1f, 100.0f);
 
     shader.bind();
-    model = glm::translate(glm::mat4(1.0f), cube_word_positions[1]);  // multiply z to use positive bar in gui
+    model = glm::translate(glm::mat4(1.0f), cube_word_positions[0]);  // multiply z to use positive bar in gui
     model = glm::scale(model, glm::vec3(1.0f));
-    if (rotate) {
-      model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
-    };
 
     shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
     shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
@@ -218,11 +207,10 @@ int main(void) {
     shader.set_uniform_mat4("u_M", model);
     shader.set_uniform_mat4("u_P", proj);
 
-    material.bind(shader);
-    mesh.draw(render, shader);
-    material.unbind();
+    materials[0].bind(shader);
+    meshes[0].draw(render, shader);
+    materials[0].unbind();
 
-#if 0
     // third cube - the light
     {
       shader_light.bind();
@@ -240,9 +228,8 @@ int main(void) {
       shader_light.set_uniform_mat4("u_M", model);
       shader_light.set_uniform_mat4("u_P", proj);
 
-      mesh_light.draw(render, shader_light);  // todo: movo to a batch render and draw once;
+      light.draw(render, shader_light);  // todo: movo to a batch render and draw once;
     }
-#endif
 
     imgui.draw();
     render.end_frame();
