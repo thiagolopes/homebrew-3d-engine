@@ -1154,7 +1154,7 @@ namespace objl
                                 // Emission Map
                                 if (algorithm::firstToken(curline) == "map_Ke")
                                 {
-                                        tempMaterial.map_Ka = algorithm::tail(curline);
+                                        tempMaterial.map_Ke = algorithm::tail(curline);
                                 }
                         }
 

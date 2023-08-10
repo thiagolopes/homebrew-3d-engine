@@ -1,14 +1,13 @@
-# Blender MTL File: 'Rock1.blend'
-# Material Count: 1
+# Blender 3.6.1 MTL File: 'rock'
+# www.blender.org
 
-newmtl Material
-Ns 13.725490
-Ka 0.000000 0.000000 0.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.007937 0.007937 0.007937
+newmtl rock
+Ns 13.725493
+Ka 1.000000 1.000000 1.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Ka rock.png
-map_Kd fallback.png
-map_Ks fallback.png
+map_Kd diffuse.png
+map_Ks specular.png
+map_Ke fallback.png
+map_Bump diffuse.png
