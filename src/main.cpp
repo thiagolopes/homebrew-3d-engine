@@ -1,11 +1,9 @@
-#include <cstddef>
-#include <glm/fwd.hpp>
 #include <iostream>
 #include <math.h>
 #include <string>
-
 #include <glm/glm.hpp>
 #include <vector>
+
 #include "glm/gtc/matrix_transform.hpp"
 #include "renderer.hh"
 #include "buffers.hh"
@@ -35,17 +33,17 @@ void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 // triagle positions and incidices - vertex collection
 
 glm::vec3 word_positions[] = {glm::vec3(0.0f, 0.0f, 0.0f),    glm::vec3(2.0f, 5.0f, -15.0f),
-                                   glm::vec3(-1.5f, -2.2f, -2.5f), glm::vec3(-3.8f, -2.0f, -12.3f),
-                                   glm::vec3(2.4f, -0.4f, -3.5f),  glm::vec3(-1.7f, 3.0f, -7.5f),
-                                   glm::vec3(1.3f, -2.0f, -2.5f),  glm::vec3(1.5f, 2.0f, -2.5f),
-                                   glm::vec3(1.5f, 0.2f, -1.5f),   glm::vec3(-1.3f, 1.0f, -1.5f)};
+                              glm::vec3(-1.5f, -2.2f, -2.5f), glm::vec3(-3.8f, -2.0f, -12.3f),
+                              glm::vec3(2.4f, -0.4f, -3.5f),  glm::vec3(-1.7f, 3.0f, -7.5f),
+                              glm::vec3(1.3f, -2.0f, -2.5f),  glm::vec3(1.5f, 2.0f, -2.5f),
+                              glm::vec3(1.5f, 0.2f, -1.5f),   glm::vec3(-1.3f, 1.0f, -1.5f)};
 
 int main(void) {
   char window_name[] = "Engine3D";
   camera.set_moviment_speed(8.0f);
 
   Renderer render(window_name, width, height);
-  render.set_swap_interval(true);
+  render.set_swap_interval(false);
   render.set_depth_test();
   render.set_mouse_moviment_callback((void *)mouse_callback);
   render.set_mouse_scroll_callback((void *)scroll_callback);
@@ -90,6 +88,7 @@ int main(void) {
 
   Mesh light(Container::vertices, Container::indices);
   Model backpack("backpack");
+  Model rock("rock");
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -126,14 +125,6 @@ int main(void) {
         ImGui::SliderFloat("Quadratic", &point_light.quadratic, 0.0f, 1.0f);
         ImGui::TreePop();
       }
-      // TODO move to material debug option
-      // if (ImGui::TreeNode("Material")) {
-      //   ImGui::SliderFloat("Shininess material", &material.shininess, 0.0f, 1.0f);
-      //   ImGui::SliderFloat("Emission material", &material.emissioness, 0.0f, 1.0f);
-      //   ImGui::Checkbox("Emission mask?", &material.emission_mask);
-      //   ImGui::TreePop();
-      // }
-      // ImGui::Checkbox("Rotate?", &rotate);
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
       ImGui::End();
     }
@@ -143,29 +134,57 @@ int main(void) {
     proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
                             0.1f, 100.0f);
 
-    shader.bind();
-    model = glm::translate(glm::mat4(1.0f), word_positions[0]);  // multiply z to use positive bar in gui
-    model = glm::scale(model, glm::vec3(1.0f));
+    {
+      shader.bind();
+      model = glm::translate(glm::mat4(1.0f), word_positions[1]);  // multiply z to use positive bar in gui
+      model = glm::scale(model, glm::vec3(1.0f));
 
-    shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
-    shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
-    shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
-    shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
+      shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
+      shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
+      shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
+      shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
 
-    shader.set_uniform_vec3("u_PointLight.position", point_light.position);
-    shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
-    shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
-    shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
-    shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
-    shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
-    shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
+      shader.set_uniform_vec3("u_PointLight.position", point_light.position);
+      shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
+      shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
+      shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
+      shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
+      shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
+      shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
 
-    shader.set_uniform_mat4("u_V", view);
-    shader.set_uniform_mat4("u_M", model);
-    shader.set_uniform_mat4("u_P", proj);
+      shader.set_uniform_mat4("u_V", view);
+      shader.set_uniform_mat4("u_M", model);
+      shader.set_uniform_mat4("u_P", proj);
 
-    backpack.draw(render, shader);
+      rock.draw(render, shader);
+    }
 
+    {
+      shader.bind();
+      model = glm::translate(glm::mat4(1.0f), word_positions[0]);  // multiply z to use positive bar in gui
+      model = glm::scale(model, glm::vec3(1.0f));
+
+      shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
+      shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
+      shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
+      shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
+
+      shader.set_uniform_vec3("u_PointLight.position", point_light.position);
+      shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
+      shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
+      shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
+      shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
+      shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
+      shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
+
+      shader.set_uniform_mat4("u_V", view);
+      shader.set_uniform_mat4("u_M", model);
+      shader.set_uniform_mat4("u_P", proj);
+
+      backpack.draw(render, shader);
+    }
+
+#if 1
     // third cube - the light
     {
       shader_light.bind();
@@ -185,6 +204,7 @@ int main(void) {
 
       light.draw(render, shader_light);  // todo: movo to a batch render and draw once;
     }
+#endif
 
     imgui.draw();
     render.end_frame();
