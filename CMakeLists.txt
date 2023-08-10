@@ -17,9 +17,6 @@ include_directories(glew/include)
 add_subdirectory(glfw)
 include_directories(glfw/include)
 
-add_subdirectory(assimp)
-include_directories(assimp/include)
-
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB IMGUI_SOURCES "src/vendor/imgui/*.cpp")
 

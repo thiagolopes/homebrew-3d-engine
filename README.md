@@ -35,6 +35,7 @@ make run -j5
 - [ImGui](https://github.com/ocornut/imgui)
 - [ImGui Online Demo Doc](https://pthom.github.io/imgui_manual_online/manual/imgui_manual.html)
 - [Assimp](https://github.com/assimp/)
+- [OBJ-Loader](https://github.com/Bly7/OBJ-Loader)
 - [GLFW](https://www.glfw.org/)
 - [GLM](http://glm.g-truc.net/0.9.8/index.html)
 - [Wavefront .obj file](https://en.wikipedia.org/wiki/Wavefront_.obj_file)
