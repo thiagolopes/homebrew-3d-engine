@@ -186,6 +186,8 @@ namespace objl
                 std::string map_d;
                 // Bump Map
                 std::string map_bump;
+                // Emission Map
+                std::string map_Ke;
         };
 
         // Structure: Mesh
@@ -1148,6 +1150,11 @@ namespace objl
                                 if (algorithm::firstToken(curline) == "map_Bump" || algorithm::firstToken(curline) == "map_bump" || algorithm::firstToken(curline) == "bump")
                                 {
                                         tempMaterial.map_bump = algorithm::tail(curline);
+                                }
+                                // Emission Map
+                                if (algorithm::firstToken(curline) == "map_Ke")
+                                {
+                                        tempMaterial.map_Ka = algorithm::tail(curline);
                                 }
                         }
 
