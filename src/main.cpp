@@ -1,8 +1,11 @@
+#include <cstddef>
+#include <glm/fwd.hpp>
 #include <iostream>
 #include <math.h>
 #include <string>
 
 #include <glm/glm.hpp>
+#include <vector>
 #include "glm/gtc/matrix_transform.hpp"
 #include "renderer.hh"
 #include "buffers.hh"
@@ -10,6 +13,7 @@
 #include "camera.hh"
 #include "mesh.hh"
 #include "materials.hh"
+#include "vendor/obj_loader/obj_loader.h"
 
 #include "containers.hh"
 
@@ -106,10 +110,37 @@ int main(void) {
       glm::vec3(0.5f, 0.5f, 0.5f),
   };
 
-  Material material_container("res/textures/container.png", "res/textures/container_specular.png",
-                              "res/textures/matrix.png", 1.0f, 0.0f, false);
-  Mesh mesh_container(Container::positions, Container::indices);
-  Mesh mesh_light(Container::positions, Container::indices);
+  objl::Loader loader;
+  if (!loader.LoadFile("res/models/rock/rock.obj")) {
+    std::cout << "[ERROR] Fail to load model" << std::endl;
+  }
+
+  std::vector<Vertex> vertices;
+  std::vector<unsigned int> indices;
+
+  int m = 0;
+  for (size_t i = 0; i < loader.LoadedMeshes[m].Vertices.size(); i++) {
+    Vertex v;
+    v.position.x = loader.LoadedMeshes[m].Vertices[i].Position.X;
+    v.position.y = loader.LoadedMeshes[m].Vertices[i].Position.Y;
+    v.position.z = loader.LoadedMeshes[m].Vertices[i].Position.Z;
+
+    v.normal.x = loader.LoadedMeshes[m].Vertices[i].Normal.X;
+    v.normal.y = loader.LoadedMeshes[m].Vertices[i].Normal.Y;
+    v.normal.z = loader.LoadedMeshes[m].Vertices[i].Normal.Z;
+
+    v.tex_coord.x = loader.LoadedMeshes[m].Vertices[i].TextureCoordinate.X;
+    v.tex_coord.y = loader.LoadedMeshes[m].Vertices[i].TextureCoordinate.Y;
+    vertices.push_back(v);
+  }
+  for (size_t i = 0; i < loader.LoadedMeshes[m].Indices.size(); i++) {
+    indices.push_back(loader.LoadedMeshes[m].Indices[i]);
+  }
+
+  Mesh mesh(vertices, indices);
+  Material material("res/models/rock/" + loader.LoadedMaterials[0].map_Ka,
+                    "res/models/rock/" + loader.LoadedMaterials[0].map_Kd,
+                    "res/models/rock/" + loader.LoadedMaterials[0].map_Ks, 1.0f, 1.0f, false);
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -163,36 +194,35 @@ int main(void) {
     proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
                             0.1f, 100.0f);
 
-    for (size_t i = 0; i < 10; i++) {
-      shader.bind();
-      model = glm::translate(glm::mat4(1.0f), cube_word_positions[i]);  // multiply z to use positive bar in gui
-      model = glm::scale(model, glm::vec3(1.0f));
-      if (rotate) {
-        model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
-      };
-
-      shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
-      shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
-      shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
-      shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
-
-      shader.set_uniform_vec3("u_PointLight.position", point_light.position);
-      shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
-      shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
-      shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
-      shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
-      shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
-      shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
-
-      shader.set_uniform_mat4("u_V", view);
-      shader.set_uniform_mat4("u_M", model);
-      shader.set_uniform_mat4("u_P", proj);
-
-      material_container.bind(shader);
-      mesh_container.draw(render, shader);
-      material_container.unbind();
+    shader.bind();
+    model = glm::translate(glm::mat4(1.0f), cube_word_positions[1]);  // multiply z to use positive bar in gui
+    model = glm::scale(model, glm::vec3(1.0f));
+    if (rotate) {
+      model = glm::rotate(model, render.get_time() * glm::radians(50.0f), glm::vec3(-0.5f, -1.0f, -1.0f));
     };
 
+    shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
+    shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
+    shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
+    shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
+
+    shader.set_uniform_vec3("u_PointLight.position", point_light.position);
+    shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
+    shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
+    shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
+    shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
+    shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
+    shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
+
+    shader.set_uniform_mat4("u_V", view);
+    shader.set_uniform_mat4("u_M", model);
+    shader.set_uniform_mat4("u_P", proj);
+
+    material.bind(shader);
+    mesh.draw(render, shader);
+    material.unbind();
+
+#if 0
     // third cube - the light
     {
       shader_light.bind();
@@ -212,6 +242,7 @@ int main(void) {
 
       mesh_light.draw(render, shader_light);  // todo: movo to a batch render and draw once;
     }
+#endif
 
     imgui.draw();
     render.end_frame();
