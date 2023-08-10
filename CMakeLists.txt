@@ -58,7 +58,6 @@ target_link_libraries(Engine
   OpenGL::GL
   glfw
   glew
-  assimp
 )
 
 add_custom_target(lint
