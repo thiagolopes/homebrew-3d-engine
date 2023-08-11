@@ -83,7 +83,7 @@ void Renderer::set_depth_test(bool flag) const {
 
 bool Renderer::running() { return !glfwWindowShouldClose(m_window); };
 
-void Renderer::draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const {
+void Renderer::draw(const VertexArray &va, const IndexBuffer &ib) const {
   va.bind();
   ib.bind();
 

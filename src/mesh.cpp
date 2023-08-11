@@ -15,6 +15,6 @@ Mesh::Mesh(std::vector<Vertex> vertex, std::vector<unsigned int> indices) : m_vb
 
 void Mesh::draw(Renderer& render, Shader& shader) {
   shader.bind();
-  render.draw(m_va, m_ib, shader);
+  render.draw(m_va, m_ib);
   shader.unbind();
 };

@@ -31,7 +31,7 @@ class Renderer {
  public:
   Renderer(char *window_name, float width, float height);
   ~Renderer();
-  void draw(const VertexArray &va, const IndexBuffer &ib, const Shader &shader) const;
+  void draw(const VertexArray &va, const IndexBuffer &ib) const;
   void clear() const;
   void end_frame();
   void set_depth_test(bool flag = true) const;

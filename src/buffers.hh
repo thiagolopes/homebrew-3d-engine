@@ -67,9 +67,8 @@ class VertexBufferLayout {
   VertexBufferLayout() : vbl_stride(0) {}
 
   template <typename T>
-  void push(unsigned int count) {
-    return;
-  }
+  void push(unsigned int count);
+
 
   inline const std::vector<VertexBufferElements> &get_elements() const { return vbl_elements; };
   inline unsigned int get_stride() const { return vbl_stride; };

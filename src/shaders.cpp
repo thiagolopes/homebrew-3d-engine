@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 Shader::Shader(const std::string &filepath) : source_filepath(filepath), shader_id(0) {
   ShaderSourceCode source_code_shaders = parse_source(filepath);
@@ -73,7 +74,7 @@ ShaderSourceCode Shader::parse_source(const std::string &filepath) {
 
 unsigned int Shader::compile_shader(unsigned int type_shader, const std::string &source) {
   unsigned int id = glCreateShader(type_shader);
-  const char *src = source.c_str();
+  const GLchar *src = source.c_str();
 
   glShaderSource(id, 1, &src, nullptr);
   glCompileShader(id);
@@ -84,10 +85,10 @@ unsigned int Shader::compile_shader(unsigned int type_shader, const std::string 
   if (error == GL_FALSE) {
     int length;
     glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-    char error_msg[length];
-    glGetShaderInfoLog(id, length, &length, error_msg);
+    std::vector<GLchar> error_msg(length);
+    glGetShaderInfoLog(id, length, &length, error_msg.data());
     std::cout << "Fail shader compilation! \n";
-    std::cout << error_msg << std::endl;
+    std::cout << error_msg.data() << std::endl;
     glDeleteShader(id);
     return 0;
   }
