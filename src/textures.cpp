@@ -10,7 +10,7 @@ Texture::Texture(const std::string &path)
   glGenTextures(1, &t_render_id);
   glBindTexture(GL_TEXTURE_2D, t_render_id);
 
-  stbi_set_flip_vertically_on_load(false);
+  stbi_set_flip_vertically_on_load(true);
   t_localbuffer = stbi_load(path.c_str(), &t_width, &t_height, &t_bpp, STBI_rgb_alpha);
 
   if (!t_localbuffer) {

@@ -87,8 +87,8 @@ int main(void) {
   };
 
   Mesh light(Container::vertices, Container::indices);
-  Model backpack("backpack");
   Model rock("rock");
+  Model cyborg("cyborg");
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -134,21 +134,11 @@ int main(void) {
     proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
                             0.1f, 100.0f);
 
-    {
-      model = glm::translate(glm::mat4(1.0f), word_positions[1]);  // multiply z to use positive bar in gui
-      model = glm::scale(model, glm::vec3(1.0f));
-
-      point_light.set_on_shader(shader);
-      directional_light.set_on_shader(shader);
-
-      shader.set_uniform_mat4("u_V", view);
-      shader.set_uniform_mat4("u_M", model);
-      shader.set_uniform_mat4("u_P", proj);
-      rock.draw(render, shader);
-    }
-
-    {
-      model = glm::translate(glm::mat4(1.0f), word_positions[0]);  // multiply z to use positive bar in gui
+    unsigned int mx = 20, my = 20;
+    glm::vec3 new_position;
+    for (size_t i = 0; i < mx * my; i++) {
+      new_position = word_positions[0] + glm::vec3((i % mx) * 4, 0.0, (i / my) * 2);
+      model = glm::translate(glm::mat4(1.0f), new_position);
       model = glm::scale(model, glm::vec3(1.0f));
 
       point_light.set_on_shader(shader);
@@ -158,7 +148,7 @@ int main(void) {
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
 
-      backpack.draw(render, shader);
+      cyborg.draw(render, shader);
     }
 
 #if 1
