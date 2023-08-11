@@ -135,47 +135,24 @@ int main(void) {
                             0.1f, 100.0f);
 
     {
-      shader.bind();
       model = glm::translate(glm::mat4(1.0f), word_positions[1]);  // multiply z to use positive bar in gui
       model = glm::scale(model, glm::vec3(1.0f));
 
-      shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
-      shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
-      shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
-      shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
-
-      shader.set_uniform_vec3("u_PointLight.position", point_light.position);
-      shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
-      shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
-      shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
-      shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
-      shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
-      shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
+      point_light.set_on_shader(shader);
+      directional_light.set_on_shader(shader);
 
       shader.set_uniform_mat4("u_V", view);
       shader.set_uniform_mat4("u_M", model);
       shader.set_uniform_mat4("u_P", proj);
-
       rock.draw(render, shader);
     }
 
     {
-      shader.bind();
       model = glm::translate(glm::mat4(1.0f), word_positions[0]);  // multiply z to use positive bar in gui
       model = glm::scale(model, glm::vec3(1.0f));
 
-      shader.set_uniform_vec3("u_DirLight.direction", directional_light.direction);
-      shader.set_uniform_vec3("u_DirLight.ambient", directional_light.ambient);
-      shader.set_uniform_vec3("u_DirLight.diffuse", directional_light.diffuse);
-      shader.set_uniform_vec3("u_DirLight.specular", directional_light.specular);
-
-      shader.set_uniform_vec3("u_PointLight.position", point_light.position);
-      shader.set_uniform_vec3("u_PointLight.ambient", point_light.ambient);
-      shader.set_uniform_vec3("u_PointLight.diffuse", point_light.diffuse);
-      shader.set_uniform_vec3("u_PointLight.specular", point_light.specular);
-      shader.set_uniform_float1("u_PointLight.constant", point_light.constant);
-      shader.set_uniform_float1("u_PointLight.linear", point_light.linear);
-      shader.set_uniform_float1("u_PointLight.quadratic", point_light.quadratic);
+      point_light.set_on_shader(shader);
+      directional_light.set_on_shader(shader);
 
       shader.set_uniform_mat4("u_V", view);
       shader.set_uniform_mat4("u_M", model);
