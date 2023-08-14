@@ -52,6 +52,9 @@ make run -j5
 ![Block-diagram-of-the-OpenGL-pipeline](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/a5519698-8450-41e6-8db8-2e0b091be5b2)
 
 
-## Screenshots
+## Screenshot
+2D:
 ![2d](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/d5368333-e06c-4b05-836b-d4904531e0e6)
-![rock](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/e64df078-cd8d-476f-9583-a2c192bcb1a2)
+
+3D:
+![rock_with_light](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/6d247aaa-2727-42f4-a343-6af49f26805b)

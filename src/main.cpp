@@ -14,6 +14,7 @@
 #include "models.hh"
 
 #include "containers.hh"
+#include "vendor/imgui/imgui.h"
 
 #define TAU 6.28
 
@@ -25,11 +26,12 @@ float mouse_last_x = width / 2.0f;
 float mouse_last_y = height / 2.0f;
 
 // setup free camera
-Camera camera(glm::vec3(0.0f, 0.0f, 12.0f));
+Camera camera(glm::vec3(5.0f, 5.0f, 15.0f));
 
 void viewport_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
+void keyboard_handler(Renderer &render);
 // triagle positions and incidices - vertex collection
 
 glm::vec3 word_positions[] = {glm::vec3(0.0f, 0.0f, 0.0f),    glm::vec3(2.0f, 5.0f, -15.0f),
@@ -45,6 +47,7 @@ int main(void) {
   Renderer render(window_name, width, height);
   render.set_swap_interval(false);
   render.set_depth_test();
+
   render.set_mouse_moviment_callback((void *)mouse_callback);
   render.set_mouse_scroll_callback((void *)scroll_callback);
   render.set_viewport_size_callback((void *)viewport_size_callback);
@@ -96,17 +99,7 @@ int main(void) {
     render.clear();
 
     // handler key
-    {
-      if (glfwGetKey(render.get_window(), GLFW_KEY_W) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::FORWARD, render.get_deltatime());
-      if (glfwGetKey(render.get_window(), GLFW_KEY_S) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::BACKWARD, render.get_deltatime());
-      if (glfwGetKey(render.get_window(), GLFW_KEY_A) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::LEFT, render.get_deltatime());
-      if (glfwGetKey(render.get_window(), GLFW_KEY_D) == GLFW_PRESS)
-        camera.process_keyboard(camera_direction_t::RIGHT, render.get_deltatime());
-    }
-
+    keyboard_handler(render);
     // imgui panel
     {
       ImGui::Begin("Menu");
@@ -134,7 +127,7 @@ int main(void) {
     proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
                             0.1f, 100.0f);
 
-    unsigned int mx = 20, my = 20;
+    unsigned int mx = 5, my = 5;
     glm::vec3 new_position;
     for (size_t i = 0; i < mx * my; i++) {
       new_position = word_positions[0] + glm::vec3((i % mx) * 4, 0.0, (i / my) * 2);
@@ -204,3 +197,13 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
 
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) { camera.process_mouse_scroll(yoffset); }
 void viewport_size_callback(GLFWwindow *window, int width, int height) { glViewport(0, 0, width, height); }
+void keyboard_handler(Renderer &render) {
+  if (glfwGetKey(render.get_window(), GLFW_KEY_W) == GLFW_PRESS)
+    camera.process_keyboard(camera_direction_t::FORWARD, render.get_deltatime());
+  if (glfwGetKey(render.get_window(), GLFW_KEY_S) == GLFW_PRESS)
+    camera.process_keyboard(camera_direction_t::BACKWARD, render.get_deltatime());
+  if (glfwGetKey(render.get_window(), GLFW_KEY_A) == GLFW_PRESS)
+    camera.process_keyboard(camera_direction_t::LEFT, render.get_deltatime());
+  if (glfwGetKey(render.get_window(), GLFW_KEY_D) == GLFW_PRESS)
+    camera.process_keyboard(camera_direction_t::RIGHT, render.get_deltatime());
+}
