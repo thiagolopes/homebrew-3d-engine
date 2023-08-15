@@ -92,6 +92,19 @@ void Renderer::draw(const VertexArray &va, const IndexBuffer &ib) const {
   GL_debug_chek_error();
 };
 
+Renderer::Key Renderer::get_key_pressed() {
+  if (glfwGetKey(get_window(), GLFW_KEY_W) == GLFW_PRESS)
+    return W;
+  if (glfwGetKey(get_window(), GLFW_KEY_S) == GLFW_PRESS)
+    return S;
+  if (glfwGetKey(get_window(), GLFW_KEY_A) == GLFW_PRESS)
+    return A;
+  if (glfwGetKey(get_window(), GLFW_KEY_D) == GLFW_PRESS)
+    return D;
+  return (Renderer::Key)-1;
+  // TODO improve
+};
+
 void Renderer::clear() const { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); };
 
 ImGuiRenderer::ImGuiRenderer(GLFWwindow *window) {

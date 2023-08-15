@@ -29,6 +29,9 @@ class Renderer {
   }
 
  public:
+  // same order as camera_direction_t
+  enum Key { W, S, A, D };
+
   Renderer(char *window_name, float width, float height);
   ~Renderer();
   void draw(const VertexArray &va, const IndexBuffer &ib) const;
@@ -42,6 +45,7 @@ class Renderer {
   void set_mouse_scroll_callback(void *f);
   void set_mouse_button_callback(void *f);
   void set_viewport_size_callback(void *f);
+  Key get_key_pressed();
 
   inline GLFWwindow *get_window() const { return m_window; };
   inline int get_width() const { return m_width; };

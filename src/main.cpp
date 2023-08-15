@@ -14,7 +14,6 @@
 #include "models.hh"
 
 #include "containers.hh"
-#include "vendor/imgui/imgui.h"
 
 #define TAU 6.28
 
@@ -32,7 +31,6 @@ void viewport_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 void keyboard_handler(Renderer &render);
-// triagle positions and incidices - vertex collection
 
 glm::vec3 word_positions[] = {glm::vec3(0.0f, 0.0f, 0.0f),    glm::vec3(2.0f, 5.0f, -15.0f),
                               glm::vec3(-1.5f, -2.2f, -2.5f), glm::vec3(-3.8f, -2.0f, -12.3f),
@@ -51,7 +49,6 @@ int main(void) {
   render.set_mouse_moviment_callback((void *)mouse_callback);
   render.set_mouse_scroll_callback((void *)scroll_callback);
   render.set_viewport_size_callback((void *)viewport_size_callback);
-  // render.set_mouse_button_callback((void *)mouse_button_callback);
 
   // load shader source code
   Shader shader("res/shaders/material.shader");
@@ -59,7 +56,6 @@ int main(void) {
 
   // imgui
   ImGuiRenderer imgui(render.get_window());
-  ImGuiIO &imgui_io = ImGui::GetIO();
 
   // So, basically MVP:
   // Model matrix: defines position, rotation and scale of the vertices of the model in the world.
@@ -99,28 +95,11 @@ int main(void) {
     render.clear();
 
     // handler key
-    keyboard_handler(render);
+    camera.process_keyboard((camera_direction_t)render.get_key_pressed(), render.get_deltatime());
+
     // imgui panel
-    {
-      ImGui::Begin("Menu");
-      if (ImGui::TreeNode("Point Light")) {
-        ImGui::ColorEdit3("Ambiant light", &directional_light.ambient.x);
-        ImGui::ColorEdit3("Diffuse light", &directional_light.diffuse.x);
-        ImGui::ColorEdit3("Specular light", &directional_light.specular.x);
-        ImGui::TreePop();
-      }
-      if (ImGui::TreeNode("Directional Light")) {
-        ImGui::ColorEdit3("Ambiant light", &point_light.ambient.x);
-        ImGui::ColorEdit3("Diffuse light", &point_light.diffuse.x);
-        ImGui::ColorEdit3("Specular light", &point_light.specular.x);
-        ImGui::SliderFloat("Constant", &point_light.constant, 0.0f, 1.0f);
-        ImGui::SliderFloat("Linear", &point_light.linear, 0.0f, 1.0f);
-        ImGui::SliderFloat("Quadratic", &point_light.quadratic, 0.0f, 1.0f);
-        ImGui::TreePop();
-      }
-      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
-      ImGui::End();
-    }
+    point_light.debug_menu();
+    directional_light.debug_menu();
 
     /* draw here */
     view = camera.get_camera_matrix();
@@ -197,13 +176,3 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) {
 
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) { camera.process_mouse_scroll(yoffset); }
 void viewport_size_callback(GLFWwindow *window, int width, int height) { glViewport(0, 0, width, height); }
-void keyboard_handler(Renderer &render) {
-  if (glfwGetKey(render.get_window(), GLFW_KEY_W) == GLFW_PRESS)
-    camera.process_keyboard(camera_direction_t::FORWARD, render.get_deltatime());
-  if (glfwGetKey(render.get_window(), GLFW_KEY_S) == GLFW_PRESS)
-    camera.process_keyboard(camera_direction_t::BACKWARD, render.get_deltatime());
-  if (glfwGetKey(render.get_window(), GLFW_KEY_A) == GLFW_PRESS)
-    camera.process_keyboard(camera_direction_t::LEFT, render.get_deltatime());
-  if (glfwGetKey(render.get_window(), GLFW_KEY_D) == GLFW_PRESS)
-    camera.process_keyboard(camera_direction_t::RIGHT, render.get_deltatime());
-}
