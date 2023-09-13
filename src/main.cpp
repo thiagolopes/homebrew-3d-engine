@@ -32,18 +32,12 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 void keyboard_handler(Renderer &render);
 
-glm::vec3 word_positions[] = {glm::vec3(0.0f, 0.0f, 0.0f),    glm::vec3(2.0f, 5.0f, -15.0f),
-                              glm::vec3(-1.5f, -2.2f, -2.5f), glm::vec3(-3.8f, -2.0f, -12.3f),
-                              glm::vec3(2.4f, -0.4f, -3.5f),  glm::vec3(-1.7f, 3.0f, -7.5f),
-                              glm::vec3(1.3f, -2.0f, -2.5f),  glm::vec3(1.5f, 2.0f, -2.5f),
-                              glm::vec3(1.5f, 0.2f, -1.5f),   glm::vec3(-1.3f, 1.0f, -1.5f)};
-
 int main(void) {
   char window_name[] = "Engine3D";
   camera.set_moviment_speed(8.0f);
 
   Renderer render(window_name, width, height);
-  render.set_swap_interval(false);
+  render.set_swap_interval(true);
   render.set_depth_test();
 
   render.set_mouse_moviment_callback((void *)mouse_callback);
@@ -67,27 +61,22 @@ int main(void) {
 
   // light
   PointLight point_light = {
-      glm::vec3(0.7f, 0.2f, 2.0f),
-
-      glm::vec3(0.4f, 0.4f, 0.4f),
-      glm::vec3(0.5f, 0.5f, 0.5f),
+      glm::vec3(0.0f, 0.0f, 0.0f),
+      glm::vec3(0.23f, 0.23f, 0.23f),
       glm::vec3(1.0f, 1.0f, 1.0f),
-
-      1.0f,
-      0.09f,
-      0.032f,
+      glm::vec3(0.0f, 0.0f, 0.0f),
+      0.6f,0.028f,0.0035f,
   };
-  DirLight directional_light = {
+  DirLight directional_light = { //off for now
       glm::vec3(-0.2f, -1.0f, -0.3f),
-
-      glm::vec3(0.5f, 0.5f, 0.5f),
-      glm::vec3(0.4f, 0.4f, 0.4f),
-      glm::vec3(0.5f, 0.5f, 0.5f),
+      glm::vec3(0.0f, 0.0f, 0.0f),
+      glm::vec3(0.0f, 0.0f, 0.0f),
+      glm::vec3(0.0f, 0.0f, 0.0f),
   };
 
   Mesh light(Container::vertices, Container::indices);
   Model rock("rock");
-  Model cyborg("cyborg");
+  Model earth("sphere");
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -106,22 +95,26 @@ int main(void) {
     proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
                             0.1f, 100.0f);
 
-    unsigned int mx = 5, my = 5;
-    glm::vec3 new_position;
-    for (size_t i = 0; i < mx * my; i++) {
-      new_position = word_positions[0] + glm::vec3((i % mx) * 4, 0.0, (i / my) * 2);
-      model = glm::translate(glm::mat4(1.0f), new_position);
-      model = glm::scale(model, glm::vec3(1.0f));
+    unsigned int scale=8;
+    glm::vec3 position(0.0f, 0.0f, 0.0f);
+    position.x += scale * sin(render.get_time());
+    // position.y += 3.0f * cos(render.get_time());
+    position.z += scale * cos(render.get_time());
 
-      point_light.set_on_shader(shader);
-      directional_light.set_on_shader(shader);
+    model = glm::translate(glm::mat4(1.0f), position);
+    model = glm::scale(model, glm::vec3(2.0f));
+    model = glm::rotate(model, (float)2.0 * render.get_time(), glm::vec3(0.0, 1.0, 0.0));
 
-      shader.set_uniform_mat4("u_V", view);
-      shader.set_uniform_mat4("u_M", model);
-      shader.set_uniform_mat4("u_P", proj);
+    point_light.set_on_shader(shader);
+    directional_light.set_on_shader(shader);
 
-      cyborg.draw(render, shader);
-    }
+    shader.set_uniform_mat4("u_V", view);
+    shader.set_uniform_mat4("u_M", model);
+    shader.set_uniform_mat4("u_P", proj);
+
+    earth.material->set_emissioness(1.0f);
+
+    earth.draw(render, shader);
 
 #if 1
     // third cube - the light

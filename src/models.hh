@@ -7,9 +7,9 @@
 class Model {
  private:
   Mesh *mesh;
+ public:
   Material *material;
 
- public:
   explicit Model(const std::string &model_name);
   ~Model();
   void draw(Renderer &render, Shader &shader);
