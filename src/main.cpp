@@ -36,25 +36,21 @@ int main(void) {
   camera.set_moviment_speed(8.0f);
 
   Renderer render(window_name, width, height);
-  render.set_swap_interval(true);
-  render.set_depth_test();
-
   render.set_mouse_moviment_callback((void *)mouse_callback);
   render.set_mouse_scroll_callback((void *)scroll_callback);
   render.set_viewport_size_callback((void *)viewport_size_callback);
 
-  // load shader source code
-  Shader shader("shaders/material.shader");
-  Shader shader_light("shaders/light.shader");
-
   // imgui
   ImGuiRenderer imgui(render.get_window());
 
+  // used matrix instances;
   glm::mat4 model;
   glm::mat4 view;
   glm::mat4 proj;
 
   // light
+  Shader shader("shaders/material.shader");
+  Shader shader_light("shaders/light.shader");
   PointLight pl(0.0f, 0.23f, 1.0f, 0.0f, 0.6f, 0.028f, 0.0035f);
   DirLight dl(-0.2f, 0.0f, 0.0f, 0.0f);
   Mesh light(Container::vertices, Container::indices);

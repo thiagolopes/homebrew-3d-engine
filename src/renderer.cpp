@@ -50,6 +50,10 @@ Renderer::Renderer(char *window_name, float width, float height)
   // show opengl version
   std::cout << "[LOG]" << glGetString(GL_VERSION) << std::endl;
   update_deltatime_frame();
+
+  // setup minors options by default
+  set_swap_interval(true);
+  set_depth_test();
 };
 
 Renderer::~Renderer() { glfwTerminate(); };
