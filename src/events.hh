@@ -7,16 +7,15 @@ class MouseEvents {
  public:
   MouseEvents(void);
   ~MouseEvents();
-    void callback_glfw_scroll(GLFWwindow *window, double xoffset, double yoffset);
-    void callback_glfw_mouse(GLFWwindow *window, double xposIn, double yposIn);
+  void callback_glfw_scroll(GLFWwindow *window, double xoffset, double yoffset);
+  void callback_glfw_mouse(GLFWwindow *window, double xposIn, double yposIn);
 
-    glm::vec2 get_position();
-    bool get_state(const int key);
+  glm::vec2 get_position();
+  bool get_state(const int key);
 };
 
 class KeyEvents {
  private:
-
  public:
   KeyEvents(void);
   ~KeyEvents();

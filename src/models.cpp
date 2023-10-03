@@ -37,7 +37,7 @@ Model::Model(const std::string &model_name) {
 
   std::string diffuse_path = obj_path + loader.LoadedMaterials[0].map_Kd;
   std::string specular_path = obj_path + loader.LoadedMaterials[0].map_Ks;
-  std::string emission_path = obj_path  + loader.LoadedMaterials[0].map_Ke;
+  std::string emission_path = obj_path + loader.LoadedMaterials[0].map_Ke;
   float specular_expoent = loader.LoadedMaterials[0].Ns;
 
   material = new Material(diffuse_path, specular_path, emission_path, specular_expoent, 1.0, false);
