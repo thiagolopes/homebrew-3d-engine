@@ -12,10 +12,9 @@
 #include "mesh.hh"
 #include "lights.hh"
 #include "models.hh"
+#include "entity.hh"
 
 #include "containers.hh"
-
-#define TAU 6.28
 
 // settings
 int width = 1280;
@@ -25,7 +24,7 @@ float mouse_last_x = width / 2.0f;
 float mouse_last_y = height / 2.0f;
 
 // setup free camera
-Camera camera(glm::vec3(5.0f, 5.0f, 15.0f));
+Camera camera(glm::vec3(5.0f, 5.0f, 15.0f), width, height);
 
 void viewport_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
@@ -53,8 +52,6 @@ int main(void) {
 
   // So, basically MVP:
   // Model matrix: defines position, rotation and scale of the vertices of the model in the world.
-  // View matrix: defines position and orientation of the "camera".
-  // Projection matrix: Maps what the "camera" sees to NDC, taking carX1e of aspect ratio and perspective.
   glm::mat4 model;
   glm::mat4 view;
   glm::mat4 proj;
@@ -65,9 +62,12 @@ int main(void) {
       glm::vec3(0.23f, 0.23f, 0.23f),
       glm::vec3(1.0f, 1.0f, 1.0f),
       glm::vec3(0.0f, 0.0f, 0.0f),
-      0.6f,0.028f,0.0035f,
+      0.6f,
+      0.028f,
+      0.0035f,
   };
-  DirLight directional_light = { //off for now
+  DirLight directional_light = {
+      // off for now
       glm::vec3(-0.2f, -1.0f, -0.3f),
       glm::vec3(0.0f, 0.0f, 0.0f),
       glm::vec3(0.0f, 0.0f, 0.0f),
@@ -77,6 +77,7 @@ int main(void) {
   Mesh light(Container::vertices, Container::indices);
   Model rock("rock");
   Model earth("sphere");
+  // Entity rock_e(rock.mesh, rock.material, glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.0f);
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -92,10 +93,9 @@ int main(void) {
 
     /* draw here */
     view = camera.get_camera_matrix();
-    proj = glm::perspective(glm::radians(camera.get_fov()), (float)render.get_width() / (float)render.get_height(),
-                            0.1f, 100.0f);
+    proj = camera.get_perspective_view();
 
-    unsigned int scale=8;
+    unsigned int scale = 8;
     glm::vec3 position(0.0f, 0.0f, 0.0f);
     position.x += scale * sin(render.get_time());
     // position.y += 3.0f * cos(render.get_time());
@@ -108,6 +108,7 @@ int main(void) {
     point_light.set_on_shader(shader);
     directional_light.set_on_shader(shader);
 
+    // move to Entity.set_on_shader
     shader.set_uniform_mat4("u_V", view);
     shader.set_uniform_mat4("u_M", model);
     shader.set_uniform_mat4("u_P", proj);

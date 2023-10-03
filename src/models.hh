@@ -5,9 +5,8 @@
 #include "mesh.hh"
 
 class Model {
- private:
-  Mesh *mesh;
  public:
+  Mesh *mesh;
   Material *material;
 
   explicit Model(const std::string &model_name);
