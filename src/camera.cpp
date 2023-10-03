@@ -1,11 +1,12 @@
 #include "camera.hh"
-#include <glm/ext/matrix_transform.hpp>
+#include "glm/gtc/matrix_transform.hpp"
 #include <glm/glm.hpp>
 #include <math.h>
 
 #include <iostream>
 #include <ostream>
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch, float fov)
+Camera::Camera(glm::vec3 position, float width, float height, glm::vec3 up, float yaw, float pitch, float fov,
+               float z_near, float z_far)
     : _position(position),
       _front(glm::vec3(0.0f, 0.0f, -1.0f)),
       _up(glm::vec3(0.0f, 0.0f, 0.0f)),
@@ -13,7 +14,11 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch, float f
       _word_up(up),
       _yaw(yaw),
       _pitch(pitch),
-      _fov(fov) {
+      _fov(fov),
+      _view_width(width),
+      _view_height(height),
+      _z_near(z_near),
+      _z_far(z_far) {
   update_camera();
 };
 
@@ -73,3 +78,7 @@ void Camera::update_camera() {
   _right = glm::normalize(glm::cross(_front, _word_up));
   _up = glm::normalize(glm::cross(_right, _front));
 };
+
+glm::mat4 Camera::get_perspective_view() {
+  return glm::perspective(glm::radians(get_fov()), _view_width / _view_height, _z_near, _z_far);
+}
