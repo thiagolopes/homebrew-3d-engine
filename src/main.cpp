@@ -77,7 +77,7 @@ int main(void) {
   Mesh light(Container::vertices, Container::indices);
   Model rock_model("rock");
   Model earth_model("sphere");
-  Entity earth(earth_model, glm::vec3(1.0f), 2.0f, 0.0f);
+  Entity earth(earth_model, 1.0f, 2.0f, 0.0f);
 
   /* Loop until the user closes the window */
   while (render.running()) {

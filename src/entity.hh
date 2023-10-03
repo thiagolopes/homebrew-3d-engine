@@ -17,8 +17,8 @@ class Entity {
   float _angle_degrees;
 
  public:
-  Entity(Mesh *mesh, Material *material, glm::vec3 position, float scale = 1.0f, float angle_degrees = 0);
-  Entity(Model &model, glm::vec3 position, float scale = 1.0f, float angle_degrees = 0);
+  Entity(Mesh *mesh, Material *material, float position = 0.0f, float scale = 1.0f, float angle_degrees = 0);
+  Entity(Model &model, float position = 0.0f, float scale = 1.0f, float angle_degrees = 0);
 
   void position(float x, float y, float z);
   void inc_position(float x, float y, float z);

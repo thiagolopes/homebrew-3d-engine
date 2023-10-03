@@ -3,7 +3,7 @@
 #include <cassert>
 #define DEGRESS 360.0f
 
-Entity::Entity(Mesh *mesh, Material *material, glm::vec3 position, float scale, float angle_degrees)
+Entity::Entity(Mesh *mesh, Material *material, float position, float scale, float angle_degrees)
     : _mesh(mesh),
       _material(material),
       _position(position),
@@ -11,7 +11,7 @@ Entity::Entity(Mesh *mesh, Material *material, glm::vec3 position, float scale, 
       _scale(scale),
       _angle_degrees(angle_degrees){};
 
-Entity::Entity(Model &model, glm::vec3 position, float scale, float angle_degrees)
+Entity::Entity(Model &model, float position, float scale, float angle_degrees)
     : _mesh(model.mesh),
       _material(model.material),
       _position(position),
