@@ -75,9 +75,9 @@ int main(void) {
   };
 
   Mesh light(Container::vertices, Container::indices);
-  Model rock("rock");
-  Model earth("sphere");
-  // Entity rock_e(rock.mesh, rock.material, glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.0f);
+  Model rock_model("rock");
+  Model earth_model("sphere");
+  Entity earth(earth_model, glm::vec3(1.0f), 2.0f, 0.0f);
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -91,31 +91,26 @@ int main(void) {
     point_light.debug_menu();
     directional_light.debug_menu();
 
-    /* draw here */
-    view = camera.get_camera_matrix();
-    proj = camera.get_perspective_view();
-
-    unsigned int scale = 8;
-    glm::vec3 position(0.0f, 0.0f, 0.0f);
-    position.x += scale * sin(render.get_time());
-    // position.y += 3.0f * cos(render.get_time());
-    position.z += scale * cos(render.get_time());
-
-    model = glm::translate(glm::mat4(1.0f), position);
-    model = glm::scale(model, glm::vec3(2.0f));
-    model = glm::rotate(model, (float)2.0 * render.get_time(), glm::vec3(0.0, 1.0, 0.0));
-
     point_light.set_on_shader(shader);
     directional_light.set_on_shader(shader);
+
+    int space_tile = 8;
+    earth.position(space_tile * sin(render.get_time()), 0.0, space_tile * cos(render.get_time()));
+    earth.inc_angle(.5f);
+
+    view = camera.get_camera_matrix();
+    model = earth.word_position();
+    proj = camera.get_perspective_view();
 
     // move to Entity.set_on_shader
     shader.set_uniform_mat4("u_V", view);
     shader.set_uniform_mat4("u_M", model);
     shader.set_uniform_mat4("u_P", proj);
 
-    earth.material->set_emissioness(1.0f);
+    earth_model.material->set_emissioness(1.0f);
 
-    earth.draw(render, shader);
+    // move draw to entity
+    earth_model.draw(render, shader);
 
 #if 1
     // third cube - the light
