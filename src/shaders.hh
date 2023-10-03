@@ -2,6 +2,7 @@
 #include <string>
 #include <unordered_map>
 #include "glm/glm.hpp"
+#include "lights.hh"
 
 struct ShaderSourceCode {
   std::string VertexSource;
@@ -30,12 +31,17 @@ class Shader {
   void unbind() const;
   ShaderSourceCode parse_source(const std::string &filepath);
   unsigned int create_sharder(const std::string &vertex_shader, const std::string &fragments_shader);
+
   void set_uniform_int1(const std::string &name, int value);
   void set_uniform_float1(const std::string &name, float v0);
   void set_uniform_float3(const std::string &name, float v0, float v1, float v2);
   void set_uniform_float4(const std::string &name, float v0, float v1, float v2, float v3);
   void set_uniform_mat4(const std::string &name, glm::mat4 &matrix);
   void set_uniform_vec3(const std::string &name, glm::vec3 &vec);
+
+  void set_MVP(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection);
+  void set_point_light(PointLight &point_light);
+  void set_directional_light(DirLight &dir_light);
 
   // TODO update to auto load from the source code and set automatic the uniforms
   int get_uniform_location(const std::string &name);

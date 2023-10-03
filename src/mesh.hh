@@ -15,4 +15,6 @@ class Mesh {
   Mesh(std::vector<Vertex> vertex, std::vector<unsigned int> indices);
 
   void draw(Renderer& render, Shader& shader);
+  inline VertexArray& vertex_array() { return m_va; };
+  inline IndexBuffer& index_buffer() { return m_ib; };
 };

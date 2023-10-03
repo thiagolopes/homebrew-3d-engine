@@ -1,7 +1,6 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "shaders.hh"
 #include "imgui.h"
 #include "vendor/imgui/imgui.h"
 
@@ -17,19 +16,14 @@ struct PointLight {
   float linear;
   float quadratic;
 
-  void set_on_shader(Shader &shader) {
-    shader.bind();
-
-    shader.set_uniform_vec3("u_PointLight.position", position);
-
-    shader.set_uniform_vec3("u_PointLight.ambient", ambient);
-    shader.set_uniform_vec3("u_PointLight.diffuse", diffuse);
-    shader.set_uniform_vec3("u_PointLight.specular", specular);
-
-    shader.set_uniform_float1("u_PointLight.constant", constant);
-    shader.set_uniform_float1("u_PointLight.linear", linear);
-    shader.set_uniform_float1("u_PointLight.quadratic", quadratic);
-  }
+  PointLight(float position, float ambient, float diffuse, float specular, float constant = 0.0f, float linear = 0.00f,
+             float quadratic = 0.00f)
+      : position(position),
+        ambient(ambient),
+        diffuse(diffuse),
+        specular(specular),
+        constant(constant),
+        linear(linear){};
 
   inline void debug_menu() {
     ImGui::Begin("Point Light");
@@ -53,15 +47,8 @@ struct DirLight {
   glm::vec3 diffuse;
   glm::vec3 specular;
 
-  void set_on_shader(Shader &shader) {
-    shader.bind();
-
-    shader.set_uniform_vec3("u_DirLight.direction", direction);
-
-    shader.set_uniform_vec3("u_DirLight.ambient", ambient);
-    shader.set_uniform_vec3("u_DirLight.diffuse", diffuse);
-    shader.set_uniform_vec3("u_DirLight.specular", specular);
-  }
+  DirLight(float direction, float ambient, float diffuse, float specular)
+      : direction(direction), ambient(ambient), diffuse(diffuse), specular(specular){};
 
   inline void debug_menu() {
     ImGui::Begin("Direction Light");

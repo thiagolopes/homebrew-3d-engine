@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "imgui.h"
+#include "mesh.hh"
 
 void GL_debug_clear_error() {
   while (glGetError() != GL_NO_ERROR) {

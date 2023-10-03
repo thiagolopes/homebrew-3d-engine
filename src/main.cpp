@@ -44,40 +44,26 @@ int main(void) {
   render.set_viewport_size_callback((void *)viewport_size_callback);
 
   // load shader source code
-  Shader shader("res/shaders/material.shader");
-  Shader shader_light("res/shaders/light.shader");
+  Shader shader("shaders/material.shader");
+  Shader shader_light("shaders/light.shader");
 
   // imgui
   ImGuiRenderer imgui(render.get_window());
 
-  // So, basically MVP:
-  // Model matrix: defines position, rotation and scale of the vertices of the model in the world.
   glm::mat4 model;
   glm::mat4 view;
   glm::mat4 proj;
 
   // light
-  PointLight point_light = {
-      glm::vec3(0.0f, 0.0f, 0.0f),
-      glm::vec3(0.23f, 0.23f, 0.23f),
-      glm::vec3(1.0f, 1.0f, 1.0f),
-      glm::vec3(0.0f, 0.0f, 0.0f),
-      0.6f,
-      0.028f,
-      0.0035f,
-  };
-  DirLight directional_light = {
-      // off for now
-      glm::vec3(-0.2f, -1.0f, -0.3f),
-      glm::vec3(0.0f, 0.0f, 0.0f),
-      glm::vec3(0.0f, 0.0f, 0.0f),
-      glm::vec3(0.0f, 0.0f, 0.0f),
-  };
-
+  PointLight pl(0.0f, 0.23f, 1.0f, 0.0f, 0.6f, 0.028f, 0.0035f);
+  DirLight dl(-0.2f, 0.0f, 0.0f, 0.0f);
   Mesh light(Container::vertices, Container::indices);
   Model rock_model("rock");
   Model earth_model("sphere");
   Entity earth(earth_model, 1.0f, 2.0f, 0.0f);
+
+  earth_model.material->set_emissioness(1.0f);
+  int space_tile = 8;
 
   /* Loop until the user closes the window */
   while (render.running()) {
@@ -88,13 +74,9 @@ int main(void) {
     camera.process_keyboard((camera_direction_t)render.get_key_pressed(), render.get_deltatime());
 
     // imgui panel
-    point_light.debug_menu();
-    directional_light.debug_menu();
+    pl.debug_menu();
+    dl.debug_menu();
 
-    point_light.set_on_shader(shader);
-    directional_light.set_on_shader(shader);
-
-    int space_tile = 8;
     earth.position(space_tile * sin(render.get_time()), 0.0, space_tile * cos(render.get_time()));
     earth.inc_angle(.5f);
 
@@ -102,29 +84,26 @@ int main(void) {
     model = earth.word_position();
     proj = camera.get_perspective_view();
 
-    // move to Entity.set_on_shader
-    shader.set_uniform_mat4("u_V", view);
-    shader.set_uniform_mat4("u_M", model);
-    shader.set_uniform_mat4("u_P", proj);
-
-    earth_model.material->set_emissioness(1.0f);
+    shader.bind();
+    shader.set_MVP(model, view, proj);
+    shader.set_point_light(pl);
+    shader.set_directional_light(dl);
 
     // move draw to entity
     earth_model.draw(render, shader);
-
 #if 1
     // third cube - the light
     {
       shader_light.bind();
       shader_light.set_uniform_mat4("u_V", view);
 
-      shader_light.set_uniform_vec3("u_Light.ambient", point_light.ambient);
-      shader_light.set_uniform_vec3("u_Light.diffuse", point_light.diffuse);
+      shader_light.set_uniform_vec3("u_Light.ambient", pl.ambient);
+      shader_light.set_uniform_vec3("u_Light.diffuse", pl.diffuse);
 
-      point_light.position.x = 4.0f * sin(render.get_time());
-      point_light.position.z = 5.0f * cos(render.get_time());
+      pl.position.x = 4.0f * sin(render.get_time());
+      pl.position.z = 5.0f * cos(render.get_time());
 
-      model = glm::translate(glm::mat4(1.0f), point_light.position);
+      model = glm::translate(glm::mat4(1.0f), pl.position);
       model = glm::scale(model, glm::vec3(0.5));
 
       shader_light.set_uniform_mat4("u_M", model);

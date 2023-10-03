@@ -114,3 +114,26 @@ unsigned int Shader::create_sharder(const std::string &vertex_shader, const std:
 
   return program;
 }
+
+void Shader::set_MVP(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection) {
+  set_uniform_mat4("u_M", model);
+  set_uniform_mat4("u_V", view);
+  set_uniform_mat4("u_P", projection);
+}
+
+void Shader::set_point_light(PointLight &pl) {
+  set_uniform_vec3("u_PointLight.position", pl.position);
+  set_uniform_vec3("u_PointLight.ambient", pl.ambient);
+  set_uniform_vec3("u_PointLight.diffuse", pl.diffuse);
+  set_uniform_vec3("u_PointLight.specular", pl.specular);
+  set_uniform_float1("u_PointLight.constant", pl.constant);
+  set_uniform_float1("u_PointLight.linear", pl.linear);
+  set_uniform_float1("u_PointLight.quadratic", pl.quadratic);
+}
+
+void Shader::set_directional_light(DirLight &dl) {
+  set_uniform_vec3("u_DirLight.direction", dl.direction);
+  set_uniform_vec3("u_DirLight.ambient", dl.ambient);
+  set_uniform_vec3("u_DirLight.diffuse", dl.diffuse);
+  set_uniform_vec3("u_DirLight.specular", dl.specular);
+}

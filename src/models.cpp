@@ -2,14 +2,11 @@
 #include "vendor/obj_loader/obj_loader.h"
 
 // CAUTION: This implemention blend all the meshes of file in one;
-Model::Model(const std::string &model_name) {
+Model::Model(const std::string &dir_name) {
   objl::Loader loader;
-  std::string path_models = "res/models/";
-  std::string obj_name = model_name;
-  std::string obj_path = path_models + obj_name + "/";
-
-  if (!loader.LoadFile(obj_path + obj_name + ".obj")) {
-    std::cout << "[ERROR] Fail to load model: " << obj_name << std::endl;
+  std::string obj_path = "res/models/" + dir_name + "/";
+  if (!loader.LoadFile(obj_path + dir_name + ".obj")) {
+    std::cout << "[ERROR] Fail to load model: " << obj_path + dir_name + ".obj" << std::endl;
   }
 
   std::vector<Vertex> vertices;
