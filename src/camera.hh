@@ -6,17 +6,17 @@ enum camera_direction_t { FORWARD, BACKWARD, LEFT, RIGHT };
 
 class Camera {
  private:
-  glm::vec3 m_position;
-  glm::vec3 m_front;
-  glm::vec3 m_up;
-  glm::vec3 m_right;
-  glm::vec3 m_word_up;
+  glm::vec3 _position;
+  glm::vec3 _front;
+  glm::vec3 _up;
+  glm::vec3 _right;
+  glm::vec3 _word_up;
 
-  float m_yaw;
-  float m_pitch;
-  float m_fov;
-  float m_moviment_speed = 2.5f;
-  float m_mouse_sensitivity = 0.1f;
+  float _yaw;
+  float _pitch;
+  float _fov;
+  float _moviment_speed = 2.5f;
+  float _mouse_sensitivity = 0.1f;
 
   void update_camera();
 
@@ -30,7 +30,7 @@ class Camera {
 
   glm::mat4 get_camera_matrix();
 
-  inline float get_fov() { return m_fov; };
-  inline glm::vec3 &get_position() { return m_position; };
-  inline void set_moviment_speed(float m) { m_moviment_speed = m; };
+  inline float get_fov() { return _fov; };
+  inline glm::vec3 &get_position() { return _position; };
+  inline void set_moviment_speed(float m) { _moviment_speed = m; };
 };

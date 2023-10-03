@@ -6,70 +6,70 @@
 #include <iostream>
 #include <ostream>
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch, float fov)
-    : m_position(position),
-      m_front(glm::vec3(0.0f, 0.0f, -1.0f)),
-      m_up(glm::vec3(0.0f, 0.0f, 0.0f)),
-      m_right(glm::vec3(0.0f, 0.0f, 0.0f)),
-      m_word_up(up),
-      m_yaw(yaw),
-      m_pitch(pitch),
-      m_fov(fov) {
+    : _position(position),
+      _front(glm::vec3(0.0f, 0.0f, -1.0f)),
+      _up(glm::vec3(0.0f, 0.0f, 0.0f)),
+      _right(glm::vec3(0.0f, 0.0f, 0.0f)),
+      _word_up(up),
+      _yaw(yaw),
+      _pitch(pitch),
+      _fov(fov) {
   update_camera();
 };
 
-glm::mat4 Camera::get_camera_matrix() { return glm::lookAt(m_position, m_position + m_front, m_up); };
+glm::mat4 Camera::get_camera_matrix() { return glm::lookAt(_position, _position + _front, _up); };
 
 void Camera::process_mouse_moviment(float x_offset, float y_offset, bool constrian_pitch) {
-  x_offset *= m_mouse_sensitivity;
-  y_offset *= m_mouse_sensitivity;
+  x_offset *= _mouse_sensitivity;
+  y_offset *= _mouse_sensitivity;
 
-  m_yaw += x_offset;
-  m_pitch += y_offset;
+  _yaw += x_offset;
+  _pitch += y_offset;
 
   // make sure that when pitch is out of bounds, screen doesn't get flipped
   if (constrian_pitch) {
-    if (m_pitch > 89.0f)
-      m_pitch = 89.0f;
-    if (m_pitch < -89.0f)
-      m_pitch = -89.0f;
+    if (_pitch > 89.0f)
+      _pitch = 89.0f;
+    if (_pitch < -89.0f)
+      _pitch = -89.0f;
   }
   update_camera();
 }
 
 void Camera::process_mouse_scroll(float y_offset) {
-  m_fov -= (float)y_offset;
-  if (m_fov < 1.0f)
-    m_fov = 1.0f;
-  if (m_fov > 45.0f)
-    m_fov = 45.0f;
+  _fov -= (float)y_offset;
+  if (_fov < 1.0f)
+    _fov = 1.0f;
+  if (_fov > 45.0f)
+    _fov = 45.0f;
 }
 
 void Camera::process_keyboard(camera_direction_t d, float delta_time) {
-  float velocity = m_moviment_speed * delta_time;
+  float velocity = _moviment_speed * delta_time;
 
   switch (d) {
     case camera_direction_t::FORWARD:
-      m_position += m_front * velocity;
+      _position += _front * velocity;
       break;
     case camera_direction_t::BACKWARD:
-      m_position -= m_front * velocity;
+      _position -= _front * velocity;
       break;
     case camera_direction_t::RIGHT:
-      m_position += m_right * velocity;
+      _position += _right * velocity;
       break;
     case camera_direction_t::LEFT:
-      m_position -= m_right * velocity;
+      _position -= _right * velocity;
       break;
   }
 };
 
 void Camera::update_camera() {
   glm::vec3 new_front;
-  new_front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-  new_front.y = sin(glm::radians(m_pitch));
-  new_front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-  m_front = glm::normalize(new_front);
+  new_front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+  new_front.y = sin(glm::radians(_pitch));
+  new_front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+  _front = glm::normalize(new_front);
 
-  m_right = glm::normalize(glm::cross(m_front, m_word_up));
-  m_up = glm::normalize(glm::cross(m_right, m_front));
+  _right = glm::normalize(glm::cross(_front, _word_up));
+  _up = glm::normalize(glm::cross(_right, _front));
 };
