@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 
+#define GLM_FORCE_XYZW_ONLY
 #include "glm/gtc/matrix_transform.hpp"
 #include "renderer.hh"
 #include "window.hh"
