@@ -1,4 +1,5 @@
 #include "renderer.hh"
+#include "lights.hh"
 #include <cstddef>
 #include <iostream>
 #include <GLFW/glfw3.h>
@@ -85,3 +86,33 @@ ImGuiRenderer::begin_frame() const
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
 }
+
+template <>
+void
+ImGuiRenderer::debug(PointLight &pl)
+{
+  ImGui::Begin("Point Light");
+  ImGui::SliderFloat3("Position", &pl.position.x, -100, 100);
+
+  ImGui::ColorEdit3("Ambiant light", &pl.ambient.x);
+  ImGui::ColorEdit3("Diffuse light", &pl.diffuse.x);
+  ImGui::ColorEdit3("Specular light", &pl.specular.x);
+
+  ImGui::SliderFloat("Constant", &pl.constant, 0.0, 1.0, "%.4f");
+  ImGui::SliderFloat("Linear", &pl.linear, 0.0, 1.0, "%.4f");
+  ImGui::SliderFloat("Quadratic", &pl.quadratic, 0.0, 1.0, "%.4f");
+  ImGui::End();
+};
+
+template <>
+void
+ImGuiRenderer::debug(DirLight &dl)
+{
+  ImGui::Begin("Direction Light");
+  ImGui::SliderFloat3("Direction", &dl.direction.x, -100, 100);
+  ImGui::ColorEdit3("Ambiant light", &dl.ambient.x);
+
+  ImGui::ColorEdit3("Diffuse light", &dl.diffuse.x);
+  ImGui::ColorEdit3("Specular light", &dl.specular.x);
+  ImGui::End();
+};

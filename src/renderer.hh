@@ -28,4 +28,6 @@ public:
 
   void draw() const;
   void begin_frame() const;
+
+  template <typename T> void debug(T &t);
 };

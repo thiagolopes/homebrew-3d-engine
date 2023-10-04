@@ -75,8 +75,8 @@ main(void)
 
       // imgui panel
       // TODO move to imgui_render.debug(pl); imgui_render.debug(dl);
-      pl.debug_menu();
-      dl.debug_menu();
+      imgui.debug(pl);
+      imgui.debug(dl);
 
       earth.position(space_tile * sin(win.get_time()), 0.0, space_tile * cos(win.get_time()));
       earth.inc_angle(.5f);
