@@ -6,6 +6,7 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "renderer.hh"
+#include "window.hh"
 #include "buffers.hh"
 #include "shaders.hh"
 #include "camera.hh"
@@ -13,7 +14,6 @@
 #include "lights.hh"
 #include "models.hh"
 #include "entity.hh"
-
 #include "containers.hh"
 
 // settings
@@ -35,13 +35,13 @@ int main(void) {
   char window_name[] = "Engine3D";
   camera.set_moviment_speed(8.0f);
 
-  Renderer render(window_name, width, height);
-  render.set_mouse_moviment_callback((void *)mouse_callback);
-  render.set_mouse_scroll_callback((void *)scroll_callback);
-  render.set_viewport_size_callback((void *)viewport_size_callback);
+  Window win(window_name, width, height);
+  win.set_mouse_moviment_callback((void *)mouse_callback);
+  win.set_mouse_scroll_callback((void *)scroll_callback);
+  win.set_viewport_size_callback((void *)viewport_size_callback);
 
-  // imgui
-  ImGuiRenderer imgui(render.get_window());
+  Renderer render;
+  ImGuiRenderer imgui(win.get_window());
 
   // used matrix instances;
   glm::mat4 model;
@@ -62,30 +62,31 @@ int main(void) {
   int space_tile = 8;
 
   /* Loop until the user closes the window */
-  while (render.running()) {
-    imgui.clear();
-    render.clear();
+  while (win.running()) {
+    imgui.begin_frame();
+    win.begin_frame();
 
     // handler key
-    camera.process_keyboard((camera_direction_t)render.get_key_pressed(), render.get_deltatime());
+    camera.process_keyboard((camera_direction_t)win.get_key_pressed(), win.get_deltatime());
 
     // imgui panel
+    // TODO move to imgui_render.debug(pl); imgui_render.debug(dl);
     pl.debug_menu();
     dl.debug_menu();
 
-    earth.position(space_tile * sin(render.get_time()), 0.0, space_tile * cos(render.get_time()));
+    earth.position(space_tile * sin(win.get_time()), 0.0, space_tile * cos(win.get_time()));
     earth.inc_angle(.5f);
 
-    view = camera.get_camera_matrix();
-    model = earth.word_position();
-    proj = camera.get_perspective_view();
+    view = camera.get_view_matrix();
+    model = earth.get_model_position();
+    proj = camera.get_projection();
 
     shader.bind();
     shader.set_MVP(model, view, proj);
     shader.set_point_light(pl);
     shader.set_directional_light(dl);
 
-    // move draw to entity
+    // render.draw();
     earth_model.draw(render, shader);
 #if 1
     // third cube - the light
@@ -96,8 +97,8 @@ int main(void) {
       shader_light.set_uniform_vec3("u_Light.ambient", pl.ambient);
       shader_light.set_uniform_vec3("u_Light.diffuse", pl.diffuse);
 
-      pl.position.x = 4.0f * sin(render.get_time());
-      pl.position.z = 5.0f * cos(render.get_time());
+      pl.position.x = 4.0f * sin(win.get_time());
+      pl.position.z = 5.0f * cos(win.get_time());
 
       model = glm::translate(glm::mat4(1.0f), pl.position);
       model = glm::scale(model, glm::vec3(0.5));
@@ -110,7 +111,7 @@ int main(void) {
 #endif
 
     imgui.draw();
-    render.end_frame();
+    win.end_frame();
   }
 
   return 0;

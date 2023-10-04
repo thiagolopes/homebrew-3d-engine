@@ -22,7 +22,7 @@ Camera::Camera(glm::vec3 position, float width, float height, glm::vec3 up, floa
   update_camera();
 };
 
-glm::mat4 Camera::get_camera_matrix() { return glm::lookAt(_position, _position + _front, _up); };
+glm::mat4 Camera::get_view_matrix() { return glm::lookAt(_position, _position + _front, _up); };
 
 void Camera::process_mouse_moviment(float x_offset, float y_offset, bool constrian_pitch) {
   x_offset *= _mouse_sensitivity;
@@ -79,6 +79,6 @@ void Camera::update_camera() {
   _up = glm::normalize(glm::cross(_right, _front));
 };
 
-glm::mat4 Camera::get_perspective_view() {
+glm::mat4 Camera::get_projection() {
   return glm::perspective(glm::radians(get_fov()), _view_width / _view_height, _z_near, _z_far);
 }

@@ -64,7 +64,7 @@ void Entity::angle(float angle) {
   _angle_degrees = angle;
 }
 
-glm::mat4 &Entity::word_position() {
+glm::mat4 &Entity::get_model_position() {
   _word_position = glm::translate(glm::mat4(1.0f), _position);
   _word_position = glm::scale(_word_position, _scale);
   _word_position = glm::rotate(_word_position, glm::radians(_angle_degrees), glm::vec3(0.0, 1.0, 0.0));

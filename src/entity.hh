@@ -30,5 +30,5 @@ class Entity {
   void scale(float scale_x, float scale_y, float scale_z);
   void inc_scale(float scale);
 
-  glm::mat4 &word_position();
+  glm::mat4 &get_model_position();
 };

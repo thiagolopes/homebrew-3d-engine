@@ -34,8 +34,8 @@ class Camera {
   void process_mouse_scroll(float y_offset);
   void process_keyboard(camera_direction_t d, float delta_time);
 
-  glm::mat4 get_camera_matrix();
-  glm::mat4 get_perspective_view();
+  glm::mat4 get_view_matrix();
+  glm::mat4 get_projection();
 
   inline float get_fov() { return _fov; };
   inline glm::vec3 &get_position() { return _position; };
