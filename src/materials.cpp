@@ -1,15 +1,13 @@
 #include "materials.hh"
 
-Material::Material(const std::string& diffuse_path, const std::string& specular_path, const std::string& emission_path,
+Material::Material(const std::string &diffuse_path, const std::string &specular_path, const std::string &emission_path,
                    float shininess, float emissioness, bool emission_mask)
-    : m_diffuse(diffuse_path),
-      m_specular(specular_path),
-      m_emission(emission_path),
-      m_shininess(shininess),
-      m_emissioness(emissioness),
-      m_emission_mask(emission_mask){};
+    : m_diffuse(diffuse_path), m_specular(specular_path), m_emission(emission_path), m_shininess(shininess),
+      m_emissioness(emissioness), m_emission_mask(emission_mask){};
 
-void Material::bind(Shader& shader) {
+void
+Material::bind(Shader &shader)
+{
   m_diffuse.bind(0);
   m_specular.bind(1);
   m_emission.bind(2);
@@ -23,7 +21,9 @@ void Material::bind(Shader& shader) {
   shader.set_uniform_int1("u_Material.emission_mask", m_emission_mask);
 }
 
-void Material::unbind() {
+void
+Material::unbind()
+{
   m_diffuse.unbind();
   m_specular.unbind();
   m_emission.unbind();

@@ -4,17 +4,26 @@
 #include "renderer.hh"
 #include "shaders.hh"
 
-class Mesh {
- private:
+class Mesh
+{
+private:
   VertexBuffer m_vb;
   IndexBuffer m_ib;
   VertexArray m_va;
   VertexBufferLayout m_vbl;
 
- public:
+public:
   Mesh(std::vector<Vertex> vertex, std::vector<unsigned int> indices);
 
-  void draw(Renderer& render, Shader& shader);
-  inline VertexArray& vertex_array() { return m_va; };
-  inline IndexBuffer& index_buffer() { return m_ib; };
+  void draw(Renderer &render, Shader &shader);
+  inline VertexArray &
+  vertex_array()
+  {
+    return m_va;
+  };
+  inline IndexBuffer &
+  index_buffer()
+  {
+    return m_ib;
+  };
 };

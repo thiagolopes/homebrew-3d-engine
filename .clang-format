@@ -9,8 +9,9 @@
 #   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 #
 ---
-BasedOnStyle: Google
+BasedOnStyle: GNU
 ColumnLimit: 120
 SortIncludes: false
 AllowShortIfStatementsOnASingleLine: false
+SpaceBeforeParens: ControlStatements
 ...

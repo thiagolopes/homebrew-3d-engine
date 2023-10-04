@@ -5,7 +5,8 @@
 #include "vendor/imgui/imgui.h"
 
 // types os lights:
-struct PointLight {
+struct PointLight
+{
   glm::vec3 position;
 
   glm::vec3 ambient;
@@ -18,14 +19,12 @@ struct PointLight {
 
   PointLight(float position, float ambient, float diffuse, float specular, float constant = 0.0f, float linear = 0.00f,
              float quadratic = 0.00f)
-      : position(position),
-        ambient(ambient),
-        diffuse(diffuse),
-        specular(specular),
-        constant(constant),
+      : position(position), ambient(ambient), diffuse(diffuse), specular(specular), constant(constant),
         linear(linear){};
 
-  inline void debug_menu() {
+  inline void
+  debug_menu()
+  {
     ImGui::Begin("Point Light");
     ImGui::SliderFloat3("Position", &position.x, -100, 100);
 
@@ -40,7 +39,8 @@ struct PointLight {
   }
 };
 
-struct DirLight {
+struct DirLight
+{
   glm::vec3 direction;
 
   glm::vec3 ambient;
@@ -50,7 +50,9 @@ struct DirLight {
   DirLight(float direction, float ambient, float diffuse, float specular)
       : direction(direction), ambient(ambient), diffuse(diffuse), specular(specular){};
 
-  inline void debug_menu() {
+  inline void
+  debug_menu()
+  {
     ImGui::Begin("Direction Light");
 
     ImGui::SliderFloat3("Direction", &direction.x, -100, 100);

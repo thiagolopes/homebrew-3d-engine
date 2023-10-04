@@ -2,23 +2,32 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-class Window {
- private:
+class Window
+{
+private:
   GLFWwindow *m_window;
   int m_width;
   int m_height;
   float m_deltatime;
   float m_lastframe;
 
-  inline void update_deltatime_frame() {
+  inline void
+  update_deltatime_frame()
+  {
     float current_frame = get_time();
     m_deltatime = current_frame - m_lastframe;
     m_lastframe = current_frame;
   }
 
- public:
+public:
   // same order as camera_direction_t
-  enum Key { W, S, A, D };
+  enum Key
+  {
+    W,
+    S,
+    A,
+    D
+  };
 
   Window(char *window_name, float width, float height);
   ~Window();
@@ -32,8 +41,24 @@ class Window {
   void set_viewport_size_callback(void *f);
   Key get_key_pressed();
 
-  inline GLFWwindow *get_window() const { return m_window; };
-  inline int get_width() const { return m_width; };
-  inline int get_height() const { return m_height; };
-  inline float get_deltatime() { return m_deltatime; };
+  inline GLFWwindow *
+  get_window() const
+  {
+    return m_window;
+  };
+  inline int
+  get_width() const
+  {
+    return m_width;
+  };
+  inline int
+  get_height() const
+  {
+    return m_height;
+  };
+  inline float
+  get_deltatime()
+  {
+    return m_deltatime;
+  };
 };

@@ -4,8 +4,9 @@
 #include "materials.hh"
 #include "mesh.hh"
 
-class Model {
- public:
+class Model
+{
+public:
   Mesh *mesh;
   Material *material;
 

@@ -4,18 +4,20 @@
 #include "glm/glm.hpp"
 #include "lights.hh"
 
-struct ShaderSourceCode {
+struct ShaderSourceCode
+{
   std::string VertexSource;
   std::string FragmentSource;
 };
 
-class Shader {
+class Shader
+{
   // a Shader class does:
   // - load source code and compile a shader
   // - bind
   // - unbind
   // - set uniforms to a shader
- private:
+private:
   std::string source_filepath;
   unsigned int shader_id;
   std::unordered_map<std::string, int> uniform_location_cache;
@@ -23,7 +25,7 @@ class Shader {
 
   unsigned int compile_shader(unsigned int type_shader, const std::string &source);
 
- public:
+public:
   explicit Shader(const std::string &filepath);
   ~Shader();
 

@@ -2,9 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <glm/fwd.hpp>
 
-class MouseEvents {
- private:
- public:
+class MouseEvents
+{
+private:
+public:
   MouseEvents(void);
   ~MouseEvents();
   void callback_glfw_scroll(GLFWwindow *window, double xoffset, double yoffset);
@@ -14,9 +15,10 @@ class MouseEvents {
   bool get_state(const int key);
 };
 
-class KeyEvents {
- private:
- public:
+class KeyEvents
+{
+private:
+public:
   KeyEvents(void);
   ~KeyEvents();
   void callback_glfw(GLFWwindow *window, int key, int scancode, int action, int mods);

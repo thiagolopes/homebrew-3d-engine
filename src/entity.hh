@@ -5,8 +5,9 @@
 #include "mesh.hh"
 #include "models.hh"
 
-class Entity {
- private:
+class Entity
+{
+private:
   Mesh *_mesh;
   Material *_material;
 
@@ -16,7 +17,7 @@ class Entity {
   glm::vec3 _scale;
   float _angle_degrees;
 
- public:
+public:
   Entity(Mesh *mesh, Material *material, float position = 0.0f, float scale = 1.0f, float angle_degrees = 0);
   Entity(Model &model, float position = 0.0f, float scale = 1.0f, float angle_degrees = 0);
 
