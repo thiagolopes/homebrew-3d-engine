@@ -6,51 +6,16 @@
 #include "shaders.hh"
 #include "imgui.h"
 
-#define GLAssert(X) \
-  GLClearError();   \
-  X;                \
-  ASSERT(GLLogCall(#X, __FILE__, __LINE__))
-
 void GL_debug_clear_error();
 void GL_debug_chek_error();
 
 class Renderer {
  private:
-  GLFWwindow *m_window;
-  int m_width;
-  int m_height;
-  float m_deltatime;
-  float m_lastframe;
-
-  inline void update_deltatime_frame() {
-    float current_frame = get_time();
-    m_deltatime = current_frame - m_lastframe;
-    m_lastframe = current_frame;
-  }
-
  public:
-  // same order as camera_direction_t
-  enum Key { W, S, A, D };
-
-  Renderer(char *window_name, float width, float height);
-  ~Renderer();
+  Renderer(bool z_buffer = true, bool frame_cap = true);
   void draw(const VertexArray &va, const IndexBuffer &ib) const;
-  void clear() const;
-  void end_frame();
   void set_depth_test(bool flag = true) const;
   void set_swap_interval(bool flag = true) const;
-  float get_time();
-  bool running();
-  void set_mouse_moviment_callback(void *f);
-  void set_mouse_scroll_callback(void *f);
-  void set_mouse_button_callback(void *f);
-  void set_viewport_size_callback(void *f);
-  Key get_key_pressed();
-
-  inline GLFWwindow *get_window() const { return m_window; };
-  inline int get_width() const { return m_width; };
-  inline int get_height() const { return m_height; };
-  inline float get_deltatime() { return m_deltatime; };
 };
 
 class ImGuiRenderer {
@@ -60,5 +25,5 @@ class ImGuiRenderer {
   ~ImGuiRenderer();
 
   void draw() const;
-  void clear() const;
+  void begin_frame() const;
 };
