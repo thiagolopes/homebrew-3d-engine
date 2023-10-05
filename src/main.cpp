@@ -16,7 +16,7 @@
 #include "models.hh"
 #include "entity.hh"
 #include "containers.hh"
-#include "events.hh"
+#include "inputs.hh"
 
 // settings
 int width = 1280;

@@ -1,4 +1,4 @@
-#include "events.hh"
+#include "inputs.hh"
 #include <GLFW/glfw3.h>
 #include <cstdio>
 

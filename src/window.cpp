@@ -1,7 +1,7 @@
 #include "window.hh"
 #include <GLFW/glfw3.h>
 
-#include "events.hh"
+#include "inputs.hh"
 #include "mesh.hh"
 
 Window::Window(char *window_name, float width, float height)

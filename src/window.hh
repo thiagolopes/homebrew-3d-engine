@@ -1,7 +1,7 @@
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "events.hh"
+#include "inputs.hh"
 
 class Window
 {

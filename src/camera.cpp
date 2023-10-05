@@ -1,5 +1,5 @@
 #include "camera.hh"
-#include "events.hh"
+#include "inputs.hh"
 #include "glm/gtc/matrix_transform.hpp"
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>

@@ -1,7 +1,7 @@
 #pragma once
 // camera movimentent abstration
 #include <glm/glm.hpp>
-#include "events.hh"
+#include "inputs.hh"
 
 class Camera
 {
