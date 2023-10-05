@@ -1,8 +1,8 @@
 #include "window.hh"
-#include <GLFW/glfw3.h>
 
 #include "inputs.hh"
 #include "mesh.hh"
+#include "opengl_middleware.hh"
 
 Window::Window(char *window_name, float width, float height)
     : m_window(nullptr), m_width(width), m_height(height), m_deltatime(0), m_lastframe(0)
@@ -44,6 +44,8 @@ Window::Window(char *window_name, float width, float height)
 
   // setup minors options by default
   glfwSetKeyCallback(get_window(), (GLFWkeyfun)Keyboard::get_instance().glfw_callback);
+  OpenGLCallback &op = OpenGLCallback::get_instance();
+  op.set_window(get_window());
 };
 
 Window::~Window() { glfwTerminate(); };
@@ -66,12 +68,6 @@ Window::set_mouse_moviment_callback(void *f)
   glfwSetCursorPosCallback(get_window(), (GLFWcursorposfun)f);
 };
 
-void
-Window::set_viewport_size_callback(void *f)
-{
-  glfwSetFramebufferSizeCallback(get_window(), (GLFWframebuffersizefun)f);
-};
-
 float
 Window::get_time()
 {
@@ -91,21 +87,6 @@ bool
 Window::running()
 {
   return !glfwWindowShouldClose(m_window);
-};
-
-Window::Key
-Window::get_key_pressed()
-{
-  if (glfwGetKey(get_window(), GLFW_KEY_W) == GLFW_PRESS)
-    return W;
-  if (glfwGetKey(get_window(), GLFW_KEY_S) == GLFW_PRESS)
-    return S;
-  if (glfwGetKey(get_window(), GLFW_KEY_A) == GLFW_PRESS)
-    return A;
-  if (glfwGetKey(get_window(), GLFW_KEY_D) == GLFW_PRESS)
-    return D;
-  return (Window::Key)-1;
-  // TODO improve
 };
 
 void

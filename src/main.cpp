@@ -28,7 +28,6 @@ float mouse_last_y = height / 2.0f;
 // setup free camera
 Camera camera(8.0f, width, height);
 
-void viewport_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 
@@ -41,10 +40,9 @@ main(void)
   Window win(window_name, width, height);
   win.set_mouse_moviment_callback((void *)mouse_callback);
   win.set_mouse_scroll_callback((void *)scroll_callback);
-  win.set_viewport_size_callback((void *)viewport_size_callback);
 
   Renderer render;
-  ImGuiRenderer imgui(win.get_window());
+  ImGuiRenderer ui(win.get_window());
 
   Shader shader("shaders/material.shader");
   Shader shader_light("shaders/light.shader");
@@ -57,21 +55,20 @@ main(void)
   Model earth_model("sphere");
 
   Entity earth(earth_model, 1.0f, 2.0f, 0.0f);
-  Entity cube(&cube_mesh, nullptr);
+  Entity cube(&cube_mesh, nullptr, 3.0f, 1.0f, 0.0f);
 
   Keyboard &kb = Keyboard::get_instance();
 
   earth_model.material->set_emissioness(1.0f);
-  // int space_tile = 8;
 
   /* Loop until the user closes the window */
   while (win.running())
     {
       win.begin_frame();
 
-      imgui.begin_frame();
-      imgui.debug(pl);
-      imgui.debug(dl);
+      ui.begin_frame();
+      ui.debug(pl);
+      ui.debug(dl);
 
       camera.update(kb, win.get_deltatime());
 
@@ -97,7 +94,7 @@ main(void)
       }
 #endif
 
-      imgui.draw();
+      ui.draw();
       win.end_frame();
     }
 
@@ -134,9 +131,4 @@ void
 scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 {
   camera.process_mouse_scroll(yoffset);
-}
-void
-viewport_size_callback(GLFWwindow *window, int width, int height)
-{
-  glViewport(0, 0, width, height);
 }

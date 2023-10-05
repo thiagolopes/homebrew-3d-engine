@@ -12,7 +12,6 @@ private:
   float m_deltatime;
   float m_lastframe;
 
-  void set_keyboard_callback(void *f);
   inline void
   update_deltatime_frame()
   {
@@ -22,15 +21,6 @@ private:
   }
 
 public:
-  // same order as camera_direction_t
-  enum Key
-  {
-    W,
-    S,
-    A,
-    D
-  };
-
   Window(char *window_name, float width, float height);
   ~Window();
   void begin_frame() const;
@@ -40,7 +30,7 @@ public:
   void set_mouse_moviment_callback(void *f);
   void set_mouse_scroll_callback(void *f);
   void set_mouse_button_callback(void *f);
-  void set_viewport_size_callback(void *f);
+
   void setup(Keyboard keyboard);
   Key get_key_pressed();
 
