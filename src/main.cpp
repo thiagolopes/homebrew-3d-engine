@@ -5,7 +5,6 @@
 #include <vector>
 
 #define GLM_FORCE_XYZW_ONLY
-#include "glm/gtc/matrix_transform.hpp"
 #include "renderer.hh"
 #include "window.hh"
 #include "buffers.hh"
@@ -25,7 +24,7 @@ float mouse_last_x = width / 2.0f;
 float mouse_last_y = height / 2.0f;
 
 // setup free camera
-Camera camera(glm::vec3(5.0f, 5.0f, 15.0f), width, height);
+Camera camera(8.0f, width, height);
 
 void viewport_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
@@ -46,20 +45,18 @@ main(void)
   Renderer render;
   ImGuiRenderer imgui(win.get_window());
 
-  // used matrix instances;
-  glm::mat4 model;
-  glm::mat4 view;
-  glm::mat4 proj;
-
-  // light
   Shader shader("shaders/material.shader");
   Shader shader_light("shaders/light.shader");
+
   PointLight pl(0.0f, 0.23f, 1.0f, 0.0f, 0.6f, 0.028f, 0.0035f);
   DirLight dl(-0.2f, 0.0f, 0.0f, 0.0f);
-  Mesh light(Container::vertices, Container::indices);
+
+  Mesh cube_mesh(Container::vertices, Container::indices);
   Model rock_model("rock");
   Model earth_model("sphere");
+
   Entity earth(earth_model, 1.0f, 2.0f, 0.0f);
+  Entity cube(&cube_mesh, nullptr);
 
   earth_model.material->set_emissioness(1.0f);
   int space_tile = 8;
@@ -67,50 +64,35 @@ main(void)
   /* Loop until the user closes the window */
   while (win.running())
     {
-      imgui.begin_frame();
       win.begin_frame();
+
+      imgui.begin_frame();
+      imgui.debug(pl);
+      imgui.debug(dl);
 
       // handler key
       camera.process_keyboard((camera_direction_t)win.get_key_pressed(), win.get_deltatime());
-
-      // imgui panel
-      // TODO move to imgui_render.debug(pl); imgui_render.debug(dl);
-      imgui.debug(pl);
-      imgui.debug(dl);
+      camera.update();
 
       earth.position(space_tile * sin(win.get_time()), 0.0, space_tile * cos(win.get_time()));
       earth.inc_angle(.5f);
 
-      view = camera.get_view_matrix();
-      model = earth.get_model_position();
-      proj = camera.get_projection();
-
       shader.bind();
-      shader.set_MVP(model, view, proj);
       shader.set_point_light(pl);
       shader.set_directional_light(dl);
+      shader.set_MVP(earth.get_model_position(), camera.get_view_matrix(), camera.get_projection());
 
       // render.draw();
       earth_model.draw(render, shader);
 #if 1
-      // third cube - the light
       {
         shader_light.bind();
-        shader_light.set_uniform_mat4("u_V", view);
 
-        shader_light.set_uniform_vec3("u_Light.ambient", pl.ambient);
-        shader_light.set_uniform_vec3("u_Light.diffuse", pl.diffuse);
+        shader_light.set_point_light(pl);
+        cube.position(4.0f * sin(win.get_time()), 0.0f, 5.0f * cos(win.get_time()));
+        shader_light.set_MVP(cube.get_model_position(), camera.get_view_matrix(), camera.get_projection());
 
-        pl.position.x = 4.0f * sin(win.get_time());
-        pl.position.z = 5.0f * cos(win.get_time());
-
-        model = glm::translate(glm::mat4(1.0f), pl.position);
-        model = glm::scale(model, glm::vec3(0.5));
-
-        shader_light.set_uniform_mat4("u_M", model);
-        shader_light.set_uniform_mat4("u_P", proj);
-
-        light.draw(render, shader_light); // todo: movo to a batch render and draw once;
+        cube_mesh.draw(render, shader_light); // todo: movo to a batch render and draw once;
       }
 #endif
 

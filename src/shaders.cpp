@@ -169,6 +169,7 @@ Shader::set_MVP(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection)
   set_uniform_mat4("u_P", projection);
 }
 
+// TODO Move set_X_light to a ShaderUniform(Shader shader) class
 void
 Shader::set_point_light(PointLight &pl)
 {

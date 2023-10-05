@@ -30,10 +30,10 @@ struct Light {
 };
 
 // uniform sampler2D u_Texture;
-uniform Light u_Light;
+uniform Light u_PointLight;
 
 void main() {
     // vec4 texColor = texture(u_Texture, v_TexCoord);
     // color = vec4(u_Light.diffuse + u_Light.ambient, 1.0) * texColor;
-    color = vec4(u_Light.diffuse + u_Light.ambient, 1.0);
+    color = vec4(u_PointLight.diffuse + u_PointLight.ambient, 1.0);
 }
