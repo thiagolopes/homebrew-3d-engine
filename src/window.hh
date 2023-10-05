@@ -1,6 +1,7 @@
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "events.hh"
 
 class Window
 {
@@ -11,6 +12,7 @@ private:
   float m_deltatime;
   float m_lastframe;
 
+  void set_keyboard_callback(void *f);
   inline void
   update_deltatime_frame()
   {
@@ -39,6 +41,7 @@ public:
   void set_mouse_scroll_callback(void *f);
   void set_mouse_button_callback(void *f);
   void set_viewport_size_callback(void *f);
+  void setup(Keyboard keyboard);
   Key get_key_pressed();
 
   inline GLFWwindow *

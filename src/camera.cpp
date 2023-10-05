@@ -1,4 +1,5 @@
 #include "camera.hh"
+#include "events.hh"
 #include "glm/gtc/matrix_transform.hpp"
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
@@ -17,8 +18,9 @@ Camera::Camera(float position, float width, float height, float up, float yaw, f
 };
 
 void
-Camera::update()
+Camera::update(Keyboard &k, float delta_time)
 {
+  process_keyboard(k, delta_time);
   _perspecitve_view = glm::lookAt(_position, _position + _front, _up);
   _perspecitve_projection = glm::perspective(glm::radians(get_fov()), _view_width / _view_height, _z_near, _z_far);
 }
@@ -60,25 +62,18 @@ Camera::process_mouse_scroll(float y_offset)
 }
 
 void
-Camera::process_keyboard(camera_direction_t d, float delta_time)
+Camera::process_keyboard(Keyboard &k, float delta_time)
 {
   float velocity = _moviment_speed * delta_time;
 
-  switch (d)
-    {
-    case camera_direction_t::FORWARD:
-      _position += _front * velocity;
-      break;
-    case camera_direction_t::BACKWARD:
-      _position -= _front * velocity;
-      break;
-    case camera_direction_t::RIGHT:
-      _position += _right * velocity;
-      break;
-    case camera_direction_t::LEFT:
-      _position -= _right * velocity;
-      break;
-    }
+  if (k.get_state(Key::W))
+    _position += _front * velocity;
+  if (k.get_state(Key::S))
+    _position -= _front * velocity;
+  if (k.get_state(Key::A))
+    _position -= _right * velocity;
+  if (k.get_state(Key::D))
+    _position += _right * velocity;
 };
 
 void

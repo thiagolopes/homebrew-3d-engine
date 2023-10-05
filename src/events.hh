@@ -39,14 +39,25 @@ class Keyboard
 private:
   std::unordered_map<Key, bool> state;
   Keyboard(void);
+
 public:
-  static Keyboard& get_instance()
+  static Keyboard &
+  get_instance()
   {
     static Keyboard instance;
     return instance;
   }
   void update();
   bool get_state(const int key);
+  static bool
+  key_in_bounds(int key)
+  {
+    if (key >= Key::A && key <= Key::Length)
+      {
+        return true;
+      }
+    return false;
+  }
   static void glfw_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 };
 

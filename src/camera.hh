@@ -1,14 +1,7 @@
 #pragma once
 // camera movimentent abstration
 #include <glm/glm.hpp>
-
-enum camera_direction_t
-{
-  FORWARD,
-  BACKWARD,
-  LEFT,
-  RIGHT
-};
+#include "events.hh"
 
 class Camera
 {
@@ -35,6 +28,7 @@ private:
   float _z_far;
 
   void update_camera();
+  void process_keyboard(Keyboard &k, float delta_time);
 
 public:
   Camera(float position, float width, float height, float up = 0.0f, float yaw = -90.0f, float pitch = 0.0f,
@@ -42,9 +36,8 @@ public:
 
   void process_mouse_moviment(float x_offset, float y_offset, bool constrian_pitch = true);
   void process_mouse_scroll(float y_offset);
-  void process_keyboard(camera_direction_t d, float delta_time);
 
-  void update();
+  void update(Keyboard &k, float delta_time);
 
   glm::mat4 &get_view_matrix();
   glm::mat4 &get_projection();

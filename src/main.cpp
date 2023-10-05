@@ -18,7 +18,6 @@
 #include "containers.hh"
 #include "events.hh"
 
-
 // settings
 int width = 1280;
 int height = 720;
@@ -60,28 +59,24 @@ main(void)
   Entity earth(earth_model, 1.0f, 2.0f, 0.0f);
   Entity cube(&cube_mesh, nullptr);
 
-  earth_model.material->set_emissioness(1.0f);
-  int space_tile = 8;
-
   Keyboard &kb = Keyboard::get_instance();
-  glfwSetKeyCallback(win.get_window(), (GLFWkeyfun)kb.glfw_callback);
+
+  earth_model.material->set_emissioness(1.0f);
+  // int space_tile = 8;
 
   /* Loop until the user closes the window */
   while (win.running())
     {
-      printf("stado do w: %i\n", kb.get_state(Key::W));
       win.begin_frame();
 
       imgui.begin_frame();
       imgui.debug(pl);
       imgui.debug(dl);
 
-      // handler key
-      camera.process_keyboard((camera_direction_t)win.get_key_pressed(), win.get_deltatime());
-      camera.update();
+      camera.update(kb, win.get_deltatime());
 
-      earth.position(space_tile * sin(win.get_time()), 0.0, space_tile * cos(win.get_time()));
-      earth.inc_angle(.5f);
+      // earth.position(space_tile * sin(win.get_time()), 0.0, space_tile * cos(win.get_time()));
+      // earth.inc_angle(.5f);
 
       shader.bind();
       shader.set_point_light(pl);
@@ -95,7 +90,7 @@ main(void)
         shader_light.bind();
 
         shader_light.set_point_light(pl);
-        cube.position(4.0f * sin(win.get_time()), 0.0f, 5.0f * cos(win.get_time()));
+        // cube.position(4.0f * sin(win.get_time()), 0.0f, 5.0f * cos(win.get_time()));
         shader_light.set_MVP(cube.get_model_position(), camera.get_view_matrix(), camera.get_projection());
 
         cube_mesh.draw(render, shader_light); // todo: movo to a batch render and draw once;

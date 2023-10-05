@@ -1,6 +1,7 @@
 #include "window.hh"
 #include <GLFW/glfw3.h>
 
+#include "events.hh"
 #include "mesh.hh"
 
 Window::Window(char *window_name, float width, float height)
@@ -42,6 +43,7 @@ Window::Window(char *window_name, float width, float height)
   update_deltatime_frame();
 
   // setup minors options by default
+  glfwSetKeyCallback(get_window(), (GLFWkeyfun)Keyboard::get_instance().glfw_callback);
 };
 
 Window::~Window() { glfwTerminate(); };
