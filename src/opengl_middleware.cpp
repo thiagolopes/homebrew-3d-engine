@@ -1,6 +1,6 @@
 #include "opengl_middleware.hh"
-#include <cstdio>
 #include <cstdlib>
+#include <iostream>
 
 void
 viewport_size_callback(GLFWwindow *window, int width, int height)
@@ -15,8 +15,8 @@ OpenGLCallback::get_window()
   OpenGLCallback &i = get_instance();
   if (i._win == nullptr)
     {
-      std::printf("Set window before use\n");
-      std::exit(0);
+      std::cerr << "Set window before use" << std::endl;
+      std::exit(EXIT_FAILURE);
     }
   return i._win;
 }
