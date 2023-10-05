@@ -1,26 +1,67 @@
 #pragma once
 #include <GLFW/glfw3.h>
-#include <glm/fwd.hpp>
+#include <unordered_map>
 
-class MouseEvents
+#define GLFW_A_KEYCODE 65
+enum Key
 {
-private:
-public:
-  MouseEvents(void);
-  ~MouseEvents();
-  void callback_glfw_scroll(GLFWwindow *window, double xoffset, double yoffset);
-  void callback_glfw_mouse(GLFWwindow *window, double xposIn, double yposIn);
-
-  glm::vec2 get_position();
-  bool get_state(const int key);
+  A = GLFW_A_KEYCODE, // 65 to keep GLFW compatiblity
+  B,
+  C,
+  D,
+  E,
+  F,
+  G,
+  H,
+  I,
+  J,
+  K,
+  L,
+  M,
+  N,
+  O,
+  P,
+  Q,
+  R,
+  S,
+  T,
+  U,
+  V,
+  W,
+  X,
+  Y,
+  Z,
+  Length, // 'hack to keep track of enum length'
 };
 
-class KeyEvents
+class Keyboard
+{
+private:
+  std::unordered_map<Key, bool> state;
+  Keyboard(void);
+public:
+  static Keyboard& get_instance()
+  {
+    static Keyboard instance;
+    return instance;
+  }
+  void update();
+  bool get_state(const int key);
+  static void glfw_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+};
+
+enum MouseKey
+{
+  LBUTTON,
+  RBUTTON
+};
+
+class Mouse
 {
 private:
 public:
-  KeyEvents(void);
-  ~KeyEvents();
-  void callback_glfw(GLFWwindow *window, int key, int scancode, int action, int mods);
+  Mouse(void);
+  ~Mouse();
+
   bool get_state(const int key);
 };

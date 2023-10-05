@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <iostream>
 #include <math.h>
 #include <string>
@@ -15,6 +16,8 @@
 #include "models.hh"
 #include "entity.hh"
 #include "containers.hh"
+#include "events.hh"
+
 
 // settings
 int width = 1280;
@@ -29,7 +32,6 @@ Camera camera(8.0f, width, height);
 void viewport_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
-void keyboard_handler(Renderer &render);
 
 int
 main(void)
@@ -61,9 +63,13 @@ main(void)
   earth_model.material->set_emissioness(1.0f);
   int space_tile = 8;
 
+  Keyboard &kb = Keyboard::get_instance();
+  glfwSetKeyCallback(win.get_window(), (GLFWkeyfun)kb.glfw_callback);
+
   /* Loop until the user closes the window */
   while (win.running())
     {
+      printf("stado do w: %i\n", kb.get_state(Key::W));
       win.begin_frame();
 
       imgui.begin_frame();

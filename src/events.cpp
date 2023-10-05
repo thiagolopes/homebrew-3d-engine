@@ -1,26 +1,26 @@
 #include "events.hh"
 #include <GLFW/glfw3.h>
-#include "vector"
+#include <cstdio>
 
-std::vector<bool> KEYS_STATUS(1024, false);
-std::vector<bool> MOUSE_STATUS(2, false);
-std::vector<float> MOUSE_POSITION(2, 0.0);
-
-bool
-KeyEvents::get_state(const int key)
+Keyboard::Keyboard()
 {
-  return KEYS_STATUS[key];
+  for (size_t i = GLFW_A_KEYCODE; i < Key::Length; i++)
+    state[(Key)i] = false;
 }
 
 void
-KeyEvents::callback_glfw(GLFWwindow *window, int key, int scancode, int action, int mods)
+Keyboard::glfw_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
-  if (action == GLFW_PRESS)
+  if (key > GLFW_A_KEYCODE && key < Key::Length)
     {
-      KEYS_STATUS[key] = true;
+    get_instance().state[(Key)key] = action;
     }
-  if (action == GLFW_RELEASE)
-    {
-      KEYS_STATUS[key] = false;
-    }
+}
+
+bool
+Keyboard::get_state(const int key)
+{
+  if (key > GLFW_A_KEYCODE && key < Key::Length)
+    return get_instance().state[(Key)key];
+  return false;
 }
