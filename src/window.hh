@@ -27,12 +27,7 @@ public:
   void end_frame();
   float get_time();
   bool running();
-  void set_mouse_moviment_callback(void *f);
-  void set_mouse_scroll_callback(void *f);
-  void set_mouse_button_callback(void *f);
-
   void setup(Keyboard keyboard);
-  Key get_key_pressed();
 
   inline GLFWwindow *
   get_window() const

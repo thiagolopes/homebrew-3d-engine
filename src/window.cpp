@@ -43,30 +43,11 @@ Window::Window(char *window_name, float width, float height)
   update_deltatime_frame();
 
   // setup minors options by default
-  glfwSetKeyCallback(get_window(), (GLFWkeyfun)Keyboard::get_instance().glfw_callback);
   OpenGLCallback &op = OpenGLCallback::get_instance();
   op.set_window(get_window());
 };
 
 Window::~Window() { glfwTerminate(); };
-
-void
-Window::set_mouse_scroll_callback(void *f)
-{
-  glfwSetScrollCallback(get_window(), (GLFWscrollfun)f);
-};
-
-void
-Window::set_mouse_button_callback(void *f)
-{
-  glfwSetMouseButtonCallback(get_window(), (GLFWmousebuttonfun)f);
-};
-
-void
-Window::set_mouse_moviment_callback(void *f)
-{
-  glfwSetCursorPosCallback(get_window(), (GLFWcursorposfun)f);
-};
 
 float
 Window::get_time()
@@ -77,6 +58,9 @@ Window::get_time()
 void
 Window::end_frame()
 {
+  Mouse &m = Mouse::get_instance();
+  m.next_frame();
+
   update_deltatime_frame();
   glfwSwapBuffers(m_window);
   glfwPollEvents();

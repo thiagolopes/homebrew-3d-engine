@@ -20,6 +20,7 @@ private:
   float _fov;
   float _moviment_speed = 2.5f;
   float _mouse_sensitivity = 0.1f;
+  float _zoom_sensitivity = 2.0f;
 
   float _view_width;
   float _view_height;
@@ -34,10 +35,10 @@ public:
   Camera(float position, float width, float height, float up = 0.0f, float yaw = -90.0f, float pitch = 0.0f,
          float fov = 45.0f, float z_zear = 0.1f, float z_far = 100.0f);
 
-  void process_mouse_moviment(float x_offset, float y_offset, bool constrian_pitch = true);
+  void process_mouse_moviment(Mouse &m, bool constrian_pitch = true);
   void process_mouse_scroll(float y_offset);
 
-  void update(Keyboard &k, float delta_time);
+  void update(Keyboard &k, Mouse &m, float delta_time);
 
   glm::mat4 &get_view_matrix();
   glm::mat4 &get_projection();

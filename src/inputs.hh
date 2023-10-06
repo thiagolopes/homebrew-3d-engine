@@ -47,32 +47,46 @@ public:
     static Keyboard instance;
     return instance;
   }
-  void update();
   bool get_state(const int key);
-  static bool
-  key_in_bounds(int key)
-  {
-    if (key >= Key::A && key <= Key::Length)
-      {
-        return true;
-      }
-    return false;
-  }
-  static void glfw_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+  void set_state(const int key, const bool action);
+  bool key_in_bounds(int key);
+};
+
+struct MousePosition
+{
+  float x;
+  float y;
 };
 
 enum MouseKey
 {
-  LBUTTON,
-  RBUTTON
+  LEFT,
+  RIGHT,
 };
 
 class Mouse
 {
 private:
-public:
   Mouse(void);
-  ~Mouse();
+  std::unordered_map<MouseKey, bool> state;
+  MousePosition last_position;
 
-  bool get_state(const int key);
+public:
+  MousePosition pointer_position;
+  float scroll_y;
+
+  static Mouse &
+  get_instance()
+  {
+    static Mouse instance;
+    return instance;
+  }
+
+  MousePosition get_last_position();
+  MousePosition get_diff_moviment();
+  void set_state(const int key, const bool action);
+  void update_position(float x, float y);
+  void next_frame();
+  bool get_state(const MouseKey key);
+  bool is_moving();
 };

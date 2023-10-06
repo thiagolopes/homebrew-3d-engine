@@ -18,9 +18,12 @@ Camera::Camera(float position, float width, float height, float up, float yaw, f
 };
 
 void
-Camera::update(Keyboard &k, float delta_time)
+Camera::update(Keyboard &k, Mouse &m, float delta_time)
 {
   process_keyboard(k, delta_time);
+  process_mouse_scroll(m.scroll_y);
+  process_mouse_moviment(m);
+
   _perspecitve_view = glm::lookAt(_position, _position + _front, _up);
   _perspecitve_projection = glm::perspective(glm::radians(get_fov()), _view_width / _view_height, _z_near, _z_far);
 }
@@ -32,13 +35,20 @@ Camera::get_view_matrix()
 };
 
 void
-Camera::process_mouse_moviment(float x_offset, float y_offset, bool constrian_pitch)
+Camera::process_mouse_moviment(Mouse &m, bool constrian_pitch)
 {
-  x_offset *= _mouse_sensitivity;
-  y_offset *= _mouse_sensitivity;
+  MousePosition diff = m.get_diff_moviment();
 
-  _yaw += x_offset;
-  _pitch += y_offset;
+  if (not m.get_state(MouseKey::RIGHT))
+    {
+      return;
+    }
+
+  diff.x *= _mouse_sensitivity;
+  diff.y *= _mouse_sensitivity;
+
+  _yaw += diff.x;
+  _pitch += diff.y;
 
   // make sure that when pitch is out of bounds, screen doesn't get flipped
   if (constrian_pitch)
@@ -54,7 +64,8 @@ Camera::process_mouse_moviment(float x_offset, float y_offset, bool constrian_pi
 void
 Camera::process_mouse_scroll(float y_offset)
 {
-  _fov -= (float)y_offset;
+
+  _fov -= y_offset * _zoom_sensitivity;
   if (_fov < 1.0f)
     _fov = 1.0f;
   if (_fov > 45.0f)

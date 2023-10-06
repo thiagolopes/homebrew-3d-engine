@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <math.h>
 #include <string>
@@ -18,28 +19,16 @@
 #include "containers.hh"
 #include "inputs.hh"
 
-// settings
-int width = 1280;
-int height = 720;
-bool first_mouse_call = true;
-float mouse_last_x = width / 2.0f;
-float mouse_last_y = height / 2.0f;
-
-// setup free camera
-Camera camera(8.0f, width, height);
-
-void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
-void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
-
 int
 main(void)
 {
+  int width = 1280;
+  int height = 720;
   char window_name[] = "Engine3D";
-  camera.set_moviment_speed(8.0f);
-
   Window win(window_name, width, height);
-  win.set_mouse_moviment_callback((void *)mouse_callback);
-  win.set_mouse_scroll_callback((void *)scroll_callback);
+
+  Camera camera(8.0f, width, height);
+  camera.set_moviment_speed(8.0f);
 
   Renderer render;
   ImGuiRenderer ui(win.get_window());
@@ -58,6 +47,7 @@ main(void)
   Entity cube(&cube_mesh, nullptr, 3.0f, 1.0f, 0.0f);
 
   Keyboard &kb = Keyboard::get_instance();
+  Mouse &mouse = Mouse::get_instance();
 
   earth_model.material->set_emissioness(1.0f);
 
@@ -70,8 +60,7 @@ main(void)
       ui.debug(pl);
       ui.debug(dl);
 
-      camera.update(kb, win.get_deltatime());
-
+      camera.update(kb, mouse, win.get_deltatime());
       // earth.position(space_tile * sin(win.get_time()), 0.0, space_tile * cos(win.get_time()));
       // earth.inc_angle(.5f);
 
@@ -98,37 +87,5 @@ main(void)
       win.end_frame();
     }
 
-  return 0;
-}
-
-void
-mouse_callback(GLFWwindow *window, double xposIn, double yposIn)
-{
-  float xpos = static_cast<float>(xposIn);
-  float ypos = static_cast<float>(yposIn);
-
-  if (first_mouse_call)
-    {
-      mouse_last_x = xpos;
-      mouse_last_y = ypos;
-      first_mouse_call = false;
-    }
-
-  float xoffset = xpos - mouse_last_x;
-  float yoffset = mouse_last_y - ypos; // reversed since y-coordinates go from bottom to top
-
-  mouse_last_x = xpos;
-  mouse_last_y = ypos;
-
-  int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
-  if (state)
-    {
-      camera.process_mouse_moviment(xoffset, yoffset);
-    }
-}
-
-void
-scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
-{
-  camera.process_mouse_scroll(yoffset);
+  return EXIT_SUCCESS;
 }
