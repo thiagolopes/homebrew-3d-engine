@@ -76,7 +76,7 @@ main(void)
         shader_light.bind();
 
         shader_light.set_point_light(pl);
-        // cube.position(4.0f * sin(win.get_time()), 0.0f, 5.0f * cos(win.get_time()));
+        cube.position(pl.position.x, pl.position.y, pl.position.z);
         shader_light.set_MVP(cube.get_model_position(), camera.get_view_matrix(), camera.get_projection());
 
         cube_mesh.draw(render, shader_light); // todo: movo to a batch render and draw once;
