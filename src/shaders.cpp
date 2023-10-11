@@ -164,9 +164,9 @@ Shader::create_sharder(const std::string &vertex_shader, const std::string &frag
 void
 Shader::set_MVP(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection)
 {
-  set_uniform_mat4("u_M", model);
-  set_uniform_mat4("u_V", view);
-  set_uniform_mat4("u_P", projection);
+  glm::mat4 mvp = projection * view * model;
+  set_uniform_mat4("u_MVP", mvp);
+  set_uniform_mat4("u_ModelViewMatrix", model);
 }
 
 // TODO Move set_X_light to a ShaderUniform(Shader shader) class

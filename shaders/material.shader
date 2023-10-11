@@ -10,16 +10,15 @@ out vec3 v_Normal;
 out vec3 v_FragPos;
 
 // MODEL VIEW PROJECTION
-uniform mat4 u_M;
-uniform mat4 u_V;
-uniform mat4 u_P;
+uniform mat4 u_ModelViewMatrix;
+uniform mat4 u_MVP;
 
 void main(){
-    v_FragPos = vec3(u_M * vec4(position, 1.0));
+    v_FragPos = vec3(u_ModelViewMatrix * vec4(position, 1.0));
     v_TexCoord = texCoord;
-    v_Normal = mat3(transpose(inverse(u_M))) * normal;
+    v_Normal = mat3(transpose(inverse(u_ModelViewMatrix))) * normal;
 
-    gl_Position =  u_P * u_V * u_M * vec4(position, 1.0);
+    gl_Position =  u_MVP * vec4(position, 1.0);
 }
 
 //-----------------------------------------------------------------------------
