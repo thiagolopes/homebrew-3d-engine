@@ -126,3 +126,4 @@ doxyfile
 .ccls-cache/
 .idea/
 build/
+docs/
