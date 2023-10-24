@@ -109,7 +109,7 @@ vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir){
     float diff = max(dot(normal, lightDir), 0.0);
     //specular
     vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, -reflectDir), 0.0), (u_Material.shininess * SHININESS_SCALE));
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), (u_Material.shininess * SHININESS_SCALE));
 
     //combine
     vec3 ambient = light.ambient * textureDiffuse;
@@ -129,7 +129,7 @@ vec3 calcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
     float diff = max(dot(normal, lightDir), 0.0);
     //specular
     vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, -reflectDir), 0.0), (u_Material.shininess * SHININESS_SCALE));
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), (u_Material.shininess * SHININESS_SCALE));
     // emission
     vec3 emission = texture(u_Material.emission, v_TexCoord).rgb * u_Material.emission_level;
     if (u_Material.emission_mask){ // flag enable draw specular OVER emission.
