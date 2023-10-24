@@ -2,10 +2,9 @@
 
 #include "inputs.hh"
 #include "mesh.hh"
-#include "opengl_middleware.hh"
 
 Window::Window(char *window_name, float width, float height)
-    : m_window(nullptr), m_width(width), m_height(height), m_deltatime(0), m_lastframe(0)
+  : m_window(nullptr), m_width(width), m_height(height), m_deltatime(0), m_lastframe(0), _mouse(Mouse::get_instance()), _opengl(OpenGLCallback::get_instance())
 {
   /* Initialize the library */
   if (!glfwInit())
@@ -43,8 +42,7 @@ Window::Window(char *window_name, float width, float height)
   update_deltatime_frame();
 
   // setup minors options by default
-  OpenGLCallback &op = OpenGLCallback::get_instance();
-  op.set_window(get_window());
+  _opengl.set_window(get_window());
 };
 
 Window::~Window() { glfwTerminate(); };
@@ -58,8 +56,7 @@ Window::get_time()
 void
 Window::end_frame()
 {
-  Mouse &m = Mouse::get_instance();
-  m.next_frame();
+  _mouse.next_frame();
 
   update_deltatime_frame();
   glfwSwapBuffers(m_window);

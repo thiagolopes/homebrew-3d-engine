@@ -13,7 +13,7 @@ private:
   GLFWwindow *get_window();
 
 public:
-  static OpenGLCallback &
+  inline static OpenGLCallback &
   get_instance()
   {
     static OpenGLCallback instance;

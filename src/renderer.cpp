@@ -38,12 +38,17 @@ Renderer::draw(const VertexArray &va, const IndexBuffer &ib) const
   GL_debug_chek_error();
 };
 
+/* In most cases, you'll want to call true to enable sync,
+   but if you have a reason to disable it (for example,
+   if you're comparing shader performance) you can should use false; */
 void
 Renderer::set_swap_interval(bool flag) const
 {
   glfwSwapInterval(flag);
 };
 
+/* Enable to avoid unecessary vertex draw using Z-Buffer check,
+   but you can disable and change the DepthFunc due face tests reason*/
 void
 Renderer::set_depth_test(bool flag) const
 {

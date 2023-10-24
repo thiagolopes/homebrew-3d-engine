@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 Shader::Shader(const std::string &filepath) : source_filepath(filepath), shader_id(0)
@@ -70,7 +71,7 @@ Shader::get_uniform_location(const std::string &name)
 
   int location = glGetUniformLocation(shader_id, name.c_str());
   if (location == -1)
-    std::cout << "[WARNING] uniform '" << name << "'doenst not exist" << std::endl;
+    std::cout << "[WARNING] uniform '" << name << "["<< source_filepath <<"] 'doenst not exist" << std::endl;
 
   uniform_location_cache[name] = location;
   return location;
@@ -131,7 +132,7 @@ Shader::compile_shader(unsigned int type_shader, const std::string &source)
       glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
       std::vector<GLchar> error_msg(length);
       glGetShaderInfoLog(id, length, &length, error_msg.data());
-      std::cout << "Fail shader compilation! \n";
+      std::cout << "Fail shader ["<< source_filepath << "] compilation! \n";
       std::cout << error_msg.data() << std::endl;
       glDeleteShader(id);
       return 0;
@@ -161,32 +162,46 @@ Shader::create_sharder(const std::string &vertex_shader, const std::string &frag
   return program;
 }
 
+ShaderUniform::ShaderUniform(Shader& shader): _shader(shader){};
+
+ShaderUniform::~ShaderUniform(){
+  std::cout << "[DEBUG] ShaderUniform destroyed" << std::endl;
+}
+
+void ShaderUniform::setup_uniforms(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection,
+                                   PointLight &point_light, DirLight *dir_light){
+  set_MVP(model, view, projection);
+  set_point_light(point_light);
+  if (dir_light != nullptr)
+    set_directional_light(*dir_light);
+}
+
 void
-Shader::set_MVP(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection)
+ShaderUniform::set_MVP(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection)
 {
   glm::mat4 mvp = projection * view * model;
-  set_uniform_mat4("u_MVP", mvp);
-  set_uniform_mat4("u_ModelViewMatrix", model);
+  _shader.set_uniform_mat4("u_MVP", mvp);
+  _shader.set_uniform_mat4("u_ModelViewMatrix", model);
 }
 
 // TODO Move set_X_light to a ShaderUniform(Shader shader) class
 void
-Shader::set_point_light(PointLight &pl)
+ShaderUniform::set_point_light(PointLight &pl)
 {
-  set_uniform_vec3("u_PointLight.position", pl.position);
-  set_uniform_vec3("u_PointLight.ambient", pl.ambient);
-  set_uniform_vec3("u_PointLight.diffuse", pl.diffuse);
-  set_uniform_vec3("u_PointLight.specular", pl.specular);
-  set_uniform_float1("u_PointLight.constant", pl.constant);
-  set_uniform_float1("u_PointLight.linear", pl.linear);
-  set_uniform_float1("u_PointLight.quadratic", pl.quadratic);
+  _shader.set_uniform_vec3("u_PointLight.position", pl.position);
+  _shader.set_uniform_vec3("u_PointLight.ambient", pl.ambient);
+  _shader.set_uniform_vec3("u_PointLight.diffuse", pl.diffuse);
+  _shader.set_uniform_vec3("u_PointLight.specular", pl.specular);
+  _shader.set_uniform_float1("u_PointLight.constant", pl.constant);
+  _shader.set_uniform_float1("u_PointLight.linear", pl.linear);
+  _shader.set_uniform_float1("u_PointLight.quadratic", pl.quadratic);
 }
 
 void
-Shader::set_directional_light(DirLight &dl)
+ShaderUniform::set_directional_light(DirLight &dl)
 {
-  set_uniform_vec3("u_DirLight.direction", dl.direction);
-  set_uniform_vec3("u_DirLight.ambient", dl.ambient);
-  set_uniform_vec3("u_DirLight.diffuse", dl.diffuse);
-  set_uniform_vec3("u_DirLight.specular", dl.specular);
+  _shader.set_uniform_vec3("u_DirLight.direction", dl.direction);
+  _shader.set_uniform_vec3("u_DirLight.ambient", dl.ambient);
+  _shader.set_uniform_vec3("u_DirLight.diffuse", dl.diffuse);
+  _shader.set_uniform_vec3("u_DirLight.specular", dl.specular);
 }

@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "inputs.hh"
+#include "opengl_middleware.hh"
 
 class Window
 {
@@ -11,6 +12,8 @@ private:
   int m_height;
   float m_deltatime;
   float m_lastframe;
+  Mouse &_mouse;
+  OpenGLCallback &_opengl;
 
   inline void
   update_deltatime_frame()

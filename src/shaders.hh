@@ -48,3 +48,19 @@ public:
   // TODO update to auto load from the source code and set automatic the uniforms
   int get_uniform_location(const std::string &name);
 };
+
+class ShaderUniform
+{
+private:
+  Shader& _shader;
+  void set_MVP(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection);
+  void set_point_light(PointLight &point_light);
+  void set_directional_light(DirLight &dir_light);
+
+public:
+  ShaderUniform(Shader& shader);
+  ~ShaderUniform();
+
+  void setup_uniforms(glm::mat4 &model, glm::mat4 &view, glm::mat4 &projection,
+                      PointLight &point_light, DirLight *dir_light);
+};

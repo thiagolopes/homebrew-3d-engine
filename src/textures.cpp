@@ -5,11 +5,12 @@
 
 #include "stb_image.h"
 
-Texture::Texture(const std::string &path)
+Texture::Texture(const std::string &path, const bool repeat)
     : t_render_id(0), t_filepath(path), t_localbuffer(nullptr), t_width(0), t_height(0), t_bpp(0)
 {
   glGenTextures(1, &t_render_id);
   glBindTexture(GL_TEXTURE_2D, t_render_id);
+
 
   stbi_set_flip_vertically_on_load(true);
   t_localbuffer = stbi_load(path.c_str(), &t_width, &t_height, &t_bpp, STBI_rgb_alpha);
@@ -25,8 +26,14 @@ Texture::Texture(const std::string &path)
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+  GLint pname = GL_CLAMP_TO_EDGE;
+  if (repeat){
+    std::cout << "[LOG] set texture " << t_render_id << ", to be repeat" << std::endl;
+    pname = GL_REPEAT;
+  }
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, pname);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, pname);
 
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t_width, t_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, t_localbuffer);
   unbind();

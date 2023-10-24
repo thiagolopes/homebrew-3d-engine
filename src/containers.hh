@@ -143,4 +143,34 @@ std::vector<unsigned int> indices = {
   // top
   20, 21, 22, 22, 23, 20
 };
-} // namespace Container
+}
+
+namespace Plane
+{
+std::vector<Vertex> vertices = {
+  {
+      glm::vec3(1.0f, 1.0f, -1.0f),
+      glm::vec2(0.0f, 0.0f),
+      glm::vec3(0.0f, 1.0f, 0.0f),
+  },
+  {
+      glm::vec3(-1.0f, 1.0f, -1.0f),
+      glm::vec2(2.0f, 0.0f),
+      glm::vec3(0.0f, 1.0f, 0.0f),
+  },
+  {
+      glm::vec3(-1.0f, 1.0f, 1.0f),
+      glm::vec2(2.0f, 2.0f),
+      glm::vec3(0.0f, 1.0f, 0.0f),
+  },
+  {
+      glm::vec3(1.0f, 1.0f, 1.0f),
+      glm::vec2(0.0f, 2.0f),
+      glm::vec3(0.0f, 1.0f, 0.0f),
+  },
+};
+
+std::vector<unsigned int> indices = {
+  0, 3, 2, 2, 1, 0,
+};
+}

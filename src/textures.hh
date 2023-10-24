@@ -10,7 +10,7 @@ private:
   int t_width, t_height, t_bpp;
 
 public:
-  explicit Texture(const std::string &file);
+  explicit Texture(const std::string &file, const bool repeat = false);
   ~Texture();
 
   void bind(unsigned int slot = 0) const;

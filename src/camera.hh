@@ -39,6 +39,7 @@ public:
   void process_mouse_scroll(float y_offset);
 
   void update(Keyboard &k, Mouse &m, float delta_time);
+  void update(const float delta_time);
 
   glm::mat4 &get_view_matrix();
   glm::mat4 &get_projection();

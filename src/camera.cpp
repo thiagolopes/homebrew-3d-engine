@@ -28,6 +28,21 @@ Camera::update(Keyboard &k, Mouse &m, float delta_time)
   _perspecitve_projection = glm::perspective(glm::radians(get_fov()), _view_width / _view_height, _z_near, _z_far);
 }
 
+
+void
+Camera::update(const float delta_time)
+{
+  Keyboard &kb = Keyboard::get_instance();
+  Mouse &mouse = Mouse::get_instance();
+
+  process_keyboard(kb, delta_time);
+  process_mouse_scroll(mouse.scroll_y);
+  process_mouse_moviment(mouse);
+
+  _perspecitve_view = glm::lookAt(_position, _position + _front, _up);
+  _perspecitve_projection = glm::perspective(glm::radians(get_fov()), _view_width / _view_height, _z_near, _z_far);
+}
+
 glm::mat4 &
 Camera::get_view_matrix()
 {

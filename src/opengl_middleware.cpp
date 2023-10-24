@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <mutex>
-std::mutex mtxx; // mutex for critical section
 
 void
 viewport_size_callback(GLFWwindow *window, int width, int height)

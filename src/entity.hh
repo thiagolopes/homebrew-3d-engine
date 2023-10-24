@@ -1,6 +1,8 @@
 #pragma once
 
+#include <cstdlib>
 #include <glm/glm.hpp>
+#include <iostream>
 #include "materials.hh"
 #include "mesh.hh"
 #include "models.hh"
@@ -32,4 +34,12 @@ public:
   void inc_scale(float scale);
 
   glm::mat4 &get_model_position();
+
+  Mesh* get_mesh() const {return _mesh;};
+  Material* get_material() const {
+    if (_material == nullptr) {
+      std::cout << "Entity has no material" << std::endl;
+    }
+    return _material;
+  };
 };
