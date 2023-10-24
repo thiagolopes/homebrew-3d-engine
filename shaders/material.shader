@@ -73,13 +73,15 @@ uniform bool u_DepthTest;
 
 // zdeth test
 float near = 0.1;
-float far  = 100.0;
-float LinearizeDepth(float depth);
+float far  = 10.0;
+float LinearizeDepth(float Z);
 
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 calcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
-void main(){
+void
+main()
+{
     //properties
     vec3 norm= normalize(v_Normal);
     vec3 viewDir = normalize(u_ViewPos - v_FragPos);
@@ -93,14 +95,16 @@ void main(){
     // result += calcSpotLight();
 
     if (u_DepthTest){
-        float depth = LinearizeDepth(gl_FragCoord.z) / far;
-        FragColor =vec4(vec3(depth), 1.0);
-        return;
+      float depth = LinearizeDepth(gl_FragCoord.z);
+      FragColor =vec4(vec3(depth), 1.0);
+      return;
     }
     FragColor = vec4(result, 1.0);
 }
 
-vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir){
+vec3
+calcDirLight(DirLight light, vec3 normal, vec3 viewDir)
+{
     vec3 textureDiffuse = texture(u_Material.diffuse, v_TexCoord).rgb;
     vec3 textureSpecular = texture(u_Material.specular, v_TexCoord).rgb;
 
@@ -120,7 +124,9 @@ vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir){
 }
 
 
-vec3 calcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
+vec3
+calcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+{
     vec3 textureDiffuse = texture(u_Material.diffuse, v_TexCoord).rgb;
     vec3 textureSpecular = texture(u_Material.specular, v_TexCoord).rgb;
 
@@ -152,8 +158,9 @@ vec3 calcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
     return (ambient + diffuse + specular + emission);
 }
 
-float LinearizeDepth(float depth)
+float
+LinearizeDepth(float Z)
 {
-    float z = depth * 2.0 - 1.0; // back to NDC
-    return (2.0 * near * far) / (far + near - z * (far - near));
+    float z_ndc = Z * 2.0 - 1.0; // back to NDC
+    return (2.0 * near * far) / (far + near - z_ndc * (far - near)) / far;
 }
