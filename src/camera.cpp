@@ -23,22 +23,19 @@ Camera::update(Keyboard &k, Mouse &m, float delta_time)
   process_keyboard(k, delta_time);
   process_mouse_scroll(m.scroll_y);
   process_mouse_moviment(m);
-
-  _perspecitve_view = glm::lookAt(_position, _position + _front, _up);
-  _perspecitve_projection = glm::perspective(glm::radians(get_fov()), _view_width / _view_height, _z_near, _z_far);
+  process_NDC();
 }
-
 
 void
 Camera::update(const float delta_time)
 {
   Keyboard &kb = Keyboard::get_instance();
   Mouse &mouse = Mouse::get_instance();
+  update(kb, mouse, delta_time);
+}
 
-  process_keyboard(kb, delta_time);
-  process_mouse_scroll(mouse.scroll_y);
-  process_mouse_moviment(mouse);
-
+void
+Camera::process_NDC(){
   _perspecitve_view = glm::lookAt(_position, _position + _front, _up);
   _perspecitve_projection = glm::perspective(glm::radians(get_fov()), _view_width / _view_height, _z_near, _z_far);
 }

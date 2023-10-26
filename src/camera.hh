@@ -30,13 +30,13 @@ private:
 
   void update_camera();
   void process_keyboard(Keyboard &k, float delta_time);
+  void process_mouse_moviment(Mouse &m, bool constrian_pitch = true);
+  void process_mouse_scroll(float y_offset);
+  void process_NDC();
 
 public:
   Camera(float position, float width, float height, float up = 0.0f, float yaw = -90.0f, float pitch = 0.0f,
          float fov = 45.0f, float z_zear = 0.1f, float z_far = 100.0f);
-
-  void process_mouse_moviment(Mouse &m, bool constrian_pitch = true);
-  void process_mouse_scroll(float y_offset);
 
   void update(Keyboard &k, Mouse &m, float delta_time);
   void update(const float delta_time);
