@@ -41,21 +41,21 @@ main(void)
   Mesh cube_mesh(Container::vertices, Container::indices);
   Mesh plane_mesh(Plane::vertices, Plane::indices);
   Texture container_texture("res/textures/container.png", true); //let it repeat
-  Model rock_model("rock");
-  Model earth_model("planet");
+  Model planet_model("planet");
   Model cyborg_model("cyborg");
 
   Entity cyborg1(cyborg_model, 8.0f, .6f, 0.4f);
   Entity cyborg2(cyborg_model, -5.0f, .5f, -0.3f);
   Entity cyborg3(cyborg_model, 11.0f, .3f, 0.0f);
   
-  Entity earth(earth_model, -1.0f, 2.0f, 0.0f);
+  Entity planet(planet_model, -1.0f, 2.0f, 0.0f);
   Entity cube(&cube_mesh, nullptr, 3.0f, 5.0f, 0.0f);
   Entity plane_container(&plane_mesh, nullptr, 10.0f, 5.0f, 0.0f);
 
-  earth_model.material->set_emissioness(1.0f);
-  earth.scale(.5f, .5f, .5f);
+  planet_model.get_material()->set_emissioness(1.0f);
+  planet.scale(.5f, .5f, .5f);
   plane_container.scale(1);
+  plane_container.set_rotation_dir(-.7f, 1.0f, 0.5f);
 
   /* Loop until the user closes the window */
   while (win.running())
@@ -70,13 +70,14 @@ main(void)
 
       //earth
       shader.bind();
-      earth.inc_angle(0.1);
-      u_material.setup_uniforms(earth.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
-      earth_model.draw(render, shader); // TODO update to be render handler: render.draw();
+      planet.inc_angle(0.1);
+      u_material.setup_uniforms(planet.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
+      planet_model.draw(render, shader); // TODO update to be render handler: render.draw();
 
       // plane
       shader.bind();
       container_texture.bind();
+      plane_container.inc_angle(-.1f);
       u_material.setup_uniforms(plane_container.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
       plane_mesh.draw(render, shader);
 
