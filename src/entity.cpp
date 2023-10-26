@@ -65,6 +65,13 @@ Entity::inc_angle(float angle)
 }
 
 void
+Entity::set_rotation_dir(float x, float y, float z){
+  _rotation_dir.x = x;
+  _rotation_dir.y = y;
+  _rotation_dir.z = z;
+}
+
+void
 Entity::angle(float angle)
 {
   assert(angle < DEGRESS);
@@ -76,7 +83,7 @@ Entity::get_model_position()
 {
   _word_position = glm::translate(glm::mat4(1.0f), _position);
   _word_position = glm::scale(_word_position, _scale);
-  _word_position = glm::rotate(_word_position, glm::radians(_angle_degrees), glm::vec3(0.0, 1.0, 0.0));
+  _word_position = glm::rotate(_word_position, glm::radians(_angle_degrees), _rotation_dir);
 
   return _word_position;
 }
