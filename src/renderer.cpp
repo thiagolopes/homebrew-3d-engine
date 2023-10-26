@@ -38,6 +38,17 @@ Renderer::draw(const VertexArray &va, const IndexBuffer &ib) const
   GL_debug_chek_error();
 };
 
+void
+Renderer::draw_instancied(const VertexArray &va, const IndexBuffer &ib, const int many) const
+{
+  va.bind();
+  ib.bind();
+
+  GL_debug_clear_error();
+  glDrawElementsInstanced(GL_TRIANGLES, ib.get_count(), GL_UNSIGNED_INT, nullptr, many);
+  GL_debug_chek_error();
+};
+
 /* In most cases, you'll want to call true to enable sync,
    but if you have a reason to disable it (for example,
    if you're comparing shader performance) you can should use false; */

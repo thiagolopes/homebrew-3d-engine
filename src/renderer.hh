@@ -15,6 +15,7 @@ private:
 public:
   Renderer(bool z_buffer = true, bool frame_cap = true);
   void draw(const VertexArray &va, const IndexBuffer &ib) const;
+  void draw_instancied(const VertexArray &va, const IndexBuffer &ib, const int many) const;
   void set_depth_test(bool flag = true) const;
   void set_swap_interval(bool flag = true) const;
 };
