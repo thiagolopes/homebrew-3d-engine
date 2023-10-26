@@ -10,14 +10,15 @@
 class Entity
 {
 private:
-  Mesh *_mesh;
-  Material *_material;
+  Mesh* _mesh;
+  Material* _material;
 
   glm::vec3 _position;
   glm::mat4 _word_position;
 
   glm::vec3 _scale;
   float _angle_degrees;
+  glm::vec3 _rotation_dir;
 
 public:
   Entity(Mesh *mesh, Material *material, float position = 0.0f, float scale = 1.0f, float angle_degrees = 0.0f);
@@ -29,6 +30,8 @@ public:
   void angle(float angle);
   void inc_angle(float angle);
 
+  void set_rotation_dir(float x, float y, float z);
+
   void scale(float scale);
   void scale(float scale_x, float scale_y, float scale_z);
   void inc_scale(float scale);
@@ -38,7 +41,7 @@ public:
   Mesh* get_mesh() const {return _mesh;};
   Material* get_material() const {
     if (_material == nullptr) {
-      std::cout << "Entity has no material" << std::endl;
+      std::cout << "[ERROR] Entity has no material" << std::endl;
     }
     return _material;
   };

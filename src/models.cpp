@@ -1,14 +1,15 @@
 #include "models.hh"
 #include "vendor/obj_loader/obj_loader.h"
+#include <memory>
 
 // CAUTION: This implemention blend all the meshes of file in one;
-Model::Model(const std::string &dir_name)
+Model::Model(const std::string &dir_name) : name(dir_name)
 {
   objl::Loader loader;
-  std::string obj_path = "res/models/" + dir_name + "/";
-  if (!loader.LoadFile(obj_path + dir_name + ".obj"))
+  std::string obj_path = "res/models/" + name + "/";
+  if (!loader.LoadFile(obj_path + name + ".obj"))
     {
-      std::cout << "[ERROR] Fail to load model: " << obj_path + dir_name + ".obj" << std::endl;
+      std::cout << "[ERROR] Fail to load model: " << obj_path + name + ".obj" << std::endl;
     }
 
   std::vector<Vertex> vertices;
@@ -30,24 +31,25 @@ Model::Model(const std::string &dir_name)
 
       vertices.push_back(v);
     }
+
   for (size_t i = 0; i < loader.LoadedIndices.size(); i++)
     {
       indices.push_back(loader.LoadedIndices[i]);
     }
-  mesh = new Mesh(vertices, indices);
+
+  mesh.reset(new Mesh(vertices, indices));
 
   std::string diffuse_path = obj_path + loader.LoadedMaterials[0].map_Kd;
   std::string specular_path = obj_path + loader.LoadedMaterials[0].map_Ks;
   std::string emission_path = obj_path + loader.LoadedMaterials[0].map_Ke;
   float specular_expoent = loader.LoadedMaterials[0].Ns;
 
-  material = new Material(diffuse_path, specular_path, emission_path, specular_expoent, 1.0, false);
+  material.reset(new Material(diffuse_path, specular_path, emission_path, specular_expoent, 1.0, false));
 }
 
 Model::~Model()
 {
-  delete mesh;
-  delete material;
+  std::cout << "[DEBUG] Model " << name << " destroyed" << std::endl;
 }
 
 void

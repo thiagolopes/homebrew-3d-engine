@@ -1,15 +1,16 @@
 #include "entity.hh"
 #include "glm/gtc/matrix_transform.hpp"
 #include <cassert>
+
 #define DEGRESS 360.0f
 
 Entity::Entity(Mesh *mesh, Material *material, float position, float scale, float angle_degrees)
-    : _mesh(mesh), _material(material), _position(position), _word_position(0.0f), _scale(scale),
-      _angle_degrees(angle_degrees){};
+  : _mesh(mesh), _material(material), _position(position), _word_position(0.0f), _scale(scale),
+      _angle_degrees(angle_degrees), _rotation_dir(0.0f, 1.0f, 0.0f){};
 
 Entity::Entity(Model &model, float position, float scale, float angle_degrees)
-    : _mesh(model.mesh), _material(model.material), _position(position), _word_position(0.0f), _scale(scale),
-      _angle_degrees(angle_degrees){};
+  : _mesh(model.get_mesh()), _material(model.get_material()), _position(position), _word_position(0.0f), _scale(scale),
+      _angle_degrees(angle_degrees), _rotation_dir(0.0f, 1.0f, 0.0f){};
 
 void
 Entity::inc_position(float x, float y, float z)
