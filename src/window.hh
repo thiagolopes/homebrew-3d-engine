@@ -21,6 +21,12 @@ private:
     float current_frame = get_time();
     m_deltatime = current_frame - m_lastframe;
     m_lastframe = current_frame;
+    // TODO - Creating a accumulator time;
+    // m_accumulator = current_frame;
+    // tldr; implement accumulator in the game loop logic,
+    // this will prevent logic game upate bugs related
+    // to frametime/fps and will made it deterministic.
+    // https://www.youtube.com/watch?v=lW6ZtvQVzyg
   }
 
 public:

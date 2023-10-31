@@ -47,6 +47,7 @@ make run -j5
 - [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 - [IEEE Arithmetic ](https://docs.oracle.com/cd/E19957-01/806-3568/ncg_math.html)
 - [Improved Alpha-Tested Magnification for Vector Textures and Special Effects](https://steamcdn-a.akamaihd.net/apps/valve/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf)
+- [Getting The Game Loop Right - Video about deterministic game loop](https://www.youtube.com/watch?v=lW6ZtvQVzyg)
 - Block-diagram-of-the-OpenGL-pipeline
 
 ![Block-diagram-of-the-OpenGL-pipeline](https://github.com/thiagolopes/3d_engine_homebrew/assets/5994972/a5519698-8450-41e6-8db8-2e0b091be5b2)
