@@ -49,6 +49,8 @@ Model::Model(const std::string &dir_name) : name(dir_name)
 
 Model::~Model()
 {
+  mesh.reset();
+  material.reset();
   std::cout << "[DEBUG] Model " << name << " destroyed" << std::endl;
 }
 
