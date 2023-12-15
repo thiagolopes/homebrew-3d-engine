@@ -1,0 +1,9 @@
+<map id="Camera" name="Camera">
+<area shape="rect" id="Node000001" title=" " alt="" coords="49,310,259,635"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,49,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="29,74,34,170,42,228,55,285,58,293,53,294,50,286,36,229,28,171,24,75"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="131,5,177,75"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,74,157,293,151,293,151,74"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="328,5,369,75"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="353,75,354,118,350,172,340,231,322,287,300,327,272,364,268,361,295,324,317,285,335,229,345,172,348,118,348,75"/>
+</map>

@@ -1,0 +1,124 @@
+\doxysection{Material Class Reference}
+\hypertarget{classMaterial}{}\label{classMaterial}\index{Material@{Material}}
+
+
+{\ttfamily \#include $<$materials.\+hh$>$}
+
+
+
+Collaboration diagram for Material\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMaterial__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMaterial_a407db39ac71edcc35731e87affe25bec}{Material}} (const std\+::string \&diffuse\+\_\+path, const std\+::string \&specular\+\_\+path, const std\+::string \&emission\+\_\+path, float shininess, float emissioness, bool emission\+\_\+mask)
+\item 
+void \mbox{\hyperlink{classMaterial_ab102babb73cc0f182cc90b0a90be431c}{bind}} (\mbox{\hyperlink{classShader}{Shader}} \&shader)
+\item 
+void \mbox{\hyperlink{classMaterial_a3b4ef589843fde30b1844bde9bcbad19}{unbind}} ()
+\item 
+void \mbox{\hyperlink{classMaterial_a047006b7bb7a413de446a1f559fdb64c}{set\+\_\+emissioness}} (float e)
+\item 
+void \mbox{\hyperlink{classMaterial_a4d2074aa4785447580ae4ce5b12ebbcd}{set\+\_\+emaision}} (bool flag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTexture}{Texture}} \mbox{\hyperlink{classMaterial_ab219c06f80b995d25d3e0c30cdd2fcd1}{m\+\_\+diffuse}}
+\item 
+\mbox{\hyperlink{classTexture}{Texture}} \mbox{\hyperlink{classMaterial_a8f2e68ba958f54c22ed50dfdea6cd939}{m\+\_\+specular}}
+\item 
+\mbox{\hyperlink{classTexture}{Texture}} \mbox{\hyperlink{classMaterial_a1bca4d2b5cdd28d129f4be194125938c}{m\+\_\+emission}}
+\item 
+float \mbox{\hyperlink{classMaterial_ac6870095f155d023adb9fa1d02f9be4c}{m\+\_\+shininess}}
+\item 
+float \mbox{\hyperlink{classMaterial_a7af5decd9b3eb0534eb1d38af7da6f4f}{m\+\_\+emissioness}}
+\item 
+bool \mbox{\hyperlink{classMaterial_ac826b1ef481c8e351203dd79ece818e2}{m\+\_\+emission\+\_\+mask}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classMaterial_a407db39ac71edcc35731e87affe25bec}\label{classMaterial_a407db39ac71edcc35731e87affe25bec} 
+\index{Material@{Material}!Material@{Material}}
+\index{Material@{Material}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{Material()}{Material()}}
+{\footnotesize\ttfamily Material\+::\+Material (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{diffuse\+\_\+path,  }\item[{const std\+::string \&}]{specular\+\_\+path,  }\item[{const std\+::string \&}]{emission\+\_\+path,  }\item[{float}]{shininess,  }\item[{float}]{emissioness,  }\item[{bool}]{emission\+\_\+mask }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classMaterial_ab102babb73cc0f182cc90b0a90be431c}\label{classMaterial_ab102babb73cc0f182cc90b0a90be431c} 
+\index{Material@{Material}!bind@{bind}}
+\index{bind@{bind}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{bind()}{bind()}}
+{\footnotesize\ttfamily void Material\+::bind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classShader}{Shader}} \&}]{shader }\end{DoxyParamCaption})}
+
+\Hypertarget{classMaterial_a4d2074aa4785447580ae4ce5b12ebbcd}\label{classMaterial_a4d2074aa4785447580ae4ce5b12ebbcd} 
+\index{Material@{Material}!set\_emaision@{set\_emaision}}
+\index{set\_emaision@{set\_emaision}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{set\_emaision()}{set\_emaision()}}
+{\footnotesize\ttfamily void Material\+::set\+\_\+emaision (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classMaterial_a047006b7bb7a413de446a1f559fdb64c}\label{classMaterial_a047006b7bb7a413de446a1f559fdb64c} 
+\index{Material@{Material}!set\_emissioness@{set\_emissioness}}
+\index{set\_emissioness@{set\_emissioness}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{set\_emissioness()}{set\_emissioness()}}
+{\footnotesize\ttfamily void Material\+::set\+\_\+emissioness (\begin{DoxyParamCaption}\item[{float}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classMaterial_a3b4ef589843fde30b1844bde9bcbad19}\label{classMaterial_a3b4ef589843fde30b1844bde9bcbad19} 
+\index{Material@{Material}!unbind@{unbind}}
+\index{unbind@{unbind}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{unbind()}{unbind()}}
+{\footnotesize\ttfamily void Material\+::unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classMaterial_ab219c06f80b995d25d3e0c30cdd2fcd1}\label{classMaterial_ab219c06f80b995d25d3e0c30cdd2fcd1} 
+\index{Material@{Material}!m\_diffuse@{m\_diffuse}}
+\index{m\_diffuse@{m\_diffuse}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{m\_diffuse}{m\_diffuse}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTexture}{Texture}} Material\+::m\+\_\+diffuse\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classMaterial_a1bca4d2b5cdd28d129f4be194125938c}\label{classMaterial_a1bca4d2b5cdd28d129f4be194125938c} 
+\index{Material@{Material}!m\_emission@{m\_emission}}
+\index{m\_emission@{m\_emission}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{m\_emission}{m\_emission}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTexture}{Texture}} Material\+::m\+\_\+emission\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classMaterial_ac826b1ef481c8e351203dd79ece818e2}\label{classMaterial_ac826b1ef481c8e351203dd79ece818e2} 
+\index{Material@{Material}!m\_emission\_mask@{m\_emission\_mask}}
+\index{m\_emission\_mask@{m\_emission\_mask}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{m\_emission\_mask}{m\_emission\_mask}}
+{\footnotesize\ttfamily bool Material\+::m\+\_\+emission\+\_\+mask\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classMaterial_a7af5decd9b3eb0534eb1d38af7da6f4f}\label{classMaterial_a7af5decd9b3eb0534eb1d38af7da6f4f} 
+\index{Material@{Material}!m\_emissioness@{m\_emissioness}}
+\index{m\_emissioness@{m\_emissioness}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{m\_emissioness}{m\_emissioness}}
+{\footnotesize\ttfamily float Material\+::m\+\_\+emissioness\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classMaterial_ac6870095f155d023adb9fa1d02f9be4c}\label{classMaterial_ac6870095f155d023adb9fa1d02f9be4c} 
+\index{Material@{Material}!m\_shininess@{m\_shininess}}
+\index{m\_shininess@{m\_shininess}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{m\_shininess}{m\_shininess}}
+{\footnotesize\ttfamily float Material\+::m\+\_\+shininess\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classMaterial_a8f2e68ba958f54c22ed50dfdea6cd939}\label{classMaterial_a8f2e68ba958f54c22ed50dfdea6cd939} 
+\index{Material@{Material}!m\_specular@{m\_specular}}
+\index{m\_specular@{m\_specular}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{m\_specular}{m\_specular}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTexture}{Texture}} Material\+::m\+\_\+specular\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{materials_8hh}{materials.\+hh}}\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{materials_8cpp}{materials.\+cpp}}\end{DoxyCompactItemize}

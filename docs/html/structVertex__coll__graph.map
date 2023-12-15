@@ -1,0 +1,7 @@
+<map id="Vertex" name="Vertex">
+<area shape="rect" id="Node000001" title=" " alt="" coords="47,157,101,226"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,49,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="25,74,25,103,31,132,39,149,35,151,26,134,20,103,20,74"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="99,5,143,75"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,75,92,141,87,140,108,74"/>
+</map>

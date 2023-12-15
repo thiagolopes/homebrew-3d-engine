@@ -1,0 +1,93 @@
+\doxysection{Model Class Reference}
+\hypertarget{classModel}{}\label{classModel}\index{Model@{Model}}
+
+
+{\ttfamily \#include $<$models.\+hh$>$}
+
+
+
+Collaboration diagram for Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classModel__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classModel_ad6ebd2062a0b823db841a0b88baac4c0}{\texorpdfstring{$\sim$}{\string~}\+Model}} ()
+\item 
+\mbox{\hyperlink{classModel_ab3bc4048981cafb66e74e22a5f9a8d59}{Model}} (const std\+::string \&model\+\_\+name)
+\item 
+\mbox{\hyperlink{classMesh}{Mesh}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classModel_a22b356a1ebc265608362e7a5631871b6}{get\+\_\+mesh}} () const
+\item 
+\mbox{\hyperlink{classMaterial}{Material}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classModel_ae62156bfc62968ad4339f5b27e639f61}{get\+\_\+material}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classModel_a90fe59cc0709dd732cf5f180064db6fe}{name}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classMesh}{Mesh}} $>$ \mbox{\hyperlink{classModel_a40f36b3797d3c3421cc5b3dd87fb04f2}{mesh}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classMaterial}{Material}} $>$ \mbox{\hyperlink{classModel_a61b5afc2528d67ee4decc1e7860b7ac1}{material}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classModel_ad6ebd2062a0b823db841a0b88baac4c0}\label{classModel_ad6ebd2062a0b823db841a0b88baac4c0} 
+\index{Model@{Model}!````~Model@{\texorpdfstring{$\sim$}{\string~}Model}}
+\index{````~Model@{\texorpdfstring{$\sim$}{\string~}Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Model()}{\string~Model()}}
+{\footnotesize\ttfamily Model\+::\texorpdfstring{$\sim$}{\string~}\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classModel_ab3bc4048981cafb66e74e22a5f9a8d59}\label{classModel_ab3bc4048981cafb66e74e22a5f9a8d59} 
+\index{Model@{Model}!Model@{Model}}
+\index{Model@{Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}}
+{\footnotesize\ttfamily Model\+::\+Model (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{model\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classModel_ae62156bfc62968ad4339f5b27e639f61}\label{classModel_ae62156bfc62968ad4339f5b27e639f61} 
+\index{Model@{Model}!get\_material@{get\_material}}
+\index{get\_material@{get\_material}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{get\_material()}{get\_material()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMaterial}{Material}} \texorpdfstring{$\ast$}{*} Model\+::get\+\_\+material (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classModel_a22b356a1ebc265608362e7a5631871b6}\label{classModel_a22b356a1ebc265608362e7a5631871b6} 
+\index{Model@{Model}!get\_mesh@{get\_mesh}}
+\index{get\_mesh@{get\_mesh}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{get\_mesh()}{get\_mesh()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMesh}{Mesh}} \texorpdfstring{$\ast$}{*} Model\+::get\+\_\+mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classModel_a61b5afc2528d67ee4decc1e7860b7ac1}\label{classModel_a61b5afc2528d67ee4decc1e7860b7ac1} 
+\index{Model@{Model}!material@{material}}
+\index{material@{material}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{material}{material}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classMaterial}{Material}}$>$ Model\+::material}
+
+\Hypertarget{classModel_a40f36b3797d3c3421cc5b3dd87fb04f2}\label{classModel_a40f36b3797d3c3421cc5b3dd87fb04f2} 
+\index{Model@{Model}!mesh@{mesh}}
+\index{mesh@{mesh}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{mesh}{mesh}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classMesh}{Mesh}}$>$ Model\+::mesh}
+
+\Hypertarget{classModel_a90fe59cc0709dd732cf5f180064db6fe}\label{classModel_a90fe59cc0709dd732cf5f180064db6fe} 
+\index{Model@{Model}!name@{name}}
+\index{name@{name}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string Model\+::name}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{models_8hh}{models.\+hh}}\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{models_8cpp}{models.\+cpp}}\end{DoxyCompactItemize}

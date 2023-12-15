@@ -1,0 +1,35 @@
+\doxysection{textures.\+hh}
+\hypertarget{textures_8hh_source}{}\label{textures_8hh_source}\index{/home/thiago/dev/engine/src/textures.hh@{/home/thiago/dev/engine/src/textures.hh}}
+\mbox{\hyperlink{textures_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTexture}{Texture}}}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00007\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classTexture_ad8a7c3e47c9197e5aabafb1ab141ce27}{t\_render\_id}};}
+\DoxyCodeLine{00008\ \ \ std::string\ \mbox{\hyperlink{classTexture_a6fced7b207051f3790f1cc75c2ab36b5}{t\_filepath}};}
+\DoxyCodeLine{00009\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{classTexture_a973a64c20981b5c232fc9d487eeb28cd}{t\_localbuffer}};}
+\DoxyCodeLine{00010\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classTexture_ad48aa6e2f944a93cb089254bb7c6f445}{t\_width}},\ \mbox{\hyperlink{classTexture_a81995930aad441a8221b5be20d0c6059}{t\_height}},\ \mbox{\hyperlink{classTexture_a30bac1e1748853775f6088a06d1f9ec6}{t\_bpp}};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classTexture}{Texture}}(\textcolor{keyword}{const}\ std::string\ \&file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ repeat\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00014\ \ \ \mbox{\hyperlink{classTexture_a09c4bcb7462f64c1d20fa69dba3cee8a}{\string~Texture}}();}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTexture_a71ec7e2582cc0005fa47f78087d4a539}{bind}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ slot\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTexture_a451d7afac3848417bb1007d39ee7d545}{unbind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{classTexture_a0855aaa1c0252620681351b1cf8f2244}{get\_width}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classTexture_ad48aa6e2f944a93cb089254bb7c6f445}{t\_width}};}
+\DoxyCodeLine{00023\ \ \ \};}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{classTexture_a04e93b660b6588087569275641417d51}{get\_height}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classTexture_a81995930aad441a8221b5be20d0c6059}{t\_height}};}
+\DoxyCodeLine{00028\ \ \ \};}
+\DoxyCodeLine{00029\ \};}
+
+\end{DoxyCode}

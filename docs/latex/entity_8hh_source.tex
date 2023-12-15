@@ -1,0 +1,54 @@
+\doxysection{entity.\+hh}
+\hypertarget{entity_8hh_source}{}\label{entity_8hh_source}\index{/home/thiago/dev/engine/src/entity.hh@{/home/thiago/dev/engine/src/entity.hh}}
+\mbox{\hyperlink{entity_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{materials_8hh}{materials.hh}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mesh_8hh}{mesh.hh}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{models_8hh}{models.hh}}"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classEntity}{Entity}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ \ \ \mbox{\hyperlink{classMesh}{Mesh}}*\ \mbox{\hyperlink{classEntity_a04f9b2711738e2786e5c57b452f0dede}{\_mesh}};}
+\DoxyCodeLine{00014\ \ \ \mbox{\hyperlink{classMaterial}{Material}}*\ \mbox{\hyperlink{classEntity_ac70ee5cf0509490c3af2158babc2c123}{\_material}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ glm::vec3\ \mbox{\hyperlink{classEntity_a2ff97866e107d8428e067b41fc66c6d0}{\_position}};}
+\DoxyCodeLine{00017\ \ \ glm::mat4\ \mbox{\hyperlink{classEntity_ab3571376b8a277db2541ff7fa42ef0f9}{\_word\_position}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ glm::vec3\ \mbox{\hyperlink{classEntity_a3640232a27bbace02c10251e6f406213}{\_scale}};}
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_a76a0fcf7cde3cb79c5588a423d7821ed}{\_angle\_degrees}};}
+\DoxyCodeLine{00021\ \ \ glm::vec3\ \mbox{\hyperlink{classEntity_a2446cd095194e8d0682cf2adab22ec4a}{\_rotation\_dir}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{classEntity}{Entity}}(\mbox{\hyperlink{classMesh}{Mesh}}\ *mesh,\ \mbox{\hyperlink{classMaterial}{Material}}\ *material,\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_a1165b024d170d8664a84bc1bfc71460e}{position}}\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_ad94608f22836fecf51a918b388baddfb}{scale}}\ =\ 1.0f,\ \textcolor{keywordtype}{float}\ angle\_degrees\ =\ 0.0f);}
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{classEntity}{Entity}}(\mbox{\hyperlink{classModel}{Model}}\ \&model,\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_a1165b024d170d8664a84bc1bfc71460e}{position}}\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_ad94608f22836fecf51a918b388baddfb}{scale}}\ =\ 1.0f,\ \textcolor{keywordtype}{float}\ angle\_degrees\ =\ 0.0f);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEntity_a1165b024d170d8664a84bc1bfc71460e}{position}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z);}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEntity_a9cda5149f8e8d8a4774b4d7fd2daa0bc}{inc\_position}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEntity_add10db4dfaf40aaeff973a4bc82b8b18}{angle}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_add10db4dfaf40aaeff973a4bc82b8b18}{angle}});}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEntity_a69a746a98d2fd51dc1839152ed62bb0b}{inc\_angle}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_add10db4dfaf40aaeff973a4bc82b8b18}{angle}});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEntity_a0b092f4b322cd034f82a395df8f0c797}{set\_rotation\_dir}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEntity_ad94608f22836fecf51a918b388baddfb}{scale}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_ad94608f22836fecf51a918b388baddfb}{scale}});}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEntity_ad94608f22836fecf51a918b388baddfb}{scale}}(\textcolor{keywordtype}{float}\ scale\_x,\ \textcolor{keywordtype}{float}\ scale\_y,\ \textcolor{keywordtype}{float}\ scale\_z);}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classEntity_a5d2a479e781e37b5db2907be3030e7c8}{inc\_scale}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{classEntity_ad94608f22836fecf51a918b388baddfb}{scale}});}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ glm::mat4\ \&\mbox{\hyperlink{classEntity_aeef28589b4a237efd220b4ae88a81aaa}{get\_model\_position}}();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{classMesh}{Mesh}}*\ \mbox{\hyperlink{classEntity_adf91ed939c6d1bdd9496fb89d11a5af8}{get\_mesh}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEntity_a04f9b2711738e2786e5c57b452f0dede}{\_mesh}};\};}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{classMaterial}{Material}}*\ \mbox{\hyperlink{classEntity_ac9a280180be909b32948f0339779e6e4}{get\_material}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classEntity_ac70ee5cf0509490c3af2158babc2c123}{\_material}}\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}[ERROR]\ Entity\ has\ no\ material"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classEntity_ac70ee5cf0509490c3af2158babc2c123}{\_material}};}
+\DoxyCodeLine{00047\ \ \ \};}
+\DoxyCodeLine{00048\ \};}
+
+\end{DoxyCode}

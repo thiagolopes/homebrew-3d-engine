@@ -1,0 +1,95 @@
+\doxysection{Renderer Class Reference}
+\hypertarget{classRenderer}{}\label{classRenderer}\index{Renderer@{Renderer}}
+
+
+{\ttfamily \#include $<$renderer.\+hh$>$}
+
+
+
+Collaboration diagram for Renderer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{classRenderer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRenderer_a80fe1738131fc1befe8235e44d751016}{Renderer}} (bool z\+\_\+buffer=true, bool frame\+\_\+cap=true)
+\item 
+void \mbox{\hyperlink{classRenderer_aa381c12ca3754e0d8b664eaac6902fe9}{draw\+\_\+model}} (const \mbox{\hyperlink{classModel}{Model}} \&model)
+\item 
+void \mbox{\hyperlink{classRenderer_a2448fb6c73b50bfaecfbebc81dd25c5b}{draw\+\_\+mesh}} (\mbox{\hyperlink{classMesh}{Mesh}} \&mesh)
+\item 
+void \mbox{\hyperlink{classRenderer_ab283da69408ffcda5dfb6740c21173b7}{draw\+\_\+entity}} (const \mbox{\hyperlink{classEntity}{Entity}} \&entity)
+\item 
+void \mbox{\hyperlink{classRenderer_abeed09017fd71f0966588fe33f674ae7}{draw}} (const \mbox{\hyperlink{classVertexArray}{Vertex\+Array}} \&va, const \mbox{\hyperlink{classIndexBuffer}{Index\+Buffer}} \&ib) const
+\item 
+void \mbox{\hyperlink{classRenderer_a4c12f1f8ee2395ccbc22121b2b03159c}{draw\+\_\+instancied}} (const \mbox{\hyperlink{classVertexArray}{Vertex\+Array}} \&va, const \mbox{\hyperlink{classIndexBuffer}{Index\+Buffer}} \&ib, const int many) const
+\item 
+void \mbox{\hyperlink{classRenderer_acf8c52d5d328eb77d17c7337526766b1}{set\+\_\+depth\+\_\+test}} (bool flag=true) const
+\item 
+void \mbox{\hyperlink{classRenderer_a44f6f7a950a8d6d2d63aedd8f9066913}{set\+\_\+swap\+\_\+interval}} (bool flag=true) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classRenderer_a80fe1738131fc1befe8235e44d751016}\label{classRenderer_a80fe1738131fc1befe8235e44d751016} 
+\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\index{Renderer@{Renderer}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{Renderer()}{Renderer()}}
+{\footnotesize\ttfamily Renderer\+::\+Renderer (\begin{DoxyParamCaption}\item[{bool}]{z\+\_\+buffer = {\ttfamily true},  }\item[{bool}]{frame\+\_\+cap = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classRenderer_abeed09017fd71f0966588fe33f674ae7}\label{classRenderer_abeed09017fd71f0966588fe33f674ae7} 
+\index{Renderer@{Renderer}!draw@{draw}}
+\index{draw@{draw}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Renderer\+::draw (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVertexArray}{Vertex\+Array}} \&}]{va,  }\item[{const \mbox{\hyperlink{classIndexBuffer}{Index\+Buffer}} \&}]{ib }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classRenderer_ab283da69408ffcda5dfb6740c21173b7}\label{classRenderer_ab283da69408ffcda5dfb6740c21173b7} 
+\index{Renderer@{Renderer}!draw\_entity@{draw\_entity}}
+\index{draw\_entity@{draw\_entity}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{draw\_entity()}{draw\_entity()}}
+{\footnotesize\ttfamily void Renderer\+::draw\+\_\+entity (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classEntity}{Entity}} \&}]{entity }\end{DoxyParamCaption})}
+
+\Hypertarget{classRenderer_a4c12f1f8ee2395ccbc22121b2b03159c}\label{classRenderer_a4c12f1f8ee2395ccbc22121b2b03159c} 
+\index{Renderer@{Renderer}!draw\_instancied@{draw\_instancied}}
+\index{draw\_instancied@{draw\_instancied}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{draw\_instancied()}{draw\_instancied()}}
+{\footnotesize\ttfamily void Renderer\+::draw\+\_\+instancied (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVertexArray}{Vertex\+Array}} \&}]{va,  }\item[{const \mbox{\hyperlink{classIndexBuffer}{Index\+Buffer}} \&}]{ib,  }\item[{const int}]{many }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classRenderer_a2448fb6c73b50bfaecfbebc81dd25c5b}\label{classRenderer_a2448fb6c73b50bfaecfbebc81dd25c5b} 
+\index{Renderer@{Renderer}!draw\_mesh@{draw\_mesh}}
+\index{draw\_mesh@{draw\_mesh}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{draw\_mesh()}{draw\_mesh()}}
+{\footnotesize\ttfamily void Renderer\+::draw\+\_\+mesh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMesh}{Mesh}} \&}]{mesh }\end{DoxyParamCaption})}
+
+\Hypertarget{classRenderer_aa381c12ca3754e0d8b664eaac6902fe9}\label{classRenderer_aa381c12ca3754e0d8b664eaac6902fe9} 
+\index{Renderer@{Renderer}!draw\_model@{draw\_model}}
+\index{draw\_model@{draw\_model}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{draw\_model()}{draw\_model()}}
+{\footnotesize\ttfamily void Renderer\+::draw\+\_\+model (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classModel}{Model}} \&}]{model }\end{DoxyParamCaption})}
+
+\Hypertarget{classRenderer_acf8c52d5d328eb77d17c7337526766b1}\label{classRenderer_acf8c52d5d328eb77d17c7337526766b1} 
+\index{Renderer@{Renderer}!set\_depth\_test@{set\_depth\_test}}
+\index{set\_depth\_test@{set\_depth\_test}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{set\_depth\_test()}{set\_depth\_test()}}
+{\footnotesize\ttfamily void Renderer\+::set\+\_\+depth\+\_\+test (\begin{DoxyParamCaption}\item[{bool}]{flag = {\ttfamily true} }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classRenderer_a44f6f7a950a8d6d2d63aedd8f9066913}\label{classRenderer_a44f6f7a950a8d6d2d63aedd8f9066913} 
+\index{Renderer@{Renderer}!set\_swap\_interval@{set\_swap\_interval}}
+\index{set\_swap\_interval@{set\_swap\_interval}!Renderer@{Renderer}}
+\doxysubsubsection{\texorpdfstring{set\_swap\_interval()}{set\_swap\_interval()}}
+{\footnotesize\ttfamily void Renderer\+::set\+\_\+swap\+\_\+interval (\begin{DoxyParamCaption}\item[{bool}]{flag = {\ttfamily true} }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{renderer_8hh}{renderer.\+hh}}\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{renderer_8cpp}{renderer.\+cpp}}\end{DoxyCompactItemize}

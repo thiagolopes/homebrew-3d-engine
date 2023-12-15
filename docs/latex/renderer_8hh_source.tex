@@ -1,0 +1,41 @@
+\doxysection{renderer.\+hh}
+\hypertarget{renderer_8hh_source}{}\label{renderer_8hh_source}\index{/home/thiago/dev/engine/src/renderer.hh@{/home/thiago/dev/engine/src/renderer.hh}}
+\mbox{\hyperlink{renderer_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <GL/glew.h>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{buffers_8hh}{buffers.hh}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{shaders_8hh}{shaders.hh}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{imgui_8h}{imgui.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{models_8hh}{models.hh}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{entity_8hh}{entity.hh}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{renderer_8hh_a276a3772157039e3fd23abd258b915c2}{GL\_debug\_clear\_error}}();}
+\DoxyCodeLine{00012\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{renderer_8hh_aa065fa8519966191dad80c07d38988aa}{GL\_debug\_chek\_error}}();}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classRenderer}{Renderer}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classRenderer}{Renderer}}(\textcolor{keywordtype}{bool}\ z\_buffer\ =\ \textcolor{keyword}{true},\ \textcolor{keywordtype}{bool}\ frame\_cap\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRenderer_aa381c12ca3754e0d8b664eaac6902fe9}{draw\_model}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classModel}{Model}}\ \&model);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRenderer_a2448fb6c73b50bfaecfbebc81dd25c5b}{draw\_mesh}}(\mbox{\hyperlink{classMesh}{Mesh}}\ \&mesh);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRenderer_ab283da69408ffcda5dfb6740c21173b7}{draw\_entity}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classEntity}{Entity}}\ \&entity);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRenderer_abeed09017fd71f0966588fe33f674ae7}{draw}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVertexArray}{VertexArray}}\ \&va,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classIndexBuffer}{IndexBuffer}}\ \&ib)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRenderer_a4c12f1f8ee2395ccbc22121b2b03159c}{draw\_instancied}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVertexArray}{VertexArray}}\ \&va,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classIndexBuffer}{IndexBuffer}}\ \&ib,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ many)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRenderer_acf8c52d5d328eb77d17c7337526766b1}{set\_depth\_test}}(\textcolor{keywordtype}{bool}\ flag\ =\ \textcolor{keyword}{true})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRenderer_a44f6f7a950a8d6d2d63aedd8f9066913}{set\_swap\_interval}}(\textcolor{keywordtype}{bool}\ flag\ =\ \textcolor{keyword}{true})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classImGuiRenderer}{ImGuiRenderer}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classImGuiRenderer}{ImGuiRenderer}}(GLFWwindow\ *window);}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classImGuiRenderer_aa510416cce511eccdc7e4a0756b63fa9}{\string~ImGuiRenderer}}();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classImGuiRenderer_a8fc86442cc475a11a144111315ae3417}{draw}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classImGuiRenderer_a0005b11926aea5d6250cb6b9833d1347}{begin\_frame}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classImGuiRenderer_abdb7d5863074e9f231dd396586d13e65}{debug}}(\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a21f40778b7db9343a6ca75ec2c41ccce}{T}}\ \&t);}
+\DoxyCodeLine{00035\ \};}
+
+\end{DoxyCode}

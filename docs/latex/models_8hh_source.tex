@@ -1,0 +1,25 @@
+\doxysection{models.\+hh}
+\hypertarget{models_8hh_source}{}\label{models_8hh_source}\index{/home/thiago/dev/engine/src/models.hh@{/home/thiago/dev/engine/src/models.hh}}
+\mbox{\hyperlink{models_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{materials_8hh}{materials.hh}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mesh_8hh}{mesh.hh}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classModel}{Model}}}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ std::string\ \mbox{\hyperlink{classModel_a90fe59cc0709dd732cf5f180064db6fe}{name}};}
+\DoxyCodeLine{00011\ \ \ std::unique\_ptr<Mesh>\ \mbox{\hyperlink{classModel_a40f36b3797d3c3421cc5b3dd87fb04f2}{mesh}};}
+\DoxyCodeLine{00012\ \ \ std::unique\_ptr<Material>\ \mbox{\hyperlink{classModel_a61b5afc2528d67ee4decc1e7860b7ac1}{material}};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \mbox{\hyperlink{classModel_ad6ebd2062a0b823db841a0b88baac4c0}{\string~Model}}();}
+\DoxyCodeLine{00015\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classModel}{Model}}(\textcolor{keyword}{const}\ std::string\ \&model\_name);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \mbox{\hyperlink{classMesh}{Mesh}}*\ \mbox{\hyperlink{classModel_a22b356a1ebc265608362e7a5631871b6}{get\_mesh}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \mbox{\hyperlink{classModel_a40f36b3797d3c3421cc5b3dd87fb04f2}{mesh}}.get();\};}
+\DoxyCodeLine{00018\ \ \ \mbox{\hyperlink{classMaterial}{Material}}*\ \mbox{\hyperlink{classModel_ae62156bfc62968ad4339f5b27e639f61}{get\_material}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classModel_a61b5afc2528d67ee4decc1e7860b7ac1}{material}}.get();\};}
+\DoxyCodeLine{00019\ \};}
+
+\end{DoxyCode}

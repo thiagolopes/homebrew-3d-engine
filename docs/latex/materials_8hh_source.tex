@@ -1,0 +1,38 @@
+\doxysection{materials.\+hh}
+\hypertarget{materials_8hh_source}{}\label{materials_8hh_source}\index{/home/thiago/dev/engine/src/materials.hh@{/home/thiago/dev/engine/src/materials.hh}}
+\mbox{\hyperlink{materials_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{textures_8hh}{textures.hh}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{shaders_8hh}{shaders.hh}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMaterial}{Material}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00009\ \ \ \mbox{\hyperlink{classTexture}{Texture}}\ \mbox{\hyperlink{classMaterial_ab219c06f80b995d25d3e0c30cdd2fcd1}{m\_diffuse}};}
+\DoxyCodeLine{00010\ \ \ \mbox{\hyperlink{classTexture}{Texture}}\ \mbox{\hyperlink{classMaterial_a8f2e68ba958f54c22ed50dfdea6cd939}{m\_specular}};}
+\DoxyCodeLine{00011\ \ \ \mbox{\hyperlink{classTexture}{Texture}}\ \mbox{\hyperlink{classMaterial_a1bca4d2b5cdd28d129f4be194125938c}{m\_emission}};}
+\DoxyCodeLine{00012\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classMaterial_ac6870095f155d023adb9fa1d02f9be4c}{m\_shininess}};}
+\DoxyCodeLine{00013\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classMaterial_a7af5decd9b3eb0534eb1d38af7da6f4f}{m\_emissioness}};}
+\DoxyCodeLine{00014\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classMaterial_ac826b1ef481c8e351203dd79ece818e2}{m\_emission\_mask}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \mbox{\hyperlink{classMaterial}{Material}}(\textcolor{keyword}{const}\ std::string\ \&diffuse\_path,\ \textcolor{keyword}{const}\ std::string\ \&specular\_path,\ \textcolor{keyword}{const}\ std::string\ \&emission\_path,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ shininess,\ \textcolor{keywordtype}{float}\ emissioness,\ \textcolor{keywordtype}{bool}\ emission\_mask);}
+\DoxyCodeLine{00019\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMaterial_ab102babb73cc0f182cc90b0a90be431c}{bind}}(\mbox{\hyperlink{classShader}{Shader}}\ \&shader);}
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMaterial_a3b4ef589843fde30b1844bde9bcbad19}{unbind}}();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00023\ \ \ \mbox{\hyperlink{classMaterial_a047006b7bb7a413de446a1f559fdb64c}{set\_emissioness}}(\textcolor{keywordtype}{float}\ e)}
+\DoxyCodeLine{00024\ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classMaterial_a7af5decd9b3eb0534eb1d38af7da6f4f}{m\_emissioness}}\ =\ e;}
+\DoxyCodeLine{00026\ \ \ \};}
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{classMaterial_a4d2074aa4785447580ae4ce5b12ebbcd}{set\_emaision}}(\textcolor{keywordtype}{bool}\ flag)}
+\DoxyCodeLine{00029\ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{classMaterial_ac826b1ef481c8e351203dd79ece818e2}{m\_emission\_mask}}\ =\ flag;}
+\DoxyCodeLine{00031\ \ \ \};}
+\DoxyCodeLine{00032\ \};}
+
+\end{DoxyCode}

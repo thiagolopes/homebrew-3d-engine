@@ -1,0 +1,72 @@
+\doxysection{shaders.\+hh}
+\hypertarget{shaders_8hh_source}{}\label{shaders_8hh_source}\index{/home/thiago/dev/engine/src/shaders.hh@{/home/thiago/dev/engine/src/shaders.hh}}
+\mbox{\hyperlink{shaders_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}glm/glm.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lights_8hh}{lights.hh}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structShaderSourceCode}{ShaderSourceCode}}}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ std::string\ \mbox{\hyperlink{structShaderSourceCode_ab3638cdff178bf3d35c0673f0269162b}{VertexSource}};}
+\DoxyCodeLine{00010\ \ \ std::string\ \mbox{\hyperlink{structShaderSourceCode_ab7299461c325a811e1d157f792cc8dd6}{FragmentSource}};}
+\DoxyCodeLine{00011\ \};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classShader}{Shader}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \textcolor{comment}{//\ a\ Shader\ class\ does:}}
+\DoxyCodeLine{00016\ \ \ \textcolor{comment}{//\ -\/\ load\ source\ code\ and\ compile\ a\ shader}}
+\DoxyCodeLine{00017\ \ \ \textcolor{comment}{//\ -\/\ bind}}
+\DoxyCodeLine{00018\ \ \ \textcolor{comment}{//\ -\/\ unbind}}
+\DoxyCodeLine{00019\ \ \ \textcolor{comment}{//\ -\/\ set\ uniforms\ to\ a\ shader}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ std::string\ \mbox{\hyperlink{classShader_aaff7a139f3e0a1dc85e88d8ec5e86e28}{source\_filepath}};}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classShader_a2cfc58339a448fd911d4b25546aa8154}{shader\_id}};}
+\DoxyCodeLine{00023\ \ \ std::unordered\_map<std::string,\ int>\ \mbox{\hyperlink{classShader_ae217414dd0bcacb074980b33e33844e6}{uniform\_location\_cache}};}
+\DoxyCodeLine{00024\ \ \ \textcolor{comment}{//\ caching\ for\ uniforms}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classShader_a08e9f4382bfb359df3f8da03a6b8ca18}{compile\_shader}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ type\_shader,\ \textcolor{keyword}{const}\ std::string\ \&source);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classShader}{Shader}}(\textcolor{keyword}{const}\ std::string\ \&filepath);}
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{classShader_aff01df87e8a102f270b5b135a295e59d}{\string~Shader}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_aadbc0ca0d899238d547f87f19461dfeb}{bind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_a5b9da0e356ab46582b29f55a5d669c74}{unbind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{structShaderSourceCode}{ShaderSourceCode}}\ \mbox{\hyperlink{classShader_a4f25624126408cc729cc466913146f35}{parse\_source}}(\textcolor{keyword}{const}\ std::string\ \&filepath);}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classShader_afad724c6199a6bb2369cb733d52c5136}{create\_sharder}}(\textcolor{keyword}{const}\ std::string\ \&vertex\_shader,\ \textcolor{keyword}{const}\ std::string\ \&fragments\_shader);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_acd90148296a5dff82937135fb7701664}{set\_uniform\_int1}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_a43e39c934768873349aff0b5bf21a74b}{set\_uniform\_float1}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{float}\ v0);}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_a55650192f99dc8016e901885403c7990}{set\_uniform\_float3}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{float}\ v0,\ \textcolor{keywordtype}{float}\ v1,\ \textcolor{keywordtype}{float}\ v2);}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_aa323d1f824a3f0d13d0694f01b1c5d9d}{set\_uniform\_float4}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{float}\ v0,\ \textcolor{keywordtype}{float}\ v1,\ \textcolor{keywordtype}{float}\ v2,\ \textcolor{keywordtype}{float}\ v3);}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_a14797a82c3f64b2e0919989f0b69de39}{set\_uniform\_mat4}}(\textcolor{keyword}{const}\ std::string\ \&name,\ glm::mat4\ \&matrix);}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_addf1a2dc2b2a4bb92e661fff38386f39}{set\_uniform\_vec3}}(\textcolor{keyword}{const}\ std::string\ \&name,\ glm::vec3\ \&vec);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_af9a72450cfd1eec507fc7b5ecfe76ccc}{set\_MVP}}(glm::mat4\ \&model,\ glm::mat4\ \&view,\ glm::mat4\ \&projection);}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_a533c6b28ec1915fc53a6d6784c5399f2}{set\_point\_light}}(\mbox{\hyperlink{structPointLight}{PointLight}}\ \&point\_light);}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShader_a40eb11ce3d2d17d4a9e3e25aa5e87ced}{set\_directional\_light}}(\mbox{\hyperlink{structDirLight}{DirLight}}\ \&dir\_light);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ TODO\ update\ to\ auto\ load\ from\ the\ source\ code\ and\ set\ automatic\ the\ uniforms}}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classShader_aee01933223fc9353e5456345934ccf12}{get\_uniform\_location}}(\textcolor{keyword}{const}\ std::string\ \&name);}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classShaderUniform}{ShaderUniform}}}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{classShader}{Shader}}\&\ \mbox{\hyperlink{classShaderUniform_a4805492fa37ad147ab630f59a5813ea4}{\_shader}};}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShaderUniform_a03eb3f96d1384500665ac4c12ce966f7}{set\_MVP}}(glm::mat4\ \&model,\ glm::mat4\ \&view,\ glm::mat4\ \&projection);}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShaderUniform_ad747459d056dd6ee501d9c65d169e837}{set\_point\_light}}(\mbox{\hyperlink{structPointLight}{PointLight}}\ \&point\_light);}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShaderUniform_a3d902f876af6d43b646f3c2ca7bf0c19}{set\_directional\_light}}(\mbox{\hyperlink{structDirLight}{DirLight}}\ \&dir\_light);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{classShaderUniform}{ShaderUniform}}(\mbox{\hyperlink{classShader}{Shader}}\&\ shader);}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{classShaderUniform_abbbee80abcc41aadcd963130148986b1}{\string~ShaderUniform}}();}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShaderUniform_a5b9b167a5948f3778b020c971765a4a1}{setup\_uniforms}}(glm::mat4\ \&model,\ glm::mat4\ \&view,\ glm::mat4\ \&projection,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structPointLight}{PointLight}}\ \&point\_light,\ \mbox{\hyperlink{structDirLight}{DirLight}}\ *dir\_light);}
+\DoxyCodeLine{00066\ \};}
+
+\end{DoxyCode}

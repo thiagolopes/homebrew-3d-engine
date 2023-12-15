@@ -1,0 +1,102 @@
+\doxysection{buffers.\+hh}
+\hypertarget{buffers_8hh_source}{}\label{buffers_8hh_source}\index{/home/thiago/dev/engine/src/buffers.hh@{/home/thiago/dev/engine/src/buffers.hh}}
+\mbox{\hyperlink{buffers_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <GL/glew.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structVertex}{Vertex}}\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ glm::vec3\ \mbox{\hyperlink{structVertex_a030819fdc241743bbd3e180a6b132ed3}{position}};}
+\DoxyCodeLine{00011\ \ \ \ \ glm::vec2\ \mbox{\hyperlink{structVertex_a44ee386add2179067660f264982e59d1}{tex\_coord}};}
+\DoxyCodeLine{00012\ \ \ \ \ glm::vec3\ \mbox{\hyperlink{structVertex_a3aa35fe84025ecf1acccb5f65f5577fd}{normal}};}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classVertexBuffer}{VertexBuffer}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classVertexBuffer_aaff66d0575cf2525c29fcd89aeb4e808}{vb\_render\_id}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classVertexBuffer}{VertexBuffer}}(\textcolor{keyword}{const}\ std::vector<Vertex>\ \&data);}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{classVertexBuffer_a5216726fdd43b2ae8e1439e347717fdd}{\string~VertexBuffer}}();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVertexBuffer_afc06aa70b14e2379e8565afb2e017bd2}{bind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVertexBuffer_a85fad27f8f068b0610ff052a2a5496f1}{unbind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classIndexBuffer}{IndexBuffer}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classIndexBuffer_ab18ce56f91a2ad62d14ae3476e273866}{ib\_render\_id}};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classIndexBuffer_a1c6b89377e43e596738b63698b44865f}{ib\_count}};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classIndexBuffer}{IndexBuffer}}(\textcolor{keyword}{const}\ std::vector<unsigned\ int>\ data);}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classIndexBuffer_a348889936f378b7942c1e01d83e42866}{\string~IndexBuffer}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classIndexBuffer_ae9d8b583fd99e86874cc8c46f2ed1c17}{bind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classIndexBuffer_a29815a01631f16261b0c7e1b9a6959ea}{unbind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classIndexBuffer_adb38c5d7c735c2a4b7c350d6a3bc483b}{get\_count}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classIndexBuffer_a1c6b89377e43e596738b63698b44865f}{ib\_count}};}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structVertexBufferElements}{VertexBufferElements}}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structVertexBufferElements_abb8c5a4b9464542df985fd2a7ae46814}{type}};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structVertexBufferElements_a2d2b9732e3ba5653f3ec111461965b97}{count}};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structVertexBufferElements_a42590498cfd5d5737df1966e1d14bacb}{normalize}};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{structVertexBufferElements_abe4d648a2c4d1b5ba41833215ad29df5}{get\_size\_of\_type}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structVertexBufferElements_abb8c5a4b9464542df985fd2a7ae46814}{type}})\ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{structVertexBufferElements_abb8c5a4b9464542df985fd2a7ae46814}{type}})\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ GL\_FLOAT:}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 4;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ GL\_UNSIGNED\_INT:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 4;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ GL\_UNSIGNED\_BYTE:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}[ERROR]\ GL\ type\ "{}}\ <<\ \mbox{\hyperlink{structVertexBufferElements_abb8c5a4b9464542df985fd2a7ae46814}{type}}\ <<\ \textcolor{stringliteral}{"{}not\ found"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classVertexBufferLayout}{VertexBufferLayout}}\ \{}
+\DoxyCodeLine{00066\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00067\ \ \ \ \ std::vector<VertexBufferElements>\ \mbox{\hyperlink{classVertexBufferLayout_a7403e889fe5e8009301f7c38bf64af91}{vbl\_elements}};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classVertexBufferLayout_a7863fda0abccab700b8ce6441ffac7a6}{vbl\_stride}};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{classVertexBufferLayout_a1e10e1d0c533a91948466fa4f88bab09}{VertexBufferLayout}}()\ :\ \mbox{\hyperlink{classVertexBufferLayout_a7863fda0abccab700b8ce6441ffac7a6}{vbl\_stride}}(0)\ \{\};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVertexBufferLayout_ad709db02c4a2e5c5cdd762923c6c8531}{push}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ std::vector<VertexBufferElements>\ \&}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{classVertexBufferLayout_afbd45d9eb3b9507ef82c152da78e73d8}{get\_elements}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVertexBufferLayout_a7403e889fe5e8009301f7c38bf64af91}{vbl\_elements}};}
+\DoxyCodeLine{00078\ \ \ \ \ \};}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{classVertexBufferLayout_a48ad7e93ce2b47802becd10800d72c7d}{get\_stride}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVertexBufferLayout_a7863fda0abccab700b8ce6441ffac7a6}{vbl\_stride}};}
+\DoxyCodeLine{00082\ \ \ \ \ \};}
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classVertexArray}{VertexArray}}\ \{}
+\DoxyCodeLine{00086\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classVertexArray_ac42f70889356e8441f8f05248684a5ee}{va\_render\_id}};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{classVertexArray_ab8a2dcce9698f96dac5f9a19c6979d03}{VertexArray}}();}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{classVertexArray_a82597eb9daba5ad66dd3cf898e159a95}{\string~VertexArray}}();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVertexArray_acaae20e102575dd6f0f09986cb92b796}{add\_buffer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVertexBuffer}{VertexBuffer}}\ \&vb,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVertexBufferLayout}{VertexBufferLayout}}\ \&layout);}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVertexArray_a79f2038962570dd740cbf50399a1d0a6}{bind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVertexArray_ab5243983abbab1cefeb041d8b1112b50}{unbind}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00096\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,90 @@
+\doxysection{Keyboard Class Reference}
+\hypertarget{classKeyboard}{}\label{classKeyboard}\index{Keyboard@{Keyboard}}
+
+
+{\ttfamily \#include $<$inputs.\+hh$>$}
+
+
+
+Collaboration diagram for Keyboard\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{classKeyboard__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classKeyboard_a97f03916691b71528e6abde5ad0fed3e}{get\+\_\+state}} (const int key)
+\item 
+void \mbox{\hyperlink{classKeyboard_abd49ba7713cb30f04faf388e2efa2d1c}{set\+\_\+state}} (const int key, const bool action)
+\item 
+bool \mbox{\hyperlink{classKeyboard_a7144faa37c0317bfb796eb8830099966}{key\+\_\+in\+\_\+bounds}} (int key)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classKeyboard}{Keyboard}} \& \mbox{\hyperlink{classKeyboard_a438c280c2358966ae2a54f87ca767490}{get\+\_\+instance}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classKeyboard_a1763d0d9f911c636d1225140ad25131f}{Keyboard}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73}{Key}}, bool $>$ \mbox{\hyperlink{classKeyboard_aa16c699f76794c43c950b52cbbb19a3c}{state}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classKeyboard_a1763d0d9f911c636d1225140ad25131f}\label{classKeyboard_a1763d0d9f911c636d1225140ad25131f} 
+\index{Keyboard@{Keyboard}!Keyboard@{Keyboard}}
+\index{Keyboard@{Keyboard}!Keyboard@{Keyboard}}
+\doxysubsubsection{\texorpdfstring{Keyboard()}{Keyboard()}}
+{\footnotesize\ttfamily Keyboard\+::\+Keyboard (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classKeyboard_a438c280c2358966ae2a54f87ca767490}\label{classKeyboard_a438c280c2358966ae2a54f87ca767490} 
+\index{Keyboard@{Keyboard}!get\_instance@{get\_instance}}
+\index{get\_instance@{get\_instance}!Keyboard@{Keyboard}}
+\doxysubsubsection{\texorpdfstring{get\_instance()}{get\_instance()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{classKeyboard}{Keyboard}} \& Keyboard\+::get\+\_\+instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\Hypertarget{classKeyboard_a97f03916691b71528e6abde5ad0fed3e}\label{classKeyboard_a97f03916691b71528e6abde5ad0fed3e} 
+\index{Keyboard@{Keyboard}!get\_state@{get\_state}}
+\index{get\_state@{get\_state}!Keyboard@{Keyboard}}
+\doxysubsubsection{\texorpdfstring{get\_state()}{get\_state()}}
+{\footnotesize\ttfamily bool Keyboard\+::get\+\_\+state (\begin{DoxyParamCaption}\item[{const int}]{key }\end{DoxyParamCaption})}
+
+\Hypertarget{classKeyboard_a7144faa37c0317bfb796eb8830099966}\label{classKeyboard_a7144faa37c0317bfb796eb8830099966} 
+\index{Keyboard@{Keyboard}!key\_in\_bounds@{key\_in\_bounds}}
+\index{key\_in\_bounds@{key\_in\_bounds}!Keyboard@{Keyboard}}
+\doxysubsubsection{\texorpdfstring{key\_in\_bounds()}{key\_in\_bounds()}}
+{\footnotesize\ttfamily bool Keyboard\+::key\+\_\+in\+\_\+bounds (\begin{DoxyParamCaption}\item[{int}]{key }\end{DoxyParamCaption})}
+
+\Hypertarget{classKeyboard_abd49ba7713cb30f04faf388e2efa2d1c}\label{classKeyboard_abd49ba7713cb30f04faf388e2efa2d1c} 
+\index{Keyboard@{Keyboard}!set\_state@{set\_state}}
+\index{set\_state@{set\_state}!Keyboard@{Keyboard}}
+\doxysubsubsection{\texorpdfstring{set\_state()}{set\_state()}}
+{\footnotesize\ttfamily void Keyboard\+::set\+\_\+state (\begin{DoxyParamCaption}\item[{const int}]{key,  }\item[{const bool}]{action }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classKeyboard_aa16c699f76794c43c950b52cbbb19a3c}\label{classKeyboard_aa16c699f76794c43c950b52cbbb19a3c} 
+\index{Keyboard@{Keyboard}!state@{state}}
+\index{state@{state}!Keyboard@{Keyboard}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73}{Key}}, bool$>$ Keyboard\+::state\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{inputs_8hh}{inputs.\+hh}}\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{inputs_8cpp}{inputs.\+cpp}}\end{DoxyCompactItemize}

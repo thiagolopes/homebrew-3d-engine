@@ -1,0 +1,95 @@
+\doxysection{Shader\+Uniform Class Reference}
+\hypertarget{classShaderUniform}{}\label{classShaderUniform}\index{ShaderUniform@{ShaderUniform}}
+
+
+{\ttfamily \#include $<$shaders.\+hh$>$}
+
+
+
+Collaboration diagram for Shader\+Uniform\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classShaderUniform__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classShaderUniform_a7e6b655c3ee42b5f17b041e8e48c5c35}{Shader\+Uniform}} (\mbox{\hyperlink{classShader}{Shader}} \&shader)
+\item 
+\mbox{\hyperlink{classShaderUniform_abbbee80abcc41aadcd963130148986b1}{\texorpdfstring{$\sim$}{\string~}\+Shader\+Uniform}} ()
+\item 
+void \mbox{\hyperlink{classShaderUniform_a5b9b167a5948f3778b020c971765a4a1}{setup\+\_\+uniforms}} (glm\+::mat4 \&model, glm\+::mat4 \&view, glm\+::mat4 \&projection, \mbox{\hyperlink{structPointLight}{Point\+Light}} \&point\+\_\+light, \mbox{\hyperlink{structDirLight}{Dir\+Light}} \texorpdfstring{$\ast$}{*}dir\+\_\+light)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classShaderUniform_a03eb3f96d1384500665ac4c12ce966f7}{set\+\_\+\+MVP}} (glm\+::mat4 \&model, glm\+::mat4 \&view, glm\+::mat4 \&projection)
+\item 
+void \mbox{\hyperlink{classShaderUniform_ad747459d056dd6ee501d9c65d169e837}{set\+\_\+point\+\_\+light}} (\mbox{\hyperlink{structPointLight}{Point\+Light}} \&point\+\_\+light)
+\item 
+void \mbox{\hyperlink{classShaderUniform_a3d902f876af6d43b646f3c2ca7bf0c19}{set\+\_\+directional\+\_\+light}} (\mbox{\hyperlink{structDirLight}{Dir\+Light}} \&dir\+\_\+light)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classShader}{Shader}} \& \mbox{\hyperlink{classShaderUniform_a4805492fa37ad147ab630f59a5813ea4}{\+\_\+shader}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classShaderUniform_a7e6b655c3ee42b5f17b041e8e48c5c35}\label{classShaderUniform_a7e6b655c3ee42b5f17b041e8e48c5c35} 
+\index{ShaderUniform@{ShaderUniform}!ShaderUniform@{ShaderUniform}}
+\index{ShaderUniform@{ShaderUniform}!ShaderUniform@{ShaderUniform}}
+\doxysubsubsection{\texorpdfstring{ShaderUniform()}{ShaderUniform()}}
+{\footnotesize\ttfamily Shader\+Uniform\+::\+Shader\+Uniform (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classShader}{Shader}} \&}]{shader }\end{DoxyParamCaption})}
+
+\Hypertarget{classShaderUniform_abbbee80abcc41aadcd963130148986b1}\label{classShaderUniform_abbbee80abcc41aadcd963130148986b1} 
+\index{ShaderUniform@{ShaderUniform}!````~ShaderUniform@{\texorpdfstring{$\sim$}{\string~}ShaderUniform}}
+\index{````~ShaderUniform@{\texorpdfstring{$\sim$}{\string~}ShaderUniform}!ShaderUniform@{ShaderUniform}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ShaderUniform()}{\string~ShaderUniform()}}
+{\footnotesize\ttfamily Shader\+Uniform\+::\texorpdfstring{$\sim$}{\string~}\+Shader\+Uniform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classShaderUniform_a3d902f876af6d43b646f3c2ca7bf0c19}\label{classShaderUniform_a3d902f876af6d43b646f3c2ca7bf0c19} 
+\index{ShaderUniform@{ShaderUniform}!set\_directional\_light@{set\_directional\_light}}
+\index{set\_directional\_light@{set\_directional\_light}!ShaderUniform@{ShaderUniform}}
+\doxysubsubsection{\texorpdfstring{set\_directional\_light()}{set\_directional\_light()}}
+{\footnotesize\ttfamily void Shader\+Uniform\+::set\+\_\+directional\+\_\+light (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDirLight}{Dir\+Light}} \&}]{dir\+\_\+light }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classShaderUniform_a03eb3f96d1384500665ac4c12ce966f7}\label{classShaderUniform_a03eb3f96d1384500665ac4c12ce966f7} 
+\index{ShaderUniform@{ShaderUniform}!set\_MVP@{set\_MVP}}
+\index{set\_MVP@{set\_MVP}!ShaderUniform@{ShaderUniform}}
+\doxysubsubsection{\texorpdfstring{set\_MVP()}{set\_MVP()}}
+{\footnotesize\ttfamily void Shader\+Uniform\+::set\+\_\+\+MVP (\begin{DoxyParamCaption}\item[{glm\+::mat4 \&}]{model,  }\item[{glm\+::mat4 \&}]{view,  }\item[{glm\+::mat4 \&}]{projection }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classShaderUniform_ad747459d056dd6ee501d9c65d169e837}\label{classShaderUniform_ad747459d056dd6ee501d9c65d169e837} 
+\index{ShaderUniform@{ShaderUniform}!set\_point\_light@{set\_point\_light}}
+\index{set\_point\_light@{set\_point\_light}!ShaderUniform@{ShaderUniform}}
+\doxysubsubsection{\texorpdfstring{set\_point\_light()}{set\_point\_light()}}
+{\footnotesize\ttfamily void Shader\+Uniform\+::set\+\_\+point\+\_\+light (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPointLight}{Point\+Light}} \&}]{point\+\_\+light }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classShaderUniform_a5b9b167a5948f3778b020c971765a4a1}\label{classShaderUniform_a5b9b167a5948f3778b020c971765a4a1} 
+\index{ShaderUniform@{ShaderUniform}!setup\_uniforms@{setup\_uniforms}}
+\index{setup\_uniforms@{setup\_uniforms}!ShaderUniform@{ShaderUniform}}
+\doxysubsubsection{\texorpdfstring{setup\_uniforms()}{setup\_uniforms()}}
+{\footnotesize\ttfamily void Shader\+Uniform\+::setup\+\_\+uniforms (\begin{DoxyParamCaption}\item[{glm\+::mat4 \&}]{model,  }\item[{glm\+::mat4 \&}]{view,  }\item[{glm\+::mat4 \&}]{projection,  }\item[{\mbox{\hyperlink{structPointLight}{Point\+Light}} \&}]{point\+\_\+light,  }\item[{\mbox{\hyperlink{structDirLight}{Dir\+Light}} \texorpdfstring{$\ast$}{*}}]{dir\+\_\+light }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classShaderUniform_a4805492fa37ad147ab630f59a5813ea4}\label{classShaderUniform_a4805492fa37ad147ab630f59a5813ea4} 
+\index{ShaderUniform@{ShaderUniform}!\_shader@{\_shader}}
+\index{\_shader@{\_shader}!ShaderUniform@{ShaderUniform}}
+\doxysubsubsection{\texorpdfstring{\_shader}{\_shader}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classShader}{Shader}}\& Shader\+Uniform\+::\+\_\+shader\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{shaders_8hh}{shaders.\+hh}}\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{shaders_8cpp}{shaders.\+cpp}}\end{DoxyCompactItemize}

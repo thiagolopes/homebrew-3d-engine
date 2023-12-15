@@ -1,0 +1,132 @@
+\doxysection{Texture Class Reference}
+\hypertarget{classTexture}{}\label{classTexture}\index{Texture@{Texture}}
+
+
+{\ttfamily \#include $<$textures.\+hh$>$}
+
+
+
+Collaboration diagram for Texture\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTexture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTexture_a357207cc291df4c15ce88907959e2c3e}{Texture}} (const std\+::string \&file, const bool repeat=false)
+\item 
+\mbox{\hyperlink{classTexture_a09c4bcb7462f64c1d20fa69dba3cee8a}{\texorpdfstring{$\sim$}{\string~}\+Texture}} ()
+\item 
+void \mbox{\hyperlink{classTexture_a71ec7e2582cc0005fa47f78087d4a539}{bind}} (unsigned int slot=0) const
+\item 
+void \mbox{\hyperlink{classTexture_a451d7afac3848417bb1007d39ee7d545}{unbind}} () const
+\item 
+int \mbox{\hyperlink{classTexture_a0855aaa1c0252620681351b1cf8f2244}{get\+\_\+width}} () const
+\item 
+int \mbox{\hyperlink{classTexture_a04e93b660b6588087569275641417d51}{get\+\_\+height}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{classTexture_ad8a7c3e47c9197e5aabafb1ab141ce27}{t\+\_\+render\+\_\+id}}
+\item 
+std\+::string \mbox{\hyperlink{classTexture_a6fced7b207051f3790f1cc75c2ab36b5}{t\+\_\+filepath}}
+\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classTexture_a973a64c20981b5c232fc9d487eeb28cd}{t\+\_\+localbuffer}}
+\item 
+int \mbox{\hyperlink{classTexture_ad48aa6e2f944a93cb089254bb7c6f445}{t\+\_\+width}}
+\item 
+int \mbox{\hyperlink{classTexture_a81995930aad441a8221b5be20d0c6059}{t\+\_\+height}}
+\item 
+int \mbox{\hyperlink{classTexture_a30bac1e1748853775f6088a06d1f9ec6}{t\+\_\+bpp}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classTexture_a357207cc291df4c15ce88907959e2c3e}\label{classTexture_a357207cc291df4c15ce88907959e2c3e} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file,  }\item[{const bool}]{repeat = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\Hypertarget{classTexture_a09c4bcb7462f64c1d20fa69dba3cee8a}\label{classTexture_a09c4bcb7462f64c1d20fa69dba3cee8a} 
+\index{Texture@{Texture}!````~Texture@{\texorpdfstring{$\sim$}{\string~}Texture}}
+\index{````~Texture@{\texorpdfstring{$\sim$}{\string~}Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Texture()}{\string~Texture()}}
+{\footnotesize\ttfamily Texture\+::\texorpdfstring{$\sim$}{\string~}\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classTexture_a71ec7e2582cc0005fa47f78087d4a539}\label{classTexture_a71ec7e2582cc0005fa47f78087d4a539} 
+\index{Texture@{Texture}!bind@{bind}}
+\index{bind@{bind}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{bind()}{bind()}}
+{\footnotesize\ttfamily void Texture\+::bind (\begin{DoxyParamCaption}\item[{unsigned int}]{slot = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classTexture_a04e93b660b6588087569275641417d51}\label{classTexture_a04e93b660b6588087569275641417d51} 
+\index{Texture@{Texture}!get\_height@{get\_height}}
+\index{get\_height@{get\_height}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{get\_height()}{get\_height()}}
+{\footnotesize\ttfamily int Texture\+::get\+\_\+height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classTexture_a0855aaa1c0252620681351b1cf8f2244}\label{classTexture_a0855aaa1c0252620681351b1cf8f2244} 
+\index{Texture@{Texture}!get\_width@{get\_width}}
+\index{get\_width@{get\_width}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{get\_width()}{get\_width()}}
+{\footnotesize\ttfamily int Texture\+::get\+\_\+width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classTexture_a451d7afac3848417bb1007d39ee7d545}\label{classTexture_a451d7afac3848417bb1007d39ee7d545} 
+\index{Texture@{Texture}!unbind@{unbind}}
+\index{unbind@{unbind}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{unbind()}{unbind()}}
+{\footnotesize\ttfamily void Texture\+::unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classTexture_a30bac1e1748853775f6088a06d1f9ec6}\label{classTexture_a30bac1e1748853775f6088a06d1f9ec6} 
+\index{Texture@{Texture}!t\_bpp@{t\_bpp}}
+\index{t\_bpp@{t\_bpp}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{t\_bpp}{t\_bpp}}
+{\footnotesize\ttfamily int Texture\+::t\+\_\+bpp\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classTexture_a6fced7b207051f3790f1cc75c2ab36b5}\label{classTexture_a6fced7b207051f3790f1cc75c2ab36b5} 
+\index{Texture@{Texture}!t\_filepath@{t\_filepath}}
+\index{t\_filepath@{t\_filepath}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{t\_filepath}{t\_filepath}}
+{\footnotesize\ttfamily std\+::string Texture\+::t\+\_\+filepath\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classTexture_a81995930aad441a8221b5be20d0c6059}\label{classTexture_a81995930aad441a8221b5be20d0c6059} 
+\index{Texture@{Texture}!t\_height@{t\_height}}
+\index{t\_height@{t\_height}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{t\_height}{t\_height}}
+{\footnotesize\ttfamily int Texture\+::t\+\_\+height\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classTexture_a973a64c20981b5c232fc9d487eeb28cd}\label{classTexture_a973a64c20981b5c232fc9d487eeb28cd} 
+\index{Texture@{Texture}!t\_localbuffer@{t\_localbuffer}}
+\index{t\_localbuffer@{t\_localbuffer}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{t\_localbuffer}{t\_localbuffer}}
+{\footnotesize\ttfamily unsigned char\texorpdfstring{$\ast$}{*} Texture\+::t\+\_\+localbuffer\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classTexture_ad8a7c3e47c9197e5aabafb1ab141ce27}\label{classTexture_ad8a7c3e47c9197e5aabafb1ab141ce27} 
+\index{Texture@{Texture}!t\_render\_id@{t\_render\_id}}
+\index{t\_render\_id@{t\_render\_id}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{t\_render\_id}{t\_render\_id}}
+{\footnotesize\ttfamily unsigned int Texture\+::t\+\_\+render\+\_\+id\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classTexture_ad48aa6e2f944a93cb089254bb7c6f445}\label{classTexture_ad48aa6e2f944a93cb089254bb7c6f445} 
+\index{Texture@{Texture}!t\_width@{t\_width}}
+\index{t\_width@{t\_width}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{t\_width}{t\_width}}
+{\footnotesize\ttfamily int Texture\+::t\+\_\+width\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{textures_8hh}{textures.\+hh}}\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{textures_8cpp}{textures.\+cpp}}\end{DoxyCompactItemize}

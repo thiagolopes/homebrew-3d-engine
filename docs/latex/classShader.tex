@@ -1,0 +1,199 @@
+\doxysection{Shader Class Reference}
+\hypertarget{classShader}{}\label{classShader}\index{Shader@{Shader}}
+
+
+{\ttfamily \#include $<$shaders.\+hh$>$}
+
+
+
+Collaboration diagram for Shader\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classShader__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classShader_a723ccb160694ce83183aff4a8daca0d0}{Shader}} (const std\+::string \&filepath)
+\item 
+\mbox{\hyperlink{classShader_aff01df87e8a102f270b5b135a295e59d}{\texorpdfstring{$\sim$}{\string~}\+Shader}} ()
+\item 
+void \mbox{\hyperlink{classShader_aadbc0ca0d899238d547f87f19461dfeb}{bind}} () const
+\item 
+void \mbox{\hyperlink{classShader_a5b9da0e356ab46582b29f55a5d669c74}{unbind}} () const
+\item 
+\mbox{\hyperlink{structShaderSourceCode}{Shader\+Source\+Code}} \mbox{\hyperlink{classShader_a4f25624126408cc729cc466913146f35}{parse\+\_\+source}} (const std\+::string \&filepath)
+\item 
+unsigned int \mbox{\hyperlink{classShader_afad724c6199a6bb2369cb733d52c5136}{create\+\_\+sharder}} (const std\+::string \&vertex\+\_\+shader, const std\+::string \&fragments\+\_\+shader)
+\item 
+void \mbox{\hyperlink{classShader_acd90148296a5dff82937135fb7701664}{set\+\_\+uniform\+\_\+int1}} (const std\+::string \&name, int value)
+\item 
+void \mbox{\hyperlink{classShader_a43e39c934768873349aff0b5bf21a74b}{set\+\_\+uniform\+\_\+float1}} (const std\+::string \&name, float v0)
+\item 
+void \mbox{\hyperlink{classShader_a55650192f99dc8016e901885403c7990}{set\+\_\+uniform\+\_\+float3}} (const std\+::string \&name, float v0, float v1, float v2)
+\item 
+void \mbox{\hyperlink{classShader_aa323d1f824a3f0d13d0694f01b1c5d9d}{set\+\_\+uniform\+\_\+float4}} (const std\+::string \&name, float v0, float v1, float v2, float v3)
+\item 
+void \mbox{\hyperlink{classShader_a14797a82c3f64b2e0919989f0b69de39}{set\+\_\+uniform\+\_\+mat4}} (const std\+::string \&name, glm\+::mat4 \&matrix)
+\item 
+void \mbox{\hyperlink{classShader_addf1a2dc2b2a4bb92e661fff38386f39}{set\+\_\+uniform\+\_\+vec3}} (const std\+::string \&name, glm\+::vec3 \&vec)
+\item 
+void \mbox{\hyperlink{classShader_af9a72450cfd1eec507fc7b5ecfe76ccc}{set\+\_\+\+MVP}} (glm\+::mat4 \&model, glm\+::mat4 \&view, glm\+::mat4 \&projection)
+\item 
+void \mbox{\hyperlink{classShader_a533c6b28ec1915fc53a6d6784c5399f2}{set\+\_\+point\+\_\+light}} (\mbox{\hyperlink{structPointLight}{Point\+Light}} \&point\+\_\+light)
+\item 
+void \mbox{\hyperlink{classShader_a40eb11ce3d2d17d4a9e3e25aa5e87ced}{set\+\_\+directional\+\_\+light}} (\mbox{\hyperlink{structDirLight}{Dir\+Light}} \&dir\+\_\+light)
+\item 
+int \mbox{\hyperlink{classShader_aee01933223fc9353e5456345934ccf12}{get\+\_\+uniform\+\_\+location}} (const std\+::string \&name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{classShader_a08e9f4382bfb359df3f8da03a6b8ca18}{compile\+\_\+shader}} (unsigned int type\+\_\+shader, const std\+::string \&source)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classShader_aaff7a139f3e0a1dc85e88d8ec5e86e28}{source\+\_\+filepath}}
+\item 
+unsigned int \mbox{\hyperlink{classShader_a2cfc58339a448fd911d4b25546aa8154}{shader\+\_\+id}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, int $>$ \mbox{\hyperlink{classShader_ae217414dd0bcacb074980b33e33844e6}{uniform\+\_\+location\+\_\+cache}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classShader_a723ccb160694ce83183aff4a8daca0d0}\label{classShader_a723ccb160694ce83183aff4a8daca0d0} 
+\index{Shader@{Shader}!Shader@{Shader}}
+\index{Shader@{Shader}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{Shader()}{Shader()}}
+{\footnotesize\ttfamily Shader\+::\+Shader (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filepath }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\Hypertarget{classShader_aff01df87e8a102f270b5b135a295e59d}\label{classShader_aff01df87e8a102f270b5b135a295e59d} 
+\index{Shader@{Shader}!````~Shader@{\texorpdfstring{$\sim$}{\string~}Shader}}
+\index{````~Shader@{\texorpdfstring{$\sim$}{\string~}Shader}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Shader()}{\string~Shader()}}
+{\footnotesize\ttfamily Shader\+::\texorpdfstring{$\sim$}{\string~}\+Shader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classShader_aadbc0ca0d899238d547f87f19461dfeb}\label{classShader_aadbc0ca0d899238d547f87f19461dfeb} 
+\index{Shader@{Shader}!bind@{bind}}
+\index{bind@{bind}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{bind()}{bind()}}
+{\footnotesize\ttfamily void Shader\+::bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{classShader_a08e9f4382bfb359df3f8da03a6b8ca18}\label{classShader_a08e9f4382bfb359df3f8da03a6b8ca18} 
+\index{Shader@{Shader}!compile\_shader@{compile\_shader}}
+\index{compile\_shader@{compile\_shader}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{compile\_shader()}{compile\_shader()}}
+{\footnotesize\ttfamily unsigned int Shader\+::compile\+\_\+shader (\begin{DoxyParamCaption}\item[{unsigned int}]{type\+\_\+shader,  }\item[{const std\+::string \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classShader_afad724c6199a6bb2369cb733d52c5136}\label{classShader_afad724c6199a6bb2369cb733d52c5136} 
+\index{Shader@{Shader}!create\_sharder@{create\_sharder}}
+\index{create\_sharder@{create\_sharder}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{create\_sharder()}{create\_sharder()}}
+{\footnotesize\ttfamily unsigned int Shader\+::create\+\_\+sharder (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{vertex\+\_\+shader,  }\item[{const std\+::string \&}]{fragments\+\_\+shader }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_aee01933223fc9353e5456345934ccf12}\label{classShader_aee01933223fc9353e5456345934ccf12} 
+\index{Shader@{Shader}!get\_uniform\_location@{get\_uniform\_location}}
+\index{get\_uniform\_location@{get\_uniform\_location}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{get\_uniform\_location()}{get\_uniform\_location()}}
+{\footnotesize\ttfamily int Shader\+::get\+\_\+uniform\+\_\+location (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_a4f25624126408cc729cc466913146f35}\label{classShader_a4f25624126408cc729cc466913146f35} 
+\index{Shader@{Shader}!parse\_source@{parse\_source}}
+\index{parse\_source@{parse\_source}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{parse\_source()}{parse\_source()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structShaderSourceCode}{Shader\+Source\+Code}} Shader\+::parse\+\_\+source (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filepath }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_a40eb11ce3d2d17d4a9e3e25aa5e87ced}\label{classShader_a40eb11ce3d2d17d4a9e3e25aa5e87ced} 
+\index{Shader@{Shader}!set\_directional\_light@{set\_directional\_light}}
+\index{set\_directional\_light@{set\_directional\_light}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_directional\_light()}{set\_directional\_light()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+directional\+\_\+light (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDirLight}{Dir\+Light}} \&}]{dir\+\_\+light }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_af9a72450cfd1eec507fc7b5ecfe76ccc}\label{classShader_af9a72450cfd1eec507fc7b5ecfe76ccc} 
+\index{Shader@{Shader}!set\_MVP@{set\_MVP}}
+\index{set\_MVP@{set\_MVP}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_MVP()}{set\_MVP()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+\+MVP (\begin{DoxyParamCaption}\item[{glm\+::mat4 \&}]{model,  }\item[{glm\+::mat4 \&}]{view,  }\item[{glm\+::mat4 \&}]{projection }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_a533c6b28ec1915fc53a6d6784c5399f2}\label{classShader_a533c6b28ec1915fc53a6d6784c5399f2} 
+\index{Shader@{Shader}!set\_point\_light@{set\_point\_light}}
+\index{set\_point\_light@{set\_point\_light}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_point\_light()}{set\_point\_light()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+point\+\_\+light (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPointLight}{Point\+Light}} \&}]{point\+\_\+light }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_a43e39c934768873349aff0b5bf21a74b}\label{classShader_a43e39c934768873349aff0b5bf21a74b} 
+\index{Shader@{Shader}!set\_uniform\_float1@{set\_uniform\_float1}}
+\index{set\_uniform\_float1@{set\_uniform\_float1}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_uniform\_float1()}{set\_uniform\_float1()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+uniform\+\_\+float1 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{float}]{v0 }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_a55650192f99dc8016e901885403c7990}\label{classShader_a55650192f99dc8016e901885403c7990} 
+\index{Shader@{Shader}!set\_uniform\_float3@{set\_uniform\_float3}}
+\index{set\_uniform\_float3@{set\_uniform\_float3}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_uniform\_float3()}{set\_uniform\_float3()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+uniform\+\_\+float3 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{float}]{v0,  }\item[{float}]{v1,  }\item[{float}]{v2 }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_aa323d1f824a3f0d13d0694f01b1c5d9d}\label{classShader_aa323d1f824a3f0d13d0694f01b1c5d9d} 
+\index{Shader@{Shader}!set\_uniform\_float4@{set\_uniform\_float4}}
+\index{set\_uniform\_float4@{set\_uniform\_float4}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_uniform\_float4()}{set\_uniform\_float4()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+uniform\+\_\+float4 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{float}]{v0,  }\item[{float}]{v1,  }\item[{float}]{v2,  }\item[{float}]{v3 }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_acd90148296a5dff82937135fb7701664}\label{classShader_acd90148296a5dff82937135fb7701664} 
+\index{Shader@{Shader}!set\_uniform\_int1@{set\_uniform\_int1}}
+\index{set\_uniform\_int1@{set\_uniform\_int1}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_uniform\_int1()}{set\_uniform\_int1()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+uniform\+\_\+int1 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_a14797a82c3f64b2e0919989f0b69de39}\label{classShader_a14797a82c3f64b2e0919989f0b69de39} 
+\index{Shader@{Shader}!set\_uniform\_mat4@{set\_uniform\_mat4}}
+\index{set\_uniform\_mat4@{set\_uniform\_mat4}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_uniform\_mat4()}{set\_uniform\_mat4()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+uniform\+\_\+mat4 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{glm\+::mat4 \&}]{matrix }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_addf1a2dc2b2a4bb92e661fff38386f39}\label{classShader_addf1a2dc2b2a4bb92e661fff38386f39} 
+\index{Shader@{Shader}!set\_uniform\_vec3@{set\_uniform\_vec3}}
+\index{set\_uniform\_vec3@{set\_uniform\_vec3}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{set\_uniform\_vec3()}{set\_uniform\_vec3()}}
+{\footnotesize\ttfamily void Shader\+::set\+\_\+uniform\+\_\+vec3 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{glm\+::vec3 \&}]{vec }\end{DoxyParamCaption})}
+
+\Hypertarget{classShader_a5b9da0e356ab46582b29f55a5d669c74}\label{classShader_a5b9da0e356ab46582b29f55a5d669c74} 
+\index{Shader@{Shader}!unbind@{unbind}}
+\index{unbind@{unbind}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{unbind()}{unbind()}}
+{\footnotesize\ttfamily void Shader\+::unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classShader_a2cfc58339a448fd911d4b25546aa8154}\label{classShader_a2cfc58339a448fd911d4b25546aa8154} 
+\index{Shader@{Shader}!shader\_id@{shader\_id}}
+\index{shader\_id@{shader\_id}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{shader\_id}{shader\_id}}
+{\footnotesize\ttfamily unsigned int Shader\+::shader\+\_\+id\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classShader_aaff7a139f3e0a1dc85e88d8ec5e86e28}\label{classShader_aaff7a139f3e0a1dc85e88d8ec5e86e28} 
+\index{Shader@{Shader}!source\_filepath@{source\_filepath}}
+\index{source\_filepath@{source\_filepath}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{source\_filepath}{source\_filepath}}
+{\footnotesize\ttfamily std\+::string Shader\+::source\+\_\+filepath\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classShader_ae217414dd0bcacb074980b33e33844e6}\label{classShader_ae217414dd0bcacb074980b33e33844e6} 
+\index{Shader@{Shader}!uniform\_location\_cache@{uniform\_location\_cache}}
+\index{uniform\_location\_cache@{uniform\_location\_cache}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{uniform\_location\_cache}{uniform\_location\_cache}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, int$>$ Shader\+::uniform\+\_\+location\+\_\+cache\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{shaders_8hh}{shaders.\+hh}}\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{shaders_8cpp}{shaders.\+cpp}}\end{DoxyCompactItemize}

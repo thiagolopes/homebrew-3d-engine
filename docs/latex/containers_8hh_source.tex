@@ -1,0 +1,182 @@
+\doxysection{containers.\+hh}
+\hypertarget{containers_8hh_source}{}\label{containers_8hh_source}\index{/home/thiago/dev/engine/src/containers.hh@{/home/thiago/dev/engine/src/containers.hh}}
+\mbox{\hyperlink{containers_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{buffers_8hh}{buffers.hh}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceContainer}{Container}}}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ std::vector<Vertex>\ \mbox{\hyperlink{namespaceContainer_af52973d7059f27cb5420740e5b54874f}{vertices}}\ =\ \{}
+\DoxyCodeLine{00010\ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ -\/0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ glm::vec2(0.0f,\ 0.0f),}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ glm::vec3(0.0f,\ 0.0f,\ -\/1.0f),}
+\DoxyCodeLine{00014\ \ \ \},\ \textcolor{comment}{//\ A\ 0\ NORMAL\ A}}
+\DoxyCodeLine{00015\ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ glm::vec3(0.5f,\ -\/0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ glm::vec2(1.0f,\ 0.0f),}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ glm::vec3(0.0f,\ 0.0f,\ -\/1.0f),}
+\DoxyCodeLine{00019\ \ \ \},\ \textcolor{comment}{//\ B\ 1\ NORMAL\ A}}
+\DoxyCodeLine{00020\ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ glm::vec3(0.5f,\ 0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ glm::vec2(1.0f,\ 1.0f),}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ glm::vec3(0.0f,\ 0.0f,\ -\/1.0f),}
+\DoxyCodeLine{00024\ \ \ \},\ \textcolor{comment}{//\ C\ 2\ NORMAL\ A}}
+\DoxyCodeLine{00025\ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ 0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ glm::vec2(0.0f,\ 1.0f),}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ glm::vec3(0.0f,\ 0.0f,\ -\/1.0f),}
+\DoxyCodeLine{00029\ \ \ \},\ \textcolor{comment}{//\ D\ 3\ NORMAL\ A}}
+\DoxyCodeLine{00030\ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ -\/0.5f,\ 0.5f),}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ glm::vec2(0.0f,\ 0.0f),}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ glm::vec3(0.0f,\ 0.0f,\ 1.0f),}
+\DoxyCodeLine{00034\ \ \ \},\ \textcolor{comment}{//\ E\ 4\ NORMAL\ B}}
+\DoxyCodeLine{00035\ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ glm::vec3(0.5f,\ -\/0.5f,\ 0.5f),}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ glm::vec2(1.0f,\ 0.0f),}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ glm::vec3(0.0f,\ 0.0f,\ 1.0f),}
+\DoxyCodeLine{00039\ \ \ \},\ \textcolor{comment}{//\ F\ 5\ NORMAL\ B}}
+\DoxyCodeLine{00040\ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ glm::vec3(0.5f,\ 0.5f,\ 0.5f),}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ glm::vec2(1.0f,\ 1.0f),}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ glm::vec3(0.0f,\ 0.0f,\ 1.0f),}
+\DoxyCodeLine{00044\ \ \ \},\ \textcolor{comment}{//\ G\ 6\ NORMAL\ B}}
+\DoxyCodeLine{00045\ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ 0.5f,\ 0.5f),}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ glm::vec2(0.0f,\ 1.0f),}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ glm::vec3(0.0f,\ 0.0f,\ 1.0f),}
+\DoxyCodeLine{00049\ \ \ \},\ \textcolor{comment}{//\ H\ 7\ NORMAL\ B}}
+\DoxyCodeLine{00050\ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ 0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ glm::vec2(0.0f,\ 0.0f),}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ glm::vec3(-\/1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00054\ \ \ \},\ \textcolor{comment}{//\ D\ 8\ \ NORMAL\ C}}
+\DoxyCodeLine{00055\ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ -\/0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ glm::vec2(1.0f,\ 0.0f),}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ glm::vec3(-\/1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00059\ \ \ \},\ \textcolor{comment}{//\ A\ 9\ \ NORMAL\ C}}
+\DoxyCodeLine{00060\ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ -\/0.5f,\ 0.5f),}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ glm::vec2(1.0f,\ 1.0f),}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ glm::vec3(-\/1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00064\ \ \ \},\ \textcolor{comment}{//\ E\ 10\ NORMAL\ C}}
+\DoxyCodeLine{00065\ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ 0.5f,\ 0.5f),}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ glm::vec2(0.0f,\ 1.0f),}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ glm::vec3(-\/1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00069\ \ \ \},\ \textcolor{comment}{//\ H\ 11\ NORMAL\ C}}
+\DoxyCodeLine{00070\ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ glm::vec3(0.5f,\ -\/0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ glm::vec2(0.0f,\ 0.0f),}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ glm::vec3(1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00074\ \ \ \},\ \textcolor{comment}{//\ B\ 12\ NORMAL\ D}}
+\DoxyCodeLine{00075\ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ glm::vec3(0.5f,\ 0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ glm::vec2(1.0f,\ 0.0f),}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ glm::vec3(1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00079\ \ \ \},\ \textcolor{comment}{//\ C\ 13\ NORMAL\ D}}
+\DoxyCodeLine{00080\ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ glm::vec3(0.5f,\ 0.5f,\ 0.5f),}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ glm::vec2(1.0f,\ 1.0f),}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ glm::vec3(1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00084\ \ \ \},\ \textcolor{comment}{//\ G\ 14\ NORMAL\ D}}
+\DoxyCodeLine{00085\ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ glm::vec3(0.5f,\ -\/0.5f,\ 0.5f),}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ glm::vec2(0.0f,\ 1.0f),}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ glm::vec3(1.0f,\ 0.0f,\ 0.0f),}
+\DoxyCodeLine{00089\ \ \ \},\ \textcolor{comment}{//\ F\ 15\ NORMAL\ D}}
+\DoxyCodeLine{00090\ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ -\/0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ glm::vec2(0.0f,\ 0.0f),}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ glm::vec3(0.0f,\ -\/1.0f,\ 0.0f),}
+\DoxyCodeLine{00094\ \ \ \},\ \textcolor{comment}{//\ A\ 16\ NORMAL\ E}}
+\DoxyCodeLine{00095\ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ glm::vec3(0.5f,\ -\/0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ glm::vec2(1.0f,\ 0.0f),}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ glm::vec3(0.0f,\ -\/1.0f,\ 0.0f),}
+\DoxyCodeLine{00099\ \ \ \},\ \textcolor{comment}{//\ B\ 17\ NORMAL\ E}}
+\DoxyCodeLine{00100\ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ glm::vec3(0.5f,\ -\/0.5f,\ 0.5f),}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ glm::vec2(1.0f,\ 1.0f),}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ glm::vec3(0.0f,\ -\/1.0f,\ 0.0f),}
+\DoxyCodeLine{00104\ \ \ \},\ \textcolor{comment}{//\ F\ 18\ NORMAL\ E}}
+\DoxyCodeLine{00105\ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ -\/0.5f,\ 0.5f),}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ glm::vec2(0.0f,\ 1.0f),}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ glm::vec3(0.0f,\ -\/1.0f,\ 0.0f),}
+\DoxyCodeLine{00109\ \ \ \},\ \textcolor{comment}{//\ E\ 19\ NORMAL\ E}}
+\DoxyCodeLine{00110\ \ \ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ glm::vec3(0.5f,\ 0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ glm::vec2(0.0f,\ 0.0f),}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ glm::vec3(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00114\ \ \ \},\ \textcolor{comment}{//\ C\ 20\ NORMAL\ F}}
+\DoxyCodeLine{00115\ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ 0.5f,\ -\/0.5f),}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ glm::vec2(1.0f,\ 0.0f),}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ glm::vec3(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00119\ \ \ \},\ \textcolor{comment}{//\ D\ 21\ NORMAL\ F}}
+\DoxyCodeLine{00120\ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ glm::vec3(-\/0.5f,\ 0.5f,\ 0.5f),}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ glm::vec2(1.0f,\ 1.0f),}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ glm::vec3(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00124\ \ \ \},\ \textcolor{comment}{//\ H\ 22\ NORMAL\ F}}
+\DoxyCodeLine{00125\ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ glm::vec3(0.5f,\ 0.5f,\ 0.5f),}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ glm::vec2(0.0f,\ 1.0f),}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ glm::vec3(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00129\ \ \ \},\ \textcolor{comment}{//\ G\ 23\ NORMAL\ F}}
+\DoxyCodeLine{00130\ \};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ std::vector<unsigned\ int>\ \mbox{\hyperlink{namespaceContainer_a30be063eec47f50b859402953d96db4f}{indices}}\ =\ \{}
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{//\ front}}
+\DoxyCodeLine{00134\ \ \ 0,\ 3,\ 2,\ 2,\ 1,\ 0,}
+\DoxyCodeLine{00135\ \ \ \textcolor{comment}{//\ back}}
+\DoxyCodeLine{00136\ \ \ 4,\ 5,\ 6,\ 6,\ 7,\ 4,}
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ left}}
+\DoxyCodeLine{00138\ \ \ 11,\ 8,\ 9,\ 9,\ 10,\ 11,}
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ \ right}}
+\DoxyCodeLine{00140\ \ \ 12,\ 13,\ 14,\ 14,\ 15,\ 12,}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ bottom}}
+\DoxyCodeLine{00142\ \ \ 16,\ 17,\ 18,\ 18,\ 19,\ 16,}
+\DoxyCodeLine{00143\ \ \ \textcolor{comment}{//\ top}}
+\DoxyCodeLine{00144\ \ \ 20,\ 21,\ 22,\ 22,\ 23,\ 20}
+\DoxyCodeLine{00145\ \};}
+\DoxyCodeLine{00146\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacePlane}{Plane}}}
+\DoxyCodeLine{00149\ \{}
+\DoxyCodeLine{00150\ std::vector<Vertex>\ \mbox{\hyperlink{namespacePlane_a7cd18a6ba4895dbba5826b2c8e2933fd}{vertices}}\ =\ \{}
+\DoxyCodeLine{00151\ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ glm::vec3(1.0f,\ 1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ glm::vec2(0.0f,\ 0.0f),}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ glm::vec3(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00155\ \ \ \},}
+\DoxyCodeLine{00156\ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ glm::vec3(-\/1.0f,\ 1.0f,\ -\/1.0f),}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ glm::vec2(2.0f,\ 0.0f),}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ glm::vec3(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00160\ \ \ \},}
+\DoxyCodeLine{00161\ \ \ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ glm::vec3(-\/1.0f,\ 1.0f,\ 1.0f),}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ glm::vec2(2.0f,\ 2.0f),}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ glm::vec3(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00165\ \ \ \},}
+\DoxyCodeLine{00166\ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ glm::vec3(1.0f,\ 1.0f,\ 1.0f),}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ glm::vec2(0.0f,\ 2.0f),}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ glm::vec3(0.0f,\ 1.0f,\ 0.0f),}
+\DoxyCodeLine{00170\ \ \ \},}
+\DoxyCodeLine{00171\ \};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ std::vector<unsigned\ int>\ \mbox{\hyperlink{namespacePlane_a70bb25dbacf06211ad6346e9723359ca}{indices}}\ =\ \{}
+\DoxyCodeLine{00174\ \ \ 0,\ 3,\ 2,\ 2,\ 1,\ 0,}
+\DoxyCodeLine{00175\ \};}
+\DoxyCodeLine{00176\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,61 @@
+\doxysection{/home/thiago/dev/engine/src/opengl\+\_\+middleware.cpp File Reference}
+\hypertarget{opengl__middleware_8cpp}{}\label{opengl__middleware_8cpp}\index{/home/thiago/dev/engine/src/opengl\_middleware.cpp@{/home/thiago/dev/engine/src/opengl\_middleware.cpp}}
+{\ttfamily \#include "{}opengl\+\_\+middleware.\+hh"{}}\newline
+{\ttfamily \#include "{}inputs.\+hh"{}}\newline
+{\ttfamily \#include $<$GLFW/glfw3.\+h$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+Include dependency graph for opengl\+\_\+middleware.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{opengl__middleware_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{opengl__middleware_8cpp_a13c31e21135d0a8789bfab2ccf65eb2d}{viewport\+\_\+size\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, int width, int height)
+\item 
+void \mbox{\hyperlink{opengl__middleware_8cpp_a5ae31290cb52464034d85e443b8bc518}{glfw\+\_\+scroll\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, double xoffset, double yoffset)
+\item 
+void \mbox{\hyperlink{opengl__middleware_8cpp_acbcce8e41382a0f1652b7f1c165a02be}{glfw\+\_\+mouse\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, double xpos\+In, double ypos\+In)
+\item 
+void \mbox{\hyperlink{opengl__middleware_8cpp_ad038b176bfa3828345ae6f7702ef3c01}{glfw\+\_\+mouse\+\_\+button\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, int button, int action, int mods)
+\item 
+void \mbox{\hyperlink{opengl__middleware_8cpp_ab3c6e5d733d9cf653551744f50d08151}{glfw\+\_\+keyboard\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, int key, int scancode, int action, int mods)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{opengl__middleware_8cpp_ab3c6e5d733d9cf653551744f50d08151}\label{opengl__middleware_8cpp_ab3c6e5d733d9cf653551744f50d08151} 
+\index{opengl\_middleware.cpp@{opengl\_middleware.cpp}!glfw\_keyboard\_callback@{glfw\_keyboard\_callback}}
+\index{glfw\_keyboard\_callback@{glfw\_keyboard\_callback}!opengl\_middleware.cpp@{opengl\_middleware.cpp}}
+\doxysubsubsection{\texorpdfstring{glfw\_keyboard\_callback()}{glfw\_keyboard\_callback()}}
+{\footnotesize\ttfamily void glfw\+\_\+keyboard\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window,  }\item[{int}]{key,  }\item[{int}]{scancode,  }\item[{int}]{action,  }\item[{int}]{mods }\end{DoxyParamCaption})}
+
+\Hypertarget{opengl__middleware_8cpp_ad038b176bfa3828345ae6f7702ef3c01}\label{opengl__middleware_8cpp_ad038b176bfa3828345ae6f7702ef3c01} 
+\index{opengl\_middleware.cpp@{opengl\_middleware.cpp}!glfw\_mouse\_button\_callback@{glfw\_mouse\_button\_callback}}
+\index{glfw\_mouse\_button\_callback@{glfw\_mouse\_button\_callback}!opengl\_middleware.cpp@{opengl\_middleware.cpp}}
+\doxysubsubsection{\texorpdfstring{glfw\_mouse\_button\_callback()}{glfw\_mouse\_button\_callback()}}
+{\footnotesize\ttfamily void glfw\+\_\+mouse\+\_\+button\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window,  }\item[{int}]{button,  }\item[{int}]{action,  }\item[{int}]{mods }\end{DoxyParamCaption})}
+
+\Hypertarget{opengl__middleware_8cpp_acbcce8e41382a0f1652b7f1c165a02be}\label{opengl__middleware_8cpp_acbcce8e41382a0f1652b7f1c165a02be} 
+\index{opengl\_middleware.cpp@{opengl\_middleware.cpp}!glfw\_mouse\_callback@{glfw\_mouse\_callback}}
+\index{glfw\_mouse\_callback@{glfw\_mouse\_callback}!opengl\_middleware.cpp@{opengl\_middleware.cpp}}
+\doxysubsubsection{\texorpdfstring{glfw\_mouse\_callback()}{glfw\_mouse\_callback()}}
+{\footnotesize\ttfamily void glfw\+\_\+mouse\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window,  }\item[{double}]{xpos\+In,  }\item[{double}]{ypos\+In }\end{DoxyParamCaption})}
+
+\Hypertarget{opengl__middleware_8cpp_a5ae31290cb52464034d85e443b8bc518}\label{opengl__middleware_8cpp_a5ae31290cb52464034d85e443b8bc518} 
+\index{opengl\_middleware.cpp@{opengl\_middleware.cpp}!glfw\_scroll\_callback@{glfw\_scroll\_callback}}
+\index{glfw\_scroll\_callback@{glfw\_scroll\_callback}!opengl\_middleware.cpp@{opengl\_middleware.cpp}}
+\doxysubsubsection{\texorpdfstring{glfw\_scroll\_callback()}{glfw\_scroll\_callback()}}
+{\footnotesize\ttfamily void glfw\+\_\+scroll\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window,  }\item[{double}]{xoffset,  }\item[{double}]{yoffset }\end{DoxyParamCaption})}
+
+\Hypertarget{opengl__middleware_8cpp_a13c31e21135d0a8789bfab2ccf65eb2d}\label{opengl__middleware_8cpp_a13c31e21135d0a8789bfab2ccf65eb2d} 
+\index{opengl\_middleware.cpp@{opengl\_middleware.cpp}!viewport\_size\_callback@{viewport\_size\_callback}}
+\index{viewport\_size\_callback@{viewport\_size\_callback}!opengl\_middleware.cpp@{opengl\_middleware.cpp}}
+\doxysubsubsection{\texorpdfstring{viewport\_size\_callback()}{viewport\_size\_callback()}}
+{\footnotesize\ttfamily void viewport\+\_\+size\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+

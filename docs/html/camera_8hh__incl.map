@@ -1,0 +1,11 @@
+<map id="/home/thiago/dev/engine/src/camera.hh" name="/home/thiago/dev/engine/src/camera.hh">
+<area shape="rect" id="Node000001" title=" " alt="" coords="23,5,206,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,98,109,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,52,77,87,72,84,97,49"/>
+<area shape="rect" id="Node000003" href="$inputs_8hh.html" title=" " alt="" coords="132,98,214,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="132,49,157,84,153,87,128,52"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="47,174,158,201"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="162,128,127,165,123,161,158,124"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="182,174,305,201"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="188,124,223,161,219,165,184,128"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="PointLight" name="PointLight">
+<area shape="rect" id="Node000001" title=" " alt="" coords="19,191,134,281"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,49,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="25,75,24,119,32,166,35,175,30,177,26,167,19,119,20,75"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="107,5,148,75"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,75,101,167,98,175,93,174,95,166,118,74"/>
+</map>

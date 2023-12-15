@@ -1,0 +1,149 @@
+\doxysection{Mouse Class Reference}
+\hypertarget{classMouse}{}\label{classMouse}\index{Mouse@{Mouse}}
+
+
+{\ttfamily \#include $<$inputs.\+hh$>$}
+
+
+
+Collaboration diagram for Mouse\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMouse__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structMousePosition}{Mouse\+Position}} \mbox{\hyperlink{classMouse_ad30014f67b32801dbc6dcdacfb0b4e90}{get\+\_\+last\+\_\+position}} ()
+\item 
+\mbox{\hyperlink{structMousePosition}{Mouse\+Position}} \mbox{\hyperlink{classMouse_a83d44ad9541aed293530bc3be8060b8b}{get\+\_\+diff\+\_\+moviment}} ()
+\item 
+void \mbox{\hyperlink{classMouse_aabdc132ee67f0f5dfb03e816b32c9d1a}{set\+\_\+state}} (const int key, const bool action)
+\item 
+void \mbox{\hyperlink{classMouse_af1759dfabccf68823874b2b4a48ebd31}{update\+\_\+position}} (float x, float y)
+\item 
+void \mbox{\hyperlink{classMouse_a32dd2717ed6feaeca28d2e6f0682b9d4}{next\+\_\+frame}} ()
+\item 
+bool \mbox{\hyperlink{classMouse_a23c73814d0ea16f642a2f4e15a392b15}{get\+\_\+state}} (const \mbox{\hyperlink{inputs_8hh_a55cc31cd60076d98199e5d3679159562}{Mouse\+Key}} key)
+\item 
+bool \mbox{\hyperlink{classMouse_ae9d7863eae0ee3556352ac2477c2b966}{is\+\_\+moving}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classMouse}{Mouse}} \& \mbox{\hyperlink{classMouse_a453f25f7ace803d78646a9c72f95aaa8}{get\+\_\+instance}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structMousePosition}{Mouse\+Position}} \mbox{\hyperlink{classMouse_a0c1fa826c2d743b87e0347d230afebe4}{pointer\+\_\+position}}
+\item 
+float \mbox{\hyperlink{classMouse_a1a1d3a264b7384b8beb433ddc0e5e11e}{scroll\+\_\+y}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMouse_a4e8b739a3dc79d753088cc97ffed77b1}{Mouse}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{inputs_8hh_a55cc31cd60076d98199e5d3679159562}{Mouse\+Key}}, bool $>$ \mbox{\hyperlink{classMouse_adf446fc89da464df50df7063b41ef53f}{state}}
+\item 
+\mbox{\hyperlink{structMousePosition}{Mouse\+Position}} \mbox{\hyperlink{classMouse_aeb7809b5bc166c51a518c71fd08b6027}{last\+\_\+position}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classMouse_a4e8b739a3dc79d753088cc97ffed77b1}\label{classMouse_a4e8b739a3dc79d753088cc97ffed77b1} 
+\index{Mouse@{Mouse}!Mouse@{Mouse}}
+\index{Mouse@{Mouse}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{Mouse()}{Mouse()}}
+{\footnotesize\ttfamily Mouse\+::\+Mouse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classMouse_a83d44ad9541aed293530bc3be8060b8b}\label{classMouse_a83d44ad9541aed293530bc3be8060b8b} 
+\index{Mouse@{Mouse}!get\_diff\_moviment@{get\_diff\_moviment}}
+\index{get\_diff\_moviment@{get\_diff\_moviment}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{get\_diff\_moviment()}{get\_diff\_moviment()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMousePosition}{Mouse\+Position}} Mouse\+::get\+\_\+diff\+\_\+moviment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classMouse_a453f25f7ace803d78646a9c72f95aaa8}\label{classMouse_a453f25f7ace803d78646a9c72f95aaa8} 
+\index{Mouse@{Mouse}!get\_instance@{get\_instance}}
+\index{get\_instance@{get\_instance}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{get\_instance()}{get\_instance()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{classMouse}{Mouse}} \& Mouse\+::get\+\_\+instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\Hypertarget{classMouse_ad30014f67b32801dbc6dcdacfb0b4e90}\label{classMouse_ad30014f67b32801dbc6dcdacfb0b4e90} 
+\index{Mouse@{Mouse}!get\_last\_position@{get\_last\_position}}
+\index{get\_last\_position@{get\_last\_position}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{get\_last\_position()}{get\_last\_position()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMousePosition}{Mouse\+Position}} Mouse\+::get\+\_\+last\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classMouse_a23c73814d0ea16f642a2f4e15a392b15}\label{classMouse_a23c73814d0ea16f642a2f4e15a392b15} 
+\index{Mouse@{Mouse}!get\_state@{get\_state}}
+\index{get\_state@{get\_state}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{get\_state()}{get\_state()}}
+{\footnotesize\ttfamily bool Mouse\+::get\+\_\+state (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{inputs_8hh_a55cc31cd60076d98199e5d3679159562}{Mouse\+Key}}}]{key }\end{DoxyParamCaption})}
+
+\Hypertarget{classMouse_ae9d7863eae0ee3556352ac2477c2b966}\label{classMouse_ae9d7863eae0ee3556352ac2477c2b966} 
+\index{Mouse@{Mouse}!is\_moving@{is\_moving}}
+\index{is\_moving@{is\_moving}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{is\_moving()}{is\_moving()}}
+{\footnotesize\ttfamily bool Mouse\+::is\+\_\+moving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classMouse_a32dd2717ed6feaeca28d2e6f0682b9d4}\label{classMouse_a32dd2717ed6feaeca28d2e6f0682b9d4} 
+\index{Mouse@{Mouse}!next\_frame@{next\_frame}}
+\index{next\_frame@{next\_frame}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{next\_frame()}{next\_frame()}}
+{\footnotesize\ttfamily void Mouse\+::next\+\_\+frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classMouse_aabdc132ee67f0f5dfb03e816b32c9d1a}\label{classMouse_aabdc132ee67f0f5dfb03e816b32c9d1a} 
+\index{Mouse@{Mouse}!set\_state@{set\_state}}
+\index{set\_state@{set\_state}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{set\_state()}{set\_state()}}
+{\footnotesize\ttfamily void Mouse\+::set\+\_\+state (\begin{DoxyParamCaption}\item[{const int}]{key,  }\item[{const bool}]{action }\end{DoxyParamCaption})}
+
+\Hypertarget{classMouse_af1759dfabccf68823874b2b4a48ebd31}\label{classMouse_af1759dfabccf68823874b2b4a48ebd31} 
+\index{Mouse@{Mouse}!update\_position@{update\_position}}
+\index{update\_position@{update\_position}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{update\_position()}{update\_position()}}
+{\footnotesize\ttfamily void Mouse\+::update\+\_\+position (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classMouse_aeb7809b5bc166c51a518c71fd08b6027}\label{classMouse_aeb7809b5bc166c51a518c71fd08b6027} 
+\index{Mouse@{Mouse}!last\_position@{last\_position}}
+\index{last\_position@{last\_position}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{last\_position}{last\_position}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMousePosition}{Mouse\+Position}} Mouse\+::last\+\_\+position\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classMouse_a0c1fa826c2d743b87e0347d230afebe4}\label{classMouse_a0c1fa826c2d743b87e0347d230afebe4} 
+\index{Mouse@{Mouse}!pointer\_position@{pointer\_position}}
+\index{pointer\_position@{pointer\_position}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{pointer\_position}{pointer\_position}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMousePosition}{Mouse\+Position}} Mouse\+::pointer\+\_\+position}
+
+\Hypertarget{classMouse_a1a1d3a264b7384b8beb433ddc0e5e11e}\label{classMouse_a1a1d3a264b7384b8beb433ddc0e5e11e} 
+\index{Mouse@{Mouse}!scroll\_y@{scroll\_y}}
+\index{scroll\_y@{scroll\_y}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{scroll\_y}{scroll\_y}}
+{\footnotesize\ttfamily float Mouse\+::scroll\+\_\+y}
+
+\Hypertarget{classMouse_adf446fc89da464df50df7063b41ef53f}\label{classMouse_adf446fc89da464df50df7063b41ef53f} 
+\index{Mouse@{Mouse}!state@{state}}
+\index{state@{state}!Mouse@{Mouse}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$\mbox{\hyperlink{inputs_8hh_a55cc31cd60076d98199e5d3679159562}{Mouse\+Key}}, bool$>$ Mouse\+::state\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{inputs_8hh}{inputs.\+hh}}\item 
+/home/thiago/dev/engine/src/\mbox{\hyperlink{inputs_8cpp}{inputs.\+cpp}}\end{DoxyCompactItemize}

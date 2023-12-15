@@ -1,0 +1,52 @@
+\doxysection{lights.\+hh}
+\hypertarget{lights_8hh_source}{}\label{lights_8hh_source}\index{/home/thiago/dev/engine/src/lights.hh@{/home/thiago/dev/engine/src/lights.hh}}
+\mbox{\hyperlink{lights_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{imgui_8h}{imgui.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}vendor/imgui/imgui.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ types\ os\ lights:}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structPointLight}{PointLight}}}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ glm::vec3\ \mbox{\hyperlink{structPointLight_a6dc6e70f9a91e8a6bbecf08707143cad}{position}};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ glm::vec3\ \mbox{\hyperlink{structPointLight_adcf911bb0748c5a58ad2ef00b39745fd}{ambient}};}
+\DoxyCodeLine{00013\ \ \ glm::vec3\ \mbox{\hyperlink{structPointLight_a3ea5c72fc0aa24e9c7434d33b45c5fdb}{diffuse}};}
+\DoxyCodeLine{00014\ \ \ glm::vec3\ \mbox{\hyperlink{structPointLight_a5154d2f188525f9365ee9f988b1ec353}{specular}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a965104c9c660615ba35721c7aac7c262}{constant}};}
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a491f53e12fd4f689550ea8bfb6d68d19}{linear}};}
+\DoxyCodeLine{00018\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a3dba0bf3332f30b9a5925fc16774dcc0}{quadratic}};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{structPointLight_a597f0d0db6eb76456dff7bda99ea9dd3}{PointLight}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a6dc6e70f9a91e8a6bbecf08707143cad}{position}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_adcf911bb0748c5a58ad2ef00b39745fd}{ambient}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a3ea5c72fc0aa24e9c7434d33b45c5fdb}{diffuse}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a5154d2f188525f9365ee9f988b1ec353}{specular}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a965104c9c660615ba35721c7aac7c262}{constant}}\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a491f53e12fd4f689550ea8bfb6d68d19}{linear}}\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structPointLight_a3dba0bf3332f30b9a5925fc16774dcc0}{quadratic}}\ =\ 0.0f)}
+\DoxyCodeLine{00021\ \ \ \ \ :\ \mbox{\hyperlink{structPointLight_a6dc6e70f9a91e8a6bbecf08707143cad}{position}}(\mbox{\hyperlink{structPointLight_a6dc6e70f9a91e8a6bbecf08707143cad}{position}}),\ \mbox{\hyperlink{structPointLight_adcf911bb0748c5a58ad2ef00b39745fd}{ambient}}(\mbox{\hyperlink{structPointLight_adcf911bb0748c5a58ad2ef00b39745fd}{ambient}}),\ \mbox{\hyperlink{structPointLight_a3ea5c72fc0aa24e9c7434d33b45c5fdb}{diffuse}}(\mbox{\hyperlink{structPointLight_a3ea5c72fc0aa24e9c7434d33b45c5fdb}{diffuse}}),\ \mbox{\hyperlink{structPointLight_a5154d2f188525f9365ee9f988b1ec353}{specular}}(\mbox{\hyperlink{structPointLight_a5154d2f188525f9365ee9f988b1ec353}{specular}}),\ \mbox{\hyperlink{structPointLight_a965104c9c660615ba35721c7aac7c262}{constant}}(\mbox{\hyperlink{structPointLight_a965104c9c660615ba35721c7aac7c262}{constant}}),\ \mbox{\hyperlink{structPointLight_a491f53e12fd4f689550ea8bfb6d68d19}{linear}}(\mbox{\hyperlink{structPointLight_a491f53e12fd4f689550ea8bfb6d68d19}{linear}}),\ \mbox{\hyperlink{structPointLight_a3dba0bf3332f30b9a5925fc16774dcc0}{quadratic}}(\mbox{\hyperlink{structPointLight_a3dba0bf3332f30b9a5925fc16774dcc0}{quadratic}})\{\};}
+\DoxyCodeLine{00022\ \ \ }
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structPointLight_a33acea4aa0a67a9307bc14e6232aed86}{set\_position}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z)\{}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{structPointLight_a6dc6e70f9a91e8a6bbecf08707143cad}{position}}.x\ =\ x;}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{structPointLight_a6dc6e70f9a91e8a6bbecf08707143cad}{position}}.y\ =\ y;}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{structPointLight_a6dc6e70f9a91e8a6bbecf08707143cad}{position}}.z\ =\ z;}
+\DoxyCodeLine{00027\ \ \ \}}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structDirLight}{DirLight}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ glm::vec3\ \mbox{\hyperlink{structDirLight_a58c76a0dba46ebfd2a3165b4e7c60714}{direction}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ glm::vec3\ \mbox{\hyperlink{structDirLight_a4e51ed0a11444c27cbd927d19cc0c4e5}{ambient}};}
+\DoxyCodeLine{00035\ \ \ glm::vec3\ \mbox{\hyperlink{structDirLight_a176675eff76d885f4507162c41db48b9}{diffuse}};}
+\DoxyCodeLine{00036\ \ \ glm::vec3\ \mbox{\hyperlink{structDirLight_aa4f7554e15c5afc24b587c78c3fc5124}{specular}};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{structDirLight_a4a0ccb867cce6866d6c0892f340d47dc}{DirLight}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{structDirLight_a58c76a0dba46ebfd2a3165b4e7c60714}{direction}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structDirLight_a4e51ed0a11444c27cbd927d19cc0c4e5}{ambient}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structDirLight_a176675eff76d885f4507162c41db48b9}{diffuse}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structDirLight_aa4f7554e15c5afc24b587c78c3fc5124}{specular}})}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ :\ \mbox{\hyperlink{structDirLight_a58c76a0dba46ebfd2a3165b4e7c60714}{direction}}(\mbox{\hyperlink{structDirLight_a58c76a0dba46ebfd2a3165b4e7c60714}{direction}}),\ \mbox{\hyperlink{structDirLight_a4e51ed0a11444c27cbd927d19cc0c4e5}{ambient}}(\mbox{\hyperlink{structDirLight_a4e51ed0a11444c27cbd927d19cc0c4e5}{ambient}}),\ \mbox{\hyperlink{structDirLight_a176675eff76d885f4507162c41db48b9}{diffuse}}(\mbox{\hyperlink{structDirLight_a176675eff76d885f4507162c41db48b9}{diffuse}}),\ \mbox{\hyperlink{structDirLight_aa4f7554e15c5afc24b587c78c3fc5124}{specular}}(\mbox{\hyperlink{structDirLight_aa4f7554e15c5afc24b587c78c3fc5124}{specular}})\{\};}
+\DoxyCodeLine{00040\ \ \ }
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structDirLight_abab484de2695d22c01186026889bbba5}{set\_direction}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z)\{}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{structDirLight_a58c76a0dba46ebfd2a3165b4e7c60714}{direction}}.x\ =\ x;}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{structDirLight_a58c76a0dba46ebfd2a3165b4e7c60714}{direction}}.y\ =\ y;}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{structDirLight_a58c76a0dba46ebfd2a3165b4e7c60714}{direction}}.z\ =\ z;}
+\DoxyCodeLine{00045\ \ \ \}}
+\DoxyCodeLine{00046\ \};}
+
+\end{DoxyCode}

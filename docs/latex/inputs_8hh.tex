@@ -1,0 +1,220 @@
+\doxysection{/home/thiago/dev/engine/src/inputs.hh File Reference}
+\hypertarget{inputs_8hh}{}\label{inputs_8hh}\index{/home/thiago/dev/engine/src/inputs.hh@{/home/thiago/dev/engine/src/inputs.hh}}
+{\ttfamily \#include $<$GLFW/glfw3.\+h$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+Include dependency graph for inputs.\+hh\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{inputs_8hh__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{inputs_8hh__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classKeyboard}{Keyboard}}
+\item 
+struct \mbox{\hyperlink{structMousePosition}{Mouse\+Position}}
+\item 
+class \mbox{\hyperlink{classMouse}{Mouse}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{inputs_8hh_aa8bff3e79212caa34c4d610259f3d4fd}{GLFW\+\_\+\+A\+\_\+\+KEYCODE}}~65
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73}{Key}} \{ \newline
+\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a42a4ade1acd55a49164099104990e09f}{A}} = GLFW\+\_\+\+A\+\_\+\+KEYCODE
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a3f2a77ecd272aa6d6b5902faa5e5fc68}{B}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a739ce3f516592d245d16fd8a3893472c}{C}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a77a6b11f9898c052926f1d49765861e8}{D}}
+, \newline
+\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ab199e021998d49b1f09338d8b9b18ecb}{E}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af382a63cc3d6491bf26b59e66f46826d}{F}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a2fe993340f6abb2234e543cd427df70b}{G}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a5008b1179f399a2273fd3f6a7fc3b292}{H}}
+, \newline
+\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ad091b8e376f7cf432dc367e1eda65e85}{I}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a03605500b0c55f3d95874e8edfcf4e30}{J}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a660a38111995acbeb2820648e82f0d8c}{K}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aef31cc6fe9479955961311ee18ac205f}{L}}
+, \newline
+\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a51ca6c63d97347ee58cc7da59ab6994b}{M}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a2c63acbe79d9f41ba6bb7766e9c37702}{N}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af4b8b7698dfedf5562a7db2bdb07010a}{O}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a82f05f38f6a17b117cdd2b83227912c6}{P}}
+, \newline
+\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aa53ab217f1572250a530c8c2b3c820cf}{Q}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a1784b1a3d7cbd43c45ff82c72d05e4ae}{R}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af1ce01387d2348f8b858721a7db81670}{S}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a21f40778b7db9343a6ca75ec2c41ccce}{T}}
+, \newline
+\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ac461e84f27bbb236874e1011cd66031f}{U}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a28f41f1144eee94834387e9a6a088bc1}{V}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ab722ceeb601c72cd78fbd35f3581fdf7}{W}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a58833a3110c570fb05130d40c365d1e4}{X}}
+, \newline
+\mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a5596231eabd6cf29050967d5ac83ad84}{Y}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aa70478ce277ffc322f8e1e3418e07355}{Z}}
+, \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73acc50b50568647432aa9f8f07b4b7c234}{Length}}
+ \}
+\item 
+enum \mbox{\hyperlink{inputs_8hh_a55cc31cd60076d98199e5d3679159562}{Mouse\+Key}} \{ \mbox{\hyperlink{inputs_8hh_a55cc31cd60076d98199e5d3679159562adb45120aafd37a973140edee24708065}{LEFT}}
+, \mbox{\hyperlink{inputs_8hh_a55cc31cd60076d98199e5d3679159562aec8379af7490bb9eaaf579cf17876f38}{RIGHT}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{inputs_8hh_aa8bff3e79212caa34c4d610259f3d4fd}\label{inputs_8hh_aa8bff3e79212caa34c4d610259f3d4fd} 
+\index{inputs.hh@{inputs.hh}!GLFW\_A\_KEYCODE@{GLFW\_A\_KEYCODE}}
+\index{GLFW\_A\_KEYCODE@{GLFW\_A\_KEYCODE}!inputs.hh@{inputs.hh}}
+\doxysubsubsection{\texorpdfstring{GLFW\_A\_KEYCODE}{GLFW\_A\_KEYCODE}}
+{\footnotesize\ttfamily \#define GLFW\+\_\+\+A\+\_\+\+KEYCODE~65}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73} 
+\index{inputs.hh@{inputs.hh}!Key@{Key}}
+\index{Key@{Key}!inputs.hh@{inputs.hh}}
+\doxysubsubsection{\texorpdfstring{Key}{Key}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73}{Key}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A@{A}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!A@{A}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a42a4ade1acd55a49164099104990e09f}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a42a4ade1acd55a49164099104990e09f} 
+A&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B@{B}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!B@{B}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a3f2a77ecd272aa6d6b5902faa5e5fc68}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a3f2a77ecd272aa6d6b5902faa5e5fc68} 
+B&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C@{C}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!C@{C}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a739ce3f516592d245d16fd8a3893472c}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a739ce3f516592d245d16fd8a3893472c} 
+C&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D@{D}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!D@{D}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a77a6b11f9898c052926f1d49765861e8}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a77a6b11f9898c052926f1d49765861e8} 
+D&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E@{E}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!E@{E}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ab199e021998d49b1f09338d8b9b18ecb}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ab199e021998d49b1f09338d8b9b18ecb} 
+E&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F@{F}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!F@{F}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af382a63cc3d6491bf26b59e66f46826d}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af382a63cc3d6491bf26b59e66f46826d} 
+F&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G@{G}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!G@{G}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a2fe993340f6abb2234e543cd427df70b}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a2fe993340f6abb2234e543cd427df70b} 
+G&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{H@{H}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!H@{H}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a5008b1179f399a2273fd3f6a7fc3b292}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a5008b1179f399a2273fd3f6a7fc3b292} 
+H&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I@{I}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!I@{I}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ad091b8e376f7cf432dc367e1eda65e85}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ad091b8e376f7cf432dc367e1eda65e85} 
+I&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{J@{J}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!J@{J}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a03605500b0c55f3d95874e8edfcf4e30}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a03605500b0c55f3d95874e8edfcf4e30} 
+J&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{K@{K}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!K@{K}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a660a38111995acbeb2820648e82f0d8c}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a660a38111995acbeb2820648e82f0d8c} 
+K&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{L@{L}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!L@{L}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aef31cc6fe9479955961311ee18ac205f}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aef31cc6fe9479955961311ee18ac205f} 
+L&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{M@{M}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!M@{M}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a51ca6c63d97347ee58cc7da59ab6994b}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a51ca6c63d97347ee58cc7da59ab6994b} 
+M&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N@{N}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!N@{N}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a2c63acbe79d9f41ba6bb7766e9c37702}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a2c63acbe79d9f41ba6bb7766e9c37702} 
+N&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{O@{O}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!O@{O}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af4b8b7698dfedf5562a7db2bdb07010a}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af4b8b7698dfedf5562a7db2bdb07010a} 
+O&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P@{P}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!P@{P}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a82f05f38f6a17b117cdd2b83227912c6}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a82f05f38f6a17b117cdd2b83227912c6} 
+P&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Q@{Q}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!Q@{Q}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aa53ab217f1572250a530c8c2b3c820cf}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aa53ab217f1572250a530c8c2b3c820cf} 
+Q&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{R@{R}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!R@{R}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a1784b1a3d7cbd43c45ff82c72d05e4ae}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a1784b1a3d7cbd43c45ff82c72d05e4ae} 
+R&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S@{S}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!S@{S}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af1ce01387d2348f8b858721a7db81670}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73af1ce01387d2348f8b858721a7db81670} 
+S&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T@{T}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!T@{T}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a21f40778b7db9343a6ca75ec2c41ccce}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a21f40778b7db9343a6ca75ec2c41ccce} 
+T&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U@{U}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!U@{U}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ac461e84f27bbb236874e1011cd66031f}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ac461e84f27bbb236874e1011cd66031f} 
+U&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{V@{V}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!V@{V}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a28f41f1144eee94834387e9a6a088bc1}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a28f41f1144eee94834387e9a6a088bc1} 
+V&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{W@{W}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!W@{W}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ab722ceeb601c72cd78fbd35f3581fdf7}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73ab722ceeb601c72cd78fbd35f3581fdf7} 
+W&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{X@{X}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!X@{X}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a58833a3110c570fb05130d40c365d1e4}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a58833a3110c570fb05130d40c365d1e4} 
+X&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Y@{Y}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!Y@{Y}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a5596231eabd6cf29050967d5ac83ad84}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73a5596231eabd6cf29050967d5ac83ad84} 
+Y&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Z@{Z}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!Z@{Z}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aa70478ce277ffc322f8e1e3418e07355}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73aa70478ce277ffc322f8e1e3418e07355} 
+Z&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Length@{Length}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!Length@{Length}}}\Hypertarget{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73acc50b50568647432aa9f8f07b4b7c234}\label{inputs_8hh_ab3c7af4820830f9166ede9e5623c4e73acc50b50568647432aa9f8f07b4b7c234} 
+Length&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{inputs_8hh_a55cc31cd60076d98199e5d3679159562}\label{inputs_8hh_a55cc31cd60076d98199e5d3679159562} 
+\index{inputs.hh@{inputs.hh}!MouseKey@{MouseKey}}
+\index{MouseKey@{MouseKey}!inputs.hh@{inputs.hh}}
+\doxysubsubsection{\texorpdfstring{MouseKey}{MouseKey}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{inputs_8hh_a55cc31cd60076d98199e5d3679159562}{Mouse\+Key}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LEFT@{LEFT}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!LEFT@{LEFT}}}\Hypertarget{inputs_8hh_a55cc31cd60076d98199e5d3679159562adb45120aafd37a973140edee24708065}\label{inputs_8hh_a55cc31cd60076d98199e5d3679159562adb45120aafd37a973140edee24708065} 
+LEFT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RIGHT@{RIGHT}!inputs.hh@{inputs.hh}}\index{inputs.hh@{inputs.hh}!RIGHT@{RIGHT}}}\Hypertarget{inputs_8hh_a55cc31cd60076d98199e5d3679159562aec8379af7490bb9eaaf579cf17876f38}\label{inputs_8hh_a55cc31cd60076d98199e5d3679159562aec8379af7490bb9eaaf579cf17876f38} 
+RIGHT&\\
+\hline
+
+\end{DoxyEnumFields}
