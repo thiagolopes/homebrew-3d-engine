@@ -1,4 +1,5 @@
 #pragma once
+
 #include <memory>
 #include <vector>
 #include "materials.hh"
@@ -14,6 +15,10 @@ public:
   ~Model();
   explicit Model(const std::string &model_name);
 
-  Mesh* get_mesh() const {return mesh.get();};
-  Material* get_material() const { return material.get();};
+  Mesh* get_mesh() const {
+      return mesh.get();
+  };
+  Material* get_material() const {
+      return material.get();
+  };
 };

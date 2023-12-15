@@ -19,17 +19,29 @@ Renderer::Renderer(bool z_buffer, bool frame_cap) {
     set_swap_interval(frame_cap);
 }
 
-void Renderer::draw_model(const Model &model){
-    draw(model.get_mesh()->vertex_array(), model.get_mesh()->index_buffer());
+void Renderer::draw_model(const Model &model, bool wire) {
+    if (wire){
+        draw_wired(model.get_mesh()->vertex_array(), model.get_mesh()->index_buffer());
+    }else{
+        draw(model.get_mesh()->vertex_array(), model.get_mesh()->index_buffer());
+    }
 }
 
-void Renderer::draw_mesh(Mesh &mesh){
-    draw(mesh.vertex_array(), mesh.index_buffer());
+void Renderer::draw_mesh(Mesh &mesh, bool wire){
+    if (wire){
+        draw_wired(mesh.vertex_array(), mesh.index_buffer());
+    }else{
+        draw(mesh.vertex_array(), mesh.index_buffer());
+    }
 }
 
-void Renderer::draw_entity(const Entity &entity){
-    draw(entity.get_mesh()->vertex_array(), entity.get_mesh()->index_buffer());
-}
+void Renderer::draw_entity(const Entity &entity, bool wire){
+    if (wire){
+        draw_wired(entity.get_mesh()->vertex_array(), entity.get_mesh()->index_buffer());
+    }else{
+        draw(entity.get_mesh()->vertex_array(), entity.get_mesh()->index_buffer());
+    }
+};
 
 void Renderer::draw(const VertexArray &va, const IndexBuffer &ib) const {
     va.bind();
@@ -40,13 +52,22 @@ void Renderer::draw(const VertexArray &va, const IndexBuffer &ib) const {
     GL_debug_chek_error();
 };
 
-void Renderer::draw_instancied(const VertexArray &va, const IndexBuffer &ib, const int many) const {
-    va.bind();
-    ib.bind();
+void Renderer::draw_wired(const VertexArray &va, const IndexBuffer &ib) const {
+    enable_wire(true);
+    draw(va, ib);
+    enable_wire(false);
+}
 
-    GL_debug_clear_error();
-    glDrawElementsInstanced(GL_TRIANGLES, ib.get_count(), GL_UNSIGNED_INT, nullptr, many);
-    GL_debug_chek_error();
+void Renderer::draw_instancied(const VertexArray &va, const IndexBuffer &ib, const int many) const {
+    // TODO
+};
+
+void Renderer::enable_wire(bool flag) const {
+    if (flag){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }else{
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
 };
 
 /* In most cases, you'll want to call true to enable sync,

@@ -58,23 +58,21 @@ int main(void) {
   /* Loop until the user closes the window */
   while (win.running()) {
       win.begin_frame();
-
       ui.begin_frame();
-      ui.debug(pl);
-      ui.debug(dl);
 
       camera.update(win.get_deltatime());
 
       // NOTE maybe do a class to organize render
       // by material, to avoid repeat binds?
       // should more investigation;
-      
-      //earth
+      // TODO update the shader to bind a material from entity
+
+      // planet
       shader.bind();
       planet_model.material->bind(shader);
       planet.inc_angle(0.1);
       u_material.setup_uniforms(planet.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
-      render.draw_model(planet_model);
+      render.draw_model(planet_model, true);
 
       // plane
       shader.bind();
@@ -88,11 +86,11 @@ int main(void) {
       cyborg_model.material->bind(shader);
       u_material.setup_uniforms(cyborg1.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
       render.draw_model(cyborg_model);
-      shader.bind();
+
       cyborg_model.material->bind(shader);
       u_material.setup_uniforms(cyborg2.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
-      render.draw_model(cyborg_model);
-      shader.bind();
+      render.draw_model(cyborg_model, true);
+
       cyborg_model.material->bind(shader);
       u_material.setup_uniforms(cyborg3.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
       render.draw_model(cyborg_model);
