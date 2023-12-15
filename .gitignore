@@ -127,3 +127,5 @@ doxyfile
 .idea/
 build/
 docs/
+
+glew/build/

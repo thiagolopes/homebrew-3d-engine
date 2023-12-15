@@ -16,9 +16,7 @@
 #include "entity.hh"
 #include "containers.hh"
 
-int
-main(void)
-{
+int main(void) {
   int width = 1280;
   int height = 720;
   char window_name[] = "Engine3D";
@@ -58,8 +56,7 @@ main(void)
   plane_container.set_rotation_dir(-.7f, 1.0f, 0.5f);
   
   /* Loop until the user closes the window */
-  while (win.running())
-    {
+  while (win.running()) {
       win.begin_frame();
 
       ui.begin_frame();
@@ -110,7 +107,6 @@ main(void)
 
       ui.draw();
       win.end_frame();
-
     }
 
   return EXIT_SUCCESS;
