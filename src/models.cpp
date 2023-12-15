@@ -3,20 +3,17 @@
 #include <memory>
 
 // CAUTION: This implemention blend all the meshes of file in one;
-Model::Model(const std::string &dir_name) : name(dir_name)
-{
+Model::Model(const std::string &dir_name) : name(dir_name) {
   objl::Loader loader;
   std::string obj_path = "res/models/" + name + "/";
-  if (!loader.LoadFile(obj_path + name + ".obj"))
-    {
+  if (!loader.LoadFile(obj_path + name + ".obj")) {
       std::cout << "[ERROR] Fail to load model: " << obj_path + name + ".obj" << std::endl;
     }
 
   std::vector<Vertex> vertices;
   std::vector<unsigned int> indices;
 
-  for (size_t i = 0; i < loader.LoadedVertices.size(); i++)
-    {
+  for (size_t i = 0; i < loader.LoadedVertices.size(); i++) {
       Vertex v;
       v.position.x = loader.LoadedVertices[i].Position.X;
       v.position.y = loader.LoadedVertices[i].Position.Y;
@@ -32,8 +29,7 @@ Model::Model(const std::string &dir_name) : name(dir_name)
       vertices.push_back(v);
     }
 
-  for (size_t i = 0; i < loader.LoadedIndices.size(); i++)
-    {
+  for (size_t i = 0; i < loader.LoadedIndices.size(); i++) {
       indices.push_back(loader.LoadedIndices[i]);
     }
 
@@ -47,17 +43,8 @@ Model::Model(const std::string &dir_name) : name(dir_name)
   material.reset(new Material(diffuse_path, specular_path, emission_path, specular_expoent, 1.0, false));
 }
 
-Model::~Model()
-{
+Model::~Model() {
   mesh.reset();
   material.reset();
   std::cout << "[DEBUG] Model " << name << " destroyed" << std::endl;
-}
-
-void
-Model::draw(Renderer &render, Shader &shader)
-{
-  material->bind(shader);
-  mesh->draw(render, shader);
-  material->unbind();
 }

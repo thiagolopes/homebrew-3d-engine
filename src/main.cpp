@@ -1,20 +1,20 @@
-#include "textures.hh"
 #include <cstdlib>
 #include <iostream>
 
 #define GLM_FORCE_XYZW_ONLY
-#include "renderer.hh"
 #include "window.hh"
+#include "renderer.hh"
 #include "buffers.hh"
 #include "shaders.hh"
+#include "inputs.hh"
 #include "camera.hh"
 #include "mesh.hh"
+#include "textures.hh"
+#include "materials.hh"
 #include "lights.hh"
 #include "models.hh"
-#include "materials.hh"
 #include "entity.hh"
 #include "containers.hh"
-#include "inputs.hh"
 
 int
 main(void)
@@ -56,7 +56,7 @@ main(void)
   planet.scale(.5f, .5f, .5f);
   plane_container.scale(1);
   plane_container.set_rotation_dir(-.7f, 1.0f, 0.5f);
-
+  
   /* Loop until the user closes the window */
   while (win.running())
     {
@@ -68,36 +68,44 @@ main(void)
 
       camera.update(win.get_deltatime());
 
+      // NOTE maybe do a class to organize render
+      // by material, to avoid repeat binds?
+      // should more investigation;
+      
       //earth
       shader.bind();
+      planet_model.material->bind(shader);
       planet.inc_angle(0.1);
       u_material.setup_uniforms(planet.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
-      planet_model.draw(render, shader); // TODO update to be render handler: render.draw();
+      render.draw_model(planet_model);
 
       // plane
       shader.bind();
       container_texture.bind();
       plane_container.inc_angle(-.1f);
       u_material.setup_uniforms(plane_container.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
-      plane_mesh.draw(render, shader);
+      render.draw_mesh(plane_mesh);
 
       // cyborgs
       shader.bind();
+      cyborg_model.material->bind(shader);
       u_material.setup_uniforms(cyborg1.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
-      cyborg_model.draw(render, shader);
+      render.draw_model(cyborg_model);
       shader.bind();
+      cyborg_model.material->bind(shader);
       u_material.setup_uniforms(cyborg2.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
-      cyborg_model.draw(render, shader);
+      render.draw_model(cyborg_model);
       shader.bind();
+      cyborg_model.material->bind(shader);
       u_material.setup_uniforms(cyborg3.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, &dl);
-      cyborg_model.draw(render, shader);
-      
+      render.draw_model(cyborg_model);
+
       //light point
 #if 1
       shader_light.bind();
       cube.position(pl.position.x, pl.position.y, pl.position.z);
       u_dir_light.setup_uniforms(cube.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, nullptr);
-      cube_mesh.draw(render, shader_light);
+      render.draw_mesh(cube_mesh);
 #endif
 
       ui.draw();

@@ -41,7 +41,9 @@ Texture::Texture(const std::string &path, const bool repeat)
     stbi_image_free(t_localbuffer);
 };
 
-Texture::~Texture() { glDeleteTextures(1, &t_render_id); }
+Texture::~Texture() {
+  glDeleteTextures(1, &t_render_id);
+}
 
 void
 Texture::bind(unsigned int slot) const
