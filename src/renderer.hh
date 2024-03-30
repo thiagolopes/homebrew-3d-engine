@@ -12,7 +12,7 @@ void GL_debug_clear_error();
 void GL_debug_chek_error();
 
 class Renderer {
-public:
+  public:
     Renderer(bool z_buffer = true, bool frame_cap = true);
     void draw_model(const Model &model);
     void draw_model_wired(const Model &model);
@@ -28,7 +28,7 @@ public:
 };
 
 class ImGuiRenderer {
-public:
+  public:
     ImGuiRenderer(GLFWwindow *window);
     ~ImGuiRenderer();
 

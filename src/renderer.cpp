@@ -5,11 +5,14 @@
 #include <GLFW/glfw3.h>
 
 void GL_debug_clear_error() {
-    while (glGetError() != GL_NO_ERROR) {};
+    while (glGetError() != GL_NO_ERROR)
+    {
+    };
 };
 
 void GL_debug_chek_error() {
-    while (GLenum error = glGetError()) {
+    while (GLenum error = glGetError())
+    {
         std::cout << "[OpenGL Error] (" << error << ")" << std::endl;
     }
 };
@@ -19,27 +22,23 @@ Renderer::Renderer(bool z_buffer, bool frame_cap) {
     set_swap_interval(frame_cap);
 }
 
-void Renderer::draw_model(const Model &model){
+void Renderer::draw_model(const Model &model) {
     draw(model.get_mesh()->vertex_array(), model.get_mesh()->index_buffer());
 }
 
-void Renderer::draw_model_wired(const Model &model){
+void Renderer::draw_model_wired(const Model &model) {
     draw_wired(model.get_mesh()->vertex_array(), model.get_mesh()->index_buffer());
 }
 
-void Renderer::draw_mesh(Mesh &mesh){
-    draw(mesh.vertex_array(), mesh.index_buffer());
-}
+void Renderer::draw_mesh(Mesh &mesh) { draw(mesh.vertex_array(), mesh.index_buffer()); }
 
-void Renderer::draw_mesh_wired(Mesh &mesh){
-    draw_wired(mesh.vertex_array(), mesh.index_buffer());
-}
+void Renderer::draw_mesh_wired(Mesh &mesh) { draw_wired(mesh.vertex_array(), mesh.index_buffer()); }
 
-void Renderer::draw_entity(const Entity &entity){
+void Renderer::draw_entity(const Entity &entity) {
     draw(entity.get_mesh()->vertex_array(), entity.get_mesh()->index_buffer());
 }
 
-void Renderer::draw_entity_wired(const Entity &entity){
+void Renderer::draw_entity_wired(const Entity &entity) {
     draw_wired(entity.get_mesh()->vertex_array(), entity.get_mesh()->index_buffer());
 }
 
@@ -70,19 +69,16 @@ void Renderer::draw_instancied(const VertexArray &va, const IndexBuffer &ib, con
 /* In most cases, you'll want to call true to enable sync,
    but if you have a reason to disable it (for example,
    if you're comparing shader performance) you can should use false; */
-void Renderer::set_swap_interval(bool flag) const {
-    glfwSwapInterval(flag);
-};
+void Renderer::set_swap_interval(bool flag) const { glfwSwapInterval(flag); };
 
 /* Enable to avoid unecessary vertex draw using Z-Buffer check,
    but you can disable and change the DepthFunc due face tests reason*/
 void Renderer::set_depth_test(bool flag) const {
     if (flag)
-        {
-            glEnable(GL_DEPTH_TEST);
-            glDepthFunc(GL_LESS);
-        }
-    else
+    {
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
+    } else
         glDisable(GL_DEPTH_TEST);
 };
 
@@ -111,8 +107,7 @@ void ImGuiRenderer::begin_frame() const {
     ImGui::NewFrame();
 }
 
-template <>
-void ImGuiRenderer::debug(PointLight &pl) {
+template <> void ImGuiRenderer::debug(PointLight &pl) {
     ImGui::Begin("Point Light");
     ImGui::SliderFloat3("Position", &pl.position.x, -100, 100);
 
@@ -126,8 +121,7 @@ void ImGuiRenderer::debug(PointLight &pl) {
     ImGui::End();
 };
 
-template <>
-void ImGuiRenderer::debug(DirLight &dl) {
+template <> void ImGuiRenderer::debug(DirLight &dl) {
     ImGui::Begin("Direction Light");
     ImGui::SliderFloat3("Direction", &dl.direction.x, -100, 100);
     ImGui::ColorEdit3("Ambiant light", &dl.ambient.x);

@@ -9,9 +9,14 @@
 #   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 #
 ---
-BasedOnStyle: GNU
+BasedOnStyle: LLVM
 ColumnLimit: 120
+IndentWidth: 4
+AlignAfterOpenBracket: true
 SortIncludes: false
 AllowShortIfStatementsOnASingleLine: false
 SpaceBeforeParens: ControlStatements
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterControlStatement: true
 ...

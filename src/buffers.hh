@@ -13,10 +13,10 @@ struct Vertex {
 };
 
 class VertexBuffer {
-private:
+  private:
     unsigned int vb_render_id;
 
-public:
+  public:
     VertexBuffer(const std::vector<Vertex> &data);
     ~VertexBuffer();
 
@@ -25,21 +25,18 @@ public:
 };
 
 class IndexBuffer {
-private:
+  private:
     unsigned int ib_render_id;
     unsigned int ib_count;
 
-public:
+  public:
     IndexBuffer(const std::vector<unsigned int> data);
     ~IndexBuffer();
 
     void bind() const;
     void unbind() const;
 
-    inline unsigned int
-    get_count() const {
-        return ib_count;
-    }
+    inline unsigned int get_count() const { return ib_count; }
 };
 
 struct VertexBufferElements {
@@ -47,9 +44,9 @@ struct VertexBufferElements {
     unsigned int count;
     unsigned int normalize;
 
-    static unsigned int
-    get_size_of_type(unsigned int type)  {
-        switch (type) {
+    static unsigned int get_size_of_type(unsigned int type) {
+        switch (type)
+        {
         case GL_FLOAT:
             return 4;
         case GL_UNSIGNED_INT:
@@ -63,30 +60,24 @@ struct VertexBufferElements {
 };
 
 class VertexBufferLayout {
-private:
+  private:
     std::vector<VertexBufferElements> vbl_elements;
     unsigned int vbl_stride;
 
-public:
-    VertexBufferLayout() : vbl_stride(0) {};
+  public:
+    VertexBufferLayout() : vbl_stride(0){};
 
     template <typename T> void push(unsigned int count);
 
-    inline const std::vector<VertexBufferElements> &
-    get_elements() const {
-        return vbl_elements;
-    };
-    inline unsigned int
-    get_stride() const {
-        return vbl_stride;
-    };
+    inline const std::vector<VertexBufferElements> &get_elements() const { return vbl_elements; };
+    inline unsigned int get_stride() const { return vbl_stride; };
 };
 
 class VertexArray {
-private:
+  private:
     unsigned int va_render_id;
 
-public:
+  public:
     VertexArray();
     ~VertexArray();
 
