@@ -16,9 +16,12 @@
 #include "entity.hh"
 #include "containers.hh"
 
+#define W 1280
+#define H 720
+
 int main(void) {
-  int width = 1280;
-  int height = 720;
+  int width = W;
+  int height = H;
   char window_name[] = "Engine3D";
   Window win(window_name, width, height);
 
@@ -45,7 +48,7 @@ int main(void) {
   Entity cyborg1(cyborg_model, 8.0f, .6f, 0.4f);
   Entity cyborg2(cyborg_model, -5.0f, .5f, -0.3f);
   Entity cyborg3(cyborg_model, 11.0f, .3f, 0.0f);
-  
+
   Entity planet(planet_model, -1.0f, 2.0f, 0.0f);
   Entity cube(&cube_mesh, nullptr, 3.0f, 5.0f, 0.0f);
   Entity plane_container(&plane_mesh, nullptr, 10.0f, 5.0f, 0.0f);
@@ -54,7 +57,7 @@ int main(void) {
   planet.scale(.5f, .5f, .5f);
   plane_container.scale(1);
   plane_container.set_rotation_dir(-.7f, 1.0f, 0.5f);
-  
+
   /* Loop until the user closes the window */
   while (win.running()) {
       win.begin_frame();
@@ -68,7 +71,7 @@ int main(void) {
       // NOTE maybe do a class to organize render
       // by material, to avoid repeat binds?
       // should more investigation;
-      
+
       //earth
       shader.bind();
       planet_model.material->bind(shader);
@@ -102,7 +105,7 @@ int main(void) {
       shader_light.bind();
       cube.position(pl.position.x, pl.position.y, pl.position.z);
       u_dir_light.setup_uniforms(cube.get_model_position(), camera.get_view_matrix(), camera.get_projection(), pl, nullptr);
-      render.draw_mesh(cube_mesh);
+      render.draw_mesh_wired(cube_mesh);
 #endif
 
       ui.draw();

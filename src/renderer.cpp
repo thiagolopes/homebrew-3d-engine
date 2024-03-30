@@ -23,12 +23,24 @@ void Renderer::draw_model(const Model &model){
     draw(model.get_mesh()->vertex_array(), model.get_mesh()->index_buffer());
 }
 
+void Renderer::draw_model_wired(const Model &model){
+    draw_wired(model.get_mesh()->vertex_array(), model.get_mesh()->index_buffer());
+}
+
 void Renderer::draw_mesh(Mesh &mesh){
     draw(mesh.vertex_array(), mesh.index_buffer());
 }
 
+void Renderer::draw_mesh_wired(Mesh &mesh){
+    draw_wired(mesh.vertex_array(), mesh.index_buffer());
+}
+
 void Renderer::draw_entity(const Entity &entity){
     draw(entity.get_mesh()->vertex_array(), entity.get_mesh()->index_buffer());
+}
+
+void Renderer::draw_entity_wired(const Entity &entity){
+    draw_wired(entity.get_mesh()->vertex_array(), entity.get_mesh()->index_buffer());
 }
 
 void Renderer::draw(const VertexArray &va, const IndexBuffer &ib) const {
@@ -38,6 +50,12 @@ void Renderer::draw(const VertexArray &va, const IndexBuffer &ib) const {
     GL_debug_clear_error();
     glDrawElements(GL_TRIANGLES, ib.get_count(), GL_UNSIGNED_INT, nullptr);
     GL_debug_chek_error();
+};
+
+void Renderer::draw_wired(const VertexArray &va, const IndexBuffer &ib) const {
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    draw(va, ib);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 };
 
 void Renderer::draw_instancied(const VertexArray &va, const IndexBuffer &ib, const int many) const {

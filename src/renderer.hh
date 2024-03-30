@@ -15,9 +15,13 @@ class Renderer {
 public:
     Renderer(bool z_buffer = true, bool frame_cap = true);
     void draw_model(const Model &model);
+    void draw_model_wired(const Model &model);
     void draw_mesh(Mesh &mesh);
+    void draw_mesh_wired(Mesh &mesh);
     void draw_entity(const Entity &entity);
+    void draw_entity_wired(const Entity &entity);
     void draw(const VertexArray &va, const IndexBuffer &ib) const;
+    void draw_wired(const VertexArray &va, const IndexBuffer &ib) const;
     void draw_instancied(const VertexArray &va, const IndexBuffer &ib, const int many) const;
     void set_depth_test(bool flag = true) const;
     void set_swap_interval(bool flag = true) const;
