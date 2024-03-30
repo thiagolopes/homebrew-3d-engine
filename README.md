@@ -23,11 +23,11 @@ Future uses:
 
 ## How to build
 
-Do you need: OpenGL libs;
+Do you need: OpenGL devel;
 
 ```
 cmake .
-make run -j5
+make run
 ```
 
 ## References

@@ -1,13 +1,13 @@
-if(NOT EXISTS "/home/thiago/dev/engine-tutorial/glew/build/cmake/install_manifest.txt")
-  message(FATAL_ERROR "Cannot find install manifest: /home/thiago/dev/engine-tutorial/glew/build/cmake/install_manifest.txt")
-endif(NOT EXISTS "/home/thiago/dev/engine-tutorial/glew/build/cmake/install_manifest.txt")
+if(NOT EXISTS "/home/thiago/dev/homebrew-3d-engine/glew/build/cmake/install_manifest.txt")
+  message(FATAL_ERROR "Cannot find install manifest: /home/thiago/dev/homebrew-3d-engine/glew/build/cmake/install_manifest.txt")
+endif(NOT EXISTS "/home/thiago/dev/homebrew-3d-engine/glew/build/cmake/install_manifest.txt")
 
 if (NOT DEFINED CMAKE_INSTALL_PREFIX)
   set (CMAKE_INSTALL_PREFIX "/usr/local")
 endif ()
  message(${CMAKE_INSTALL_PREFIX})
 
-file(READ "/home/thiago/dev/engine-tutorial/glew/build/cmake/install_manifest.txt" files)
+file(READ "/home/thiago/dev/homebrew-3d-engine/glew/build/cmake/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 foreach(file ${files})
   message(STATUS "Uninstalling $ENV{DESTDIR}${file}")
